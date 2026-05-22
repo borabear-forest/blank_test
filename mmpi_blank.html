@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <link rel="apple-touch-icon" href="bbbo.jpg">
+  <link rel="icon" href="bbbo.jpg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>기말고사뿌시기</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+:root {
+  --cream: #faf8f3;
+  --ink: #1a1a1a;
+  --ink2: #444;
+  --ink3: #888;
+  --line: #bbb;
+  --line2: #e8e4dc;
+  --card-a: #e8e2d5;
+  --card-b: #d9e4dc;
+  --accent-a: #8b7355;
+  --accent-b: #4a7c5f;
+  --answer-bg: #f0ede6;
+  --red: #c0392b;
+  --red-bg: #fff8f8;
+  --red-text: #5a1010;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.8;
+  -webkit-text-size-adjust: 100%;
+  min-height: 100vh;
+}
+
+.page { display: none; min-height: 100vh; }
+.page.active { display: flex; flex-direction: column; }
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--line2);
+  background: var(--cream);
+}
+.site-logo {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--ink2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.site-logo .bear { font-size: 18px; }
+.back-btn {
+  font-size: 12px;
+  color: var(--ink3);
+  border: 1px solid var(--line);
+  background: transparent;
+  padding: 5px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: all .15s;
+}
+.back-btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+/* ── 대문 ── */
+#page-home { background: var(--cream); }
+.home-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px 60px;
+  gap: 48px;
+}
+.home-title-wrap { text-align: center; }
+.home-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 12px;
+}
+.home-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+@media (min-width: 600px) { .home-title { font-size: 36px; } }
+.home-sub { font-size: 13px; color: var(--ink3); letter-spacing: .02em; }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 640px;
+}
+@media (min-width: 560px) { .card-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+
+.subject-card {
+  background: var(--card-a);
+  border-radius: 4px;
+  padding: 36px 28px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+  border: 1px solid transparent;
+}
+.subject-card:nth-child(2) { background: var(--card-b); }
+.subject-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.1); }
+.subject-card:active { transform: translateY(-1px); }
+
+.card-num {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: rgba(0,0,0,.06);
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  line-height: 1;
+  user-select: none;
+}
+.card-tag { font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-a); margin-bottom: 10px; }
+.subject-card:nth-child(2) .card-tag { color: var(--accent-b); }
+.card-title { font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 700; line-height: 1.4; color: var(--ink); margin-bottom: 14px; }
+.card-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 24px; }
+.chip { font-size: 10px; padding: 3px 9px; border-radius: 20px; background: rgba(0,0,0,.08); color: var(--ink2); font-weight: 500; }
+.card-arrow { font-size: 18px; color: var(--accent-a); font-weight: 700; }
+.subject-card:nth-child(2) .card-arrow { color: var(--accent-b); }
+
+/* ── 탭 바 ── */
+.tab-bar {
+  display: flex;
+  border-bottom: 2px solid var(--ink);
+  background: var(--cream);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.tab-btn {
+  flex: 1;
+  padding: 13px 8px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: var(--ink3);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: color .15s, border-color .15s;
+  line-height: 1.3;
+}
+.tab-btn.active { color: var(--ink); border-bottom-color: var(--accent-a); }
+.tab-btn span { display: block; font-size: 10px; font-weight: 400; color: var(--ink3); margin-top: 2px; }
+.tab-btn.active span { color: var(--ink2); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── 툴바 ── */
+.toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line2);
+  background: var(--cream);
+}
+.btn {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-outline { background: transparent; color: var(--ink); }
+.btn:active { opacity: .7; }
+.mode-note { font-size: 11px; color: var(--ink3); flex: 1; }
+
+/* ── 문서 ── */
+.doc { padding: 20px 16px 60px; max-width: 820px; margin: 0 auto; }
+@media (min-width: 600px) { .doc { padding: 36px 40px 80px; } }
+
+.doc-header { border-bottom: 2.5px solid var(--ink); padding-bottom: 14px; margin-bottom: 24px; }
+.doc-subject { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; }
+.doc-title { font-family: 'Noto Serif KR', serif; font-size: 18px; font-weight: 700; line-height: 1.4; margin-bottom: 10px; }
+@media (min-width: 600px) { .doc-title { font-size: 21px; } }
+.doc-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 11px; color: var(--ink3); }
+
+.notice {
+  background: var(--answer-bg);
+  border-left: 3px solid var(--ink);
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--ink2);
+  margin-bottom: 28px;
+  line-height: 1.7;
+}
+
+.section { margin-bottom: 32px; }
+.section-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 13px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-num {
+  background: var(--ink);
+  color: #fff;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.q-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed var(--line2); }
+.q-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.q-row { display: flex; gap: 8px; align-items: flex-start; }
+.q-num { font-family: 'Noto Serif KR', serif; font-size: 12px; font-weight: 700; min-width: 24px; padding-top: 2px; color: var(--ink3); }
+.q-body { flex: 1; min-width: 0; }
+.q-text { font-size: 13px; line-height: 1.85; margin-bottom: 8px; }
+.q-text b { font-weight: 700; }
+
+/* 문제 유형 태그 */
+.q-type {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 2px;
+  margin-bottom: 6px;
+}
+.q-type-blank { background: #e8e2d5; color: var(--accent-a); }
+.q-type-match { background: #dce6e0; color: var(--accent-b); }
+.q-type-multi { background: #e2dce8; color: #6b5a8b; }
+.q-type-ox { background: #e8dcd5; color: #8b4a35; }
+.q-type-short { background: #dce4e8; color: #355a8b; }
+
+.blank {
+  display: inline-block;
+  border-bottom: 1.5px solid var(--ink);
+  min-width: 70px;
+  padding: 0 3px;
+  margin: 0 2px;
+  vertical-align: bottom;
+  font-size: 13px;
+  color: transparent;
+  transition: color .15s;
+  word-break: keep-all;
+}
+.blank-sm { min-width: 44px; }
+.blank-lg { min-width: 110px; }
+.blank-xs { min-width: 30px; }
+
+.show-answers .blank { color: var(--red); font-weight: 700; border-bottom-color: var(--red); }
+
+.q-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.q-table table { width: 100%; border-collapse: collapse; min-width: 260px; }
+.q-table th { background: var(--answer-bg); font-weight: 600; padding: 6px 8px; border: 1px solid var(--line); text-align: center; white-space: nowrap; }
+.q-table td { padding: 6px 8px; border: 1px solid var(--line2); text-align: center; vertical-align: middle; }
+.q-table td:first-child { text-align: left; font-weight: 500; }
+
+.q-hint { margin-top: 6px; font-size: 11px; color: var(--ink3); font-style: italic; }
+.q-hint::before { content: '※ '; font-style: normal; }
+
+.blank-group { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px; }
+.blank-cell { display: flex; align-items: center; gap: 4px; font-size: 13px; }
+.blank-label { color: var(--ink3); font-size: 12px; min-width: 30px; }
+
+.options { margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+.option { display: flex; gap: 6px; font-size: 13px; line-height: 1.6; }
+.option-mark { min-width: 20px; font-weight: 600; color: var(--ink3); flex-shrink: 0; }
+.show-answers .option.correct { color: var(--red); font-weight: 600; }
+.show-answers .option.correct .option-mark { color: var(--red); }
+
+/* OX 문제 스타일 */
+.ox-list { margin-top: 8px; display: flex; flex-direction: column; gap: 8px; }
+.ox-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; line-height: 1.7; }
+.ox-badge {
+  min-width: 28px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  color: transparent;
+  background: var(--line2);
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: all .15s;
+}
+.show-answers .ox-item.is-o .ox-badge { color: var(--accent-b); background: #e8f4ec; }
+.show-answers .ox-item.is-x .ox-badge { color: var(--red); background: var(--red-bg); }
+
+.match-wrap { display: flex; margin-top: 8px; border: 1px solid var(--line2); overflow: hidden; }
+.match-col { flex: 1; min-width: 0; }
+.match-col:first-child { border-right: 1px solid var(--line2); }
+.match-header { background: var(--answer-bg); padding: 6px 10px; font-weight: 600; font-size: 11px; border-bottom: 1px solid var(--line2); text-align: center; }
+.match-item { padding: 6px 10px; border-bottom: 1px solid var(--line2); display: flex; align-items: center; justify-content: space-between; gap: 4px; min-height: 34px; font-size: 12px; word-break: keep-all; }
+.match-item:last-child { border-bottom: none; }
+.match-answer { color: transparent; font-size: 11px; font-weight: 700; background: transparent; padding: 0; white-space: nowrap; flex-shrink: 0; transition: color .15s; user-select: none; }
+.show-answers .match-answer { color: var(--red); }
+
+.answer-line { margin-top: 8px; }
+.answer-line-label { font-size: 11px; color: var(--ink3); margin-bottom: 3px; }
+.lines { display: flex; flex-direction: column; }
+.lines span { display: block; border-bottom: 1px solid var(--line); height: 28px; }
+
+.answer-box { margin-top: 8px; background: var(--red-bg); border-left: 3px solid var(--red); padding: 8px 12px; font-size: 12px; line-height: 1.7; color: var(--red-text); display: none; }
+.show-answers .answer-box { display: block; }
+
+.divider { border: none; border-top: 2px solid var(--line2); margin: 28px 0; }
+.doc-footer { margin-top: 36px; border-top: 1px solid var(--line); padding-top: 12px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px; font-size: 11px; color: var(--ink3); }
+
+/* ── 상담이론 페이지 ── */
+#page-counsel { background: var(--cream); }
+.counsel-inner { flex: 1; max-width: 680px; margin: 0 auto; width: 100%; padding: 24px 16px 60px; }
+@media (min-width: 600px) { .counsel-inner { padding: 40px 24px 80px; } }
+
+.theory-list { display: flex; flex-direction: column; gap: 10px; }
+.theory-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: 1px solid var(--line2);
+  border-radius: 4px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.theory-item:hover { border-color: var(--accent-b); transform: translateX(3px); box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+.theory-left { display: flex; align-items: center; gap: 14px; }
+.theory-num { font-family: 'Noto Serif KR', serif; font-size: 13px; font-weight: 700; color: var(--line); min-width: 24px; }
+.theory-name { font-family: 'Noto Serif KR', serif; font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.theory-who { font-size: 11px; color: var(--ink3); letter-spacing: .02em; }
+.theory-badge { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+.theory-badge.coming { background: var(--line2); color: var(--ink3); }
+.theory-badge.ready { background: #e8f4ec; color: var(--accent-b); }
+
+@media print {
+  .site-header, .tab-bar, .toolbar, .back-btn { display: none !important; }
+  .tab-panel { display: block !important; }
+  .doc { padding: 0; }
+  .q-item { page-break-inside: avoid; }
+  .blank { color: transparent !important; }
+  .show-answers .blank { color: var(--red) !important; }
+  .show-answers .answer-box { display: block !important; }
+  @page { margin: 16mm; size: A4; }
+}
+  </style>
+</head>
+<body>
+
+<!-- ══════════ 대문 ══════════ -->
+<div class="page active" id="page-home">
+  <header class="site-header">
+    <div class="site-logo">
+      <span class="bear">🐻</span> 수고스럽게 만든이. Borabear
+    </div>
+    <span style="font-size:11px;color:var(--ink3);">이유林 선생님 이동시간 100% 활용하기</span>
+  </header>
+  <main class="home-body">
+    <div class="home-title-wrap">
+      <div class="home-eyebrow">2026 기말고사 소탕 대작전</div>
+      <div class="home-title">공부만이 살길이닷!</div>
+    </div>
+    <div class="card-grid">
+      <div class="subject-card" onclick="goTo('psych')">
+        <div class="card-num">01</div>
+        <div class="card-tag">Psychology Assessment</div>
+        <div class="card-title">심리검사 및 진단</div>
+        <div class="card-chips">
+          <span class="chip">MMPI-2</span>
+          <span class="chip">WISC-IV</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="subject-card" onclick="goTo('counsel')">
+        <div class="card-num">02</div>
+        <div class="card-tag">Counseling Theory</div>
+        <div class="card-title">상담이론과 실제</div>
+        <div class="card-chips">
+          <span class="chip">정신분석</span><span class="chip">분석심리</span>
+          <span class="chip">개인심리</span><span class="chip">행동치료</span>
+          <span class="chip">REBT</span><span class="chip">인지치료</span>
+          <span class="chip">인간중심</span><span class="chip">실존주의</span>
+          <span class="chip">게슈탈트</span><span class="chip">현실치료</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ══════════ 심리검사 페이지 ══════════ -->
+<div class="page" id="page-psych">
+  <header class="site-header">
+    <div class="site-logo" onclick="goTo('home')"><span class="bear">🐻</span> borabear forest</div>
+    <button class="back-btn" onclick="goTo('home')">← 과목 선택</button>
+  </header>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('mmpi', this)">MMPI-2<span>다면적 인성검사</span></button>
+    <button class="tab-btn" onclick="switchTab('wais', this)">WISC-IV<span>웩슬러 지능검사</span></button>
+  </div>
+
+  <!-- ══ MMPI-2 탭 ══ -->
+  <div class="tab-panel active" id="panel-mmpi">
+    <div class="toolbar">
+      <button class="btn" onclick="window.print()">🖨 인쇄</button>
+      <button class="btn btn-outline" id="toggle-mmpi" onclick="toggleAnswers('mmpi')">✅ 정답 보기</button>
+      <span class="mode-note" id="note-mmpi">문제 모드</span>
+    </div>
+
+    <div class="doc" id="doc-mmpi">
+      <div class="doc-header">
+        <div class="doc-subject">심리검사 및 진단 · 기말 예상문제</div>
+        <div class="doc-title">MMPI-2 — 개념·척도·코드타입 통합 예상문제</div>
+        <div class="doc-meta">
+          <span>수업 강의록 전체 기반</span>
+          <span>빈칸 / 연결하기 / 모두고르기 / OX / 서술형</span>
+          <span>광운대 상담복지정책대학원</span>
+        </div>
+      </div>
+      <div class="notice">빈칸에 알맞은 말을 써넣으시오. 교수님이 수업 중 반복 강조한 내용과 수업 통합 기반 예상문제를 함께 구성하였습니다.</div>
+
+      <!-- ────────────────────────────────
+           섹션 01 — 심리검사 기본개념 (NEW)
+      ──────────────────────────────── -->
+      <div class="section">
+        <div class="section-title"><span class="section-num">01</span> 심리검사 기본개념</div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">1.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">심리검사는 직접 관찰할 수 없는 <span class="blank blank-sm">구성</span>개념을 측정한다.</div>
+          <div class="answer-box">구성(개념)</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">2.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">심리검사는 전체 특성을 모두 측정할 수 없기 때문에 일부 <span class="blank blank-sm">표본</span>을 사용한다.</div>
+          <div class="answer-box">표본</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">3.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">심리검사 결과에는 항상 <span class="blank blank-sm">오차</span>가 포함될 가능성이 있다. 결과 해석에는 항상 <span class="blank blank-sm">오류</span> 가능성이 존재하며, 바람직한 해석을 위해서는 <span class="blank">표준화</span>가 잘 이루어진 검사를 사용해야 한다.</div>
+          <div class="answer-box">① 오차 ② 오류 ③ 표준화</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">4.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">심리평가는 검사 결과만이 아니라 <span class="blank blank-sm">면담</span>, <span class="blank blank-sm">행동관찰</span>, <span class="blank blank-sm">검사</span> 등을 함께 고려해야 한다.</div>
+          <div class="answer-box">면담 / 행동관찰 / 검사</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">5.</div><div class="q-body">
+          <div class="q-type q-type-match">연결하기</div>
+          <div class="match-wrap">
+            <div class="match-col">
+              <div class="match-header">개념</div>
+              <div class="match-item">구성개념 <span class="match-answer">ㄴ. 직접 관찰 어려운 심리 특성</span></div>
+              <div class="match-item">표준화 <span class="match-answer">ㅁ. 동일 조건에서 검사 실시</span></div>
+              <div class="match-item">오차 <span class="match-answer">ㄹ. 측정 과정에서 발생하는 불완전성</span></div>
+              <div class="match-item">규준 <span class="match-answer">ㄱ. 비교 기준이 되는 집단 자료</span></div>
+              <div class="match-item">심리평가 <span class="match-answer">ㄷ. 여러 정보원을 종합하는 과정</span></div>
+            </div>
+            <div class="match-col">
+              <div class="match-header">설명</div>
+              <div class="match-item">ㄱ. 비교 기준이 되는 집단 자료</div>
+              <div class="match-item">ㄴ. 직접 관찰 어려운 심리 특성</div>
+              <div class="match-item">ㄷ. 여러 정보원을 종합하는 과정</div>
+              <div class="match-item">ㄹ. 측정 과정에서 발생하는 불완전성</div>
+              <div class="match-item">ㅁ. 동일 조건에서 검사 실시</div>
+            </div>
+          </div>
+          <div class="answer-box">구성개념→ㄴ / 표준화→ㅁ / 오차→ㄹ / 규준→ㄱ / 심리평가→ㄷ</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">6.</div><div class="q-body">
+          <div class="q-type q-type-multi">모두 고르기</div>
+          <div class="q-text">심리검사의 특징으로 옳은 것을 모두 고르시오.</div>
+          <div class="options">
+            <div class="option correct"><span class="option-mark">①</span> 구성개념을 측정한다</div>
+            <div class="option correct"><span class="option-mark">②</span> 오차 가능성이 있다</div>
+            <div class="option"><span class="option-mark">③</span> 완벽하게 정확하다</div>
+            <div class="option correct"><span class="option-mark">④</span> 규준이 필요하다</div>
+            <div class="option correct"><span class="option-mark">⑤</span> 표준화가 중요하다</div>
+          </div>
+          <div class="answer-box">① ② ④ ⑤</div>
+        </div></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ────────────────────────────────
+           섹션 02 — T점수·표준화·규준 (기존+보완)
+      ──────────────────────────────── -->
+      <div class="section">
+        <div class="section-title"><span class="section-num">02</span> T점수 · 표준화 · 규준</div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">7.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">MMPI-2 T점수의 <b>평균 ( <span class="blank blank-sm">50</span> )점</b>, <b>표준편차 ( <span class="blank blank-sm">10</span> )점</b>. 평균·표준편차가 고정된 이런 점수를 <b>( <span class="blank">표준화된 점수</span> )</b>라고 한다.</div>
+          <div class="answer-box">① 50 ② 10 ③ 표준화된 점수(Standardized Score)</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">8.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">Z점수는 평균 ( <span class="blank blank-xs">0</span> ), 표준편차 ( <span class="blank blank-xs">1</span> )이며, 특별히 Z점수를 <b>( <span class="blank">표준 점수</span> )</b>라고 부른다.</div>
+          <div class="answer-box">0 / 1 / 표준 점수(Standard Score)</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">9.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">T점수를 표준편차 단위로 변환하시오. (평균=50, SD=10)</div>
+          <div class="q-table"><table>
+            <thead><tr><th>T점수</th><th>해석</th></tr></thead>
+            <tbody>
+              <tr><td>T = 60</td><td>평균보다 <span class="blank blank-xs">1</span> SD 높음</td></tr>
+              <tr><td>T = 70</td><td>평균보다 <span class="blank blank-xs">2</span> SD 높음</td></tr>
+              <tr><td>T = 65</td><td>평균보다 <span class="blank blank-xs">1.5</span> SD 높음</td></tr>
+              <tr><td>T = 40</td><td>평균보다 <span class="blank blank-xs">1</span> SD 낮음</td></tr>
+            </tbody>
+          </table></div>
+          <div class="answer-box">공식: (T−50)÷10 / 60→1↑ / 70→2↑ / 65→1.5↑ / 40→1↓</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">10.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">MMPI-2 임상 범위 기준 T점수는 <b>( <span class="blank blank-xs">65</span> )점</b> 이상. 이는 <b>( <span class="blank">임의의</span> )</b> 가이드라인이다. (원판 기준: <span class="blank blank-xs">70</span>T)</div>
+          <div class="answer-box">65점 / 임의의(arbitrary) / 원판은 70점</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">11.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">원점수만으로는 <b>( <span class="blank">높은지 낮은지</span> )</b>를 알 수 없어 T점수로 변환한다. T점수는 서로 다른 사람과 척도를 <span class="blank blank-sm">비교</span> 가능하게 만든다. 규준은 개인 점수를 비교하는 <span class="blank blank-sm">기준</span> 역할을 한다.</div>
+          <div class="answer-box">높은지 낮은지 / 비교 / 기준</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">12.</div><div class="q-body">
+          <div class="q-type q-type-match">연결하기</div>
+          <div class="match-wrap">
+            <div class="match-col">
+              <div class="match-header">개념</div>
+              <div class="match-item">원점수 <span class="match-answer">ㄷ. 문항 반응 단순 합산</span></div>
+              <div class="match-item">T점수 <span class="match-answer">ㄱ. 평균 50, 표준편차 10</span></div>
+              <div class="match-item">규준 <span class="match-answer">ㄴ. 비교 기준 집단</span></div>
+              <div class="match-item">표준점수 <span class="match-answer">ㄹ. 서로 비교 가능하게 만든 점수</span></div>
+              <div class="match-item">임상범위 <span class="match-answer">ㅁ. 일반적으로 65T 이상</span></div>
+            </div>
+            <div class="match-col">
+              <div class="match-header">설명</div>
+              <div class="match-item">ㄱ. 평균 50, 표준편차 10</div>
+              <div class="match-item">ㄴ. 비교 기준 집단</div>
+              <div class="match-item">ㄷ. 문항 반응 단순 합산</div>
+              <div class="match-item">ㄹ. 서로 비교 가능하게 만든 점수</div>
+              <div class="match-item">ㅁ. 일반적으로 65T 이상</div>
+            </div>
+          </div>
+          <div class="answer-box">원점수→ㄷ / T점수→ㄱ / 규준→ㄴ / 표준점수→ㄹ / 임상범위→ㅁ</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">13.</div><div class="q-body">
+          <div class="q-type q-type-multi">모두 고르기</div>
+          <div class="q-text">T점수의 특징으로 옳은 것을 모두 고르시오.</div>
+          <div class="options">
+            <div class="option correct"><span class="option-mark">①</span> 평균은 50이다</div>
+            <div class="option correct"><span class="option-mark">②</span> 표준편차는 10이다</div>
+            <div class="option"><span class="option-mark">③</span> 원점수 그대로이다</div>
+            <div class="option correct"><span class="option-mark">④</span> 비교 가능성을 높인다</div>
+            <div class="option correct"><span class="option-mark">⑤</span> 규준이 필요하다</div>
+          </div>
+          <div class="answer-box">① ② ④ ⑤</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">14.</div><div class="q-body">
+          <div class="q-type q-type-short">단답형</div>
+          <div class="q-text">왜 원점수 대신 T점수를 사용하는가?</div>
+          <div class="answer-line"><div class="lines"><span></span></div></div>
+          <div class="answer-box">사람과 척도 간 비교를 가능하게 하기 위해서이다.</div>
+        </div></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ────────────────────────────────
+           섹션 03 — MMPI 개발방식 (기존+보완)
+      ──────────────────────────────── -->
+      <div class="section">
+        <div class="section-title"><span class="section-num">03</span> MMPI-2 개발방식 — 경험적 준거방식</div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">15.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">MMPI 임상척도 대부분은 <b>( <span class="blank">임상집단</span> )</b>과 <b>( <span class="blank">정상집단</span> )</b>의 응답 빈도 차이를 분석하는 <b>( <span class="blank blank-lg">경험적 준거방식</span> )</b>으로 개발되었다.</div>
+          <div class="answer-box">임상집단 / 정상집단 / 경험적 준거방식(Empirical Criterion Keying)</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">16.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">MMPI 임상척도는 <span class="blank">경험적</span> 방식으로 개발되었다. 경험적 방식은 정상집단과 <span class="blank blank-sm">환자</span>집단을 변별하는 문항을 사용하며, 대표적 한계는 <span class="blank blank-sm">다차원성</span>이다. MMPI 원판은 <span class="blank blank-xs">1943</span>년, MMPI-2는 <span class="blank blank-xs">1989</span>년에 개정되었다.</div>
+          <div class="answer-box">경험적 / 환자 / 다차원성 / 1943 / 1989</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">17.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">내용척도는 <span class="blank blank-sm">논리적</span> 방식으로 개발되었으며 문항 간 <span class="blank blank-sm">내적</span> 일관성이 높다. L 척도는 <b>( <span class="blank">논리적</span> )</b> 방식으로 제작되었으며, <b>( <span class="blank blank-lg">사소한 인간적 약점</span> )</b>을 부인하는 태도를 탐지한다.</div>
+          <div class="answer-box">논리적 / 내적 / 논리적(rational) / 사소한 인간적 약점</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">18.</div><div class="q-body">
+          <div class="q-type q-type-match">연결하기</div>
+          <div class="match-wrap">
+            <div class="match-col">
+              <div class="match-header">개념</div>
+              <div class="match-item">경험적 방식 <span class="match-answer">ㅁ. 집단 변별 중심</span></div>
+              <div class="match-item">논리적 방식 <span class="match-answer">ㄱ. 구성개념 중심</span></div>
+              <div class="match-item">임상척도 <span class="match-answer">ㄷ. 경험적 방식 기반</span></div>
+              <div class="match-item">내용척도 <span class="match-answer">ㄹ. 내적 일관성 높음</span></div>
+              <div class="match-item">다차원성 <span class="match-answer">ㄴ. 여러 요인이 섞임</span></div>
+            </div>
+            <div class="match-col">
+              <div class="match-header">설명</div>
+              <div class="match-item">ㄱ. 구성개념 중심</div>
+              <div class="match-item">ㄴ. 여러 요인이 섞임</div>
+              <div class="match-item">ㄷ. 경험적 방식 기반</div>
+              <div class="match-item">ㄹ. 내적 일관성 높음</div>
+              <div class="match-item">ㅁ. 집단 변별 중심</div>
+            </div>
+          </div>
+          <div class="answer-box">경험적→ㅁ / 논리적→ㄱ / 임상척도→ㄷ / 내용척도→ㄹ / 다차원성→ㄴ</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">19.</div><div class="q-body">
+          <div class="q-type q-type-multi">모두 고르기</div>
+          <div class="q-text">경험적 방식의 특징으로 옳은 것을 모두 고르시오.</div>
+          <div class="options">
+            <div class="option correct"><span class="option-mark">①</span> 환자집단 변별 중심</div>
+            <div class="option correct"><span class="option-mark">②</span> 문항 의미가 불명확할 수 있다</div>
+            <div class="option correct"><span class="option-mark">③</span> 다차원성이 나타날 수 있다</div>
+            <div class="option"><span class="option-mark">④</span> 내적 일관성이 높다</div>
+            <div class="option correct"><span class="option-mark">⑤</span> 임상척도 개발에 사용되었다</div>
+          </div>
+          <div class="answer-box">① ② ③ ⑤</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">20.</div><div class="q-body">
+          <div class="q-type q-type-short">단답형</div>
+          <div class="q-text">왜 내용척도가 개발되었는가?</div>
+          <div class="answer-line"><div class="lines"><span></span></div></div>
+          <div class="answer-box">임상척도의 다차원성과 낮은 내적 일관성을 보완하기 위해서이다.</div>
+        </div></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ────────────────────────────────
+           섹션 04 — 타당도척도 (NEW)
+      ──────────────────────────────── -->
+      <div class="section">
+        <div class="section-title"><span class="section-num">04</span> 타당도 척도</div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">21.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">L척도는 <span class="blank blank-sm">순진</span>한 방어를 반영한다. K척도는 <span class="blank blank-sm">세련</span>된 방어를 반영할 수 있다. F척도 상승 시 먼저 <span class="blank blank-sm">VRIN</span>과 <span class="blank blank-sm">TRIN</span>을 확인해야 한다.</div>
+          <div class="answer-box">순진 / 세련 / VRIN / TRIN</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">22.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">VRIN은 문항쌍 간 <span class="blank blank-sm">일관</span>성을 측정한다. TRIN은 예/아니오 <span class="blank blank-sm">고정</span> 반응을 측정한다. Fp척도는 증상 <span class="blank blank-sm">과장</span> 가능성을 탐지한다. VRIN/TRIN이 <span class="blank blank-xs">80</span>T 이상이면 프로파일 해석이 어려울 수 있다. Fp가 <span class="blank blank-xs">100</span>T 이상이면 타당하지 않을 가능성이 있다.</div>
+          <div class="answer-box">일관 / 고정 / 과장 / 80T / 100T</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">23.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">무응답 척도(<span class="blank blank-xs">?</span>)는 <span class="blank blank-sm">응답</span>하지 않은 문항 수를 의미한다. 무응답이 많으면 전체 점수가 전반적으로 <span class="blank blank-sm">낮아질</span> 수 있다.</div>
+          <div class="answer-box">? (물음표) / 응답 / 낮아질</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">24.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">F척도 상승 원인을 쓰시오.</div>
+          <div class="blank-group">
+            <div class="blank-cell"><span class="blank-label">① </span><span class="blank blank-lg">정신병리가 심함</span></div>
+            <div class="blank-cell"><span class="blank-label">② </span><span class="blank blank-lg">Faking bad (증상 과장)</span></div>
+            <div class="blank-cell"><span class="blank-label">③ </span><span class="blank blank-lg">불성실한 응답</span></div>
+          </div>
+          <div class="answer-box">① 정신병리 심함 ② Faking bad ③ 불성실 응답</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">25.</div><div class="q-body">
+          <div class="q-type q-type-match">연결하기</div>
+          <div class="match-wrap">
+            <div class="match-col">
+              <div class="match-header">척도</div>
+              <div class="match-item">L <span class="match-answer">ㄹ. 순진한 방어</span></div>
+              <div class="match-item">F <span class="match-answer">ㅇ. 비전형적 응답</span></div>
+              <div class="match-item">K <span class="match-answer">ㄷ. 세련된 방어</span></div>
+              <div class="match-item">VRIN <span class="match-answer">ㅂ. 비일관 반응</span></div>
+              <div class="match-item">TRIN <span class="match-answer">ㅅ. 고정반응</span></div>
+              <div class="match-item">Fp <span class="match-answer">ㅁ. 증상 과장</span></div>
+              <div class="match-item">Fb <span class="match-answer">ㄴ. 검사 후반부 비전형 반응</span></div>
+              <div class="match-item">? <span class="match-answer">ㄱ. 무응답</span></div>
+            </div>
+            <div class="match-col">
+              <div class="match-header">설명</div>
+              <div class="match-item">ㄱ. 무응답</div>
+              <div class="match-item">ㄴ. 검사 후반부 비전형 반응</div>
+              <div class="match-item">ㄷ. 세련된 방어</div>
+              <div class="match-item">ㄹ. 순진한 방어</div>
+              <div class="match-item">ㅁ. 증상 과장</div>
+              <div class="match-item">ㅂ. 비일관 반응</div>
+              <div class="match-item">ㅅ. 고정반응</div>
+              <div class="match-item">ㅇ. 비전형적 응답</div>
+            </div>
+          </div>
+          <div class="answer-box">L→ㄹ / F→ㅇ / K→ㄷ / VRIN→ㅂ / TRIN→ㅅ / Fp→ㅁ / Fb→ㄴ / ?→ㄱ</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">26.</div><div class="q-body">
+          <div class="q-type q-type-multi">모두 고르기</div>
+          <div class="q-text">F척도 상승 원인으로 옳은 것을 모두 고르시오.</div>
+          <div class="options">
+            <div class="option correct"><span class="option-mark">①</span> 무작위 반응</div>
+            <div class="option correct"><span class="option-mark">②</span> 심각한 정신병리</div>
+            <div class="option correct"><span class="option-mark">③</span> 증상 과장</div>
+            <div class="option"><span class="option-mark">④</span> 높은 자아강도</div>
+            <div class="option correct"><span class="option-mark">⑤</span> 고정반응</div>
+          </div>
+          <div class="answer-box">① ② ③ ⑤</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">27.</div><div class="q-body">
+          <div class="q-type q-type-multi">모두 고르기</div>
+          <div class="q-text">K척도 설명으로 옳은 것을 모두 고르시오.</div>
+          <div class="options">
+            <div class="option correct"><span class="option-mark">①</span> 방어성을 반영할 수 있다</div>
+            <div class="option correct"><span class="option-mark">②</span> 자아강도를 반영할 수 있다</div>
+            <div class="option"><span class="option-mark">③</span> 무조건 병리적이다</div>
+            <div class="option correct"><span class="option-mark">④</span> K교정에 사용된다</div>
+            <div class="option correct"><span class="option-mark">⑤</span> 평균에서 멀수록 영향이 커질 수 있다</div>
+          </div>
+          <div class="answer-box">① ② ④ ⑤</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">28.</div><div class="q-body">
+          <div class="q-type q-type-ox">OX</div>
+          <div class="ox-list">
+            <div class="ox-item is-x"><span class="ox-badge">X</span>L척도는 세련된 방어를 의미한다.</div>
+            <div class="ox-item is-x"><span class="ox-badge">X</span>K척도는 무조건 병리적이다.</div>
+            <div class="ox-item is-o"><span class="ox-badge">O</span>VRIN은 비일관 반응을 측정한다.</div>
+            <div class="ox-item is-o"><span class="ox-badge">O</span>TRIN은 예/아니오 고정반응을 측정한다.</div>
+            <div class="ox-item is-o"><span class="ox-badge">O</span>Fp는 증상 과장을 탐지할 수 있다.</div>
+          </div>
+          <div class="answer-box">X / X / O / O / O</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">29.</div><div class="q-body">
+          <div class="q-type q-type-short">단답형</div>
+          <div class="q-text">F척도 상승 시 VRIN/TRIN을 먼저 보는 이유는?</div>
+          <div class="answer-line"><div class="lines"><span></span></div></div>
+          <div class="answer-box">무선반응이나 고정반응으로 인해 F가 인위적으로 상승했는지 확인하기 위해서이다.</div>
+        </div></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ────────────────────────────────
+           섹션 05 — K교정 척도 (기존+보완)
+      ──────────────────────────────── -->
+      <div class="section">
+        <div class="section-title"><span class="section-num">05</span> K 교정 척도</div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">30.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">K 교정 척도는 심리적 문제가 있음에도 임상척도가 <b>( <span class="blank">정상 범위</span> )</b>인 환자 집단과 정상인을 <b>( <span class="blank">경험적</span> )</b> 방식으로 비교하여 개발. K 높으면 <b>( <span class="blank">방어적 성향</span> )</b> 시사.</div>
+          <div class="answer-box">정상 범위 / 경험적 / 방어적 성향</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">31.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">K점수가 높아도 <b>( <span class="blank blank-sm">자존감</span> )</b>, <b>( <span class="blank blank-lg">정서적 안정성</span> )</b>, <b>( <span class="blank blank-lg">자원과 자신감</span> )</b>을 반영하기도 하므로 무조건 방어적으로 해석하면 안 된다.</div>
+          <div class="answer-box">자존감 / 정서적 안정성 / 자원과 자신감</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">32.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">K 교정이 적용되는 임상 척도 5가지를 쓰시오.</div>
+          <div class="q-table"><table>
+            <thead><tr><th>번호</th><th>이름</th><th>교정 비율</th></tr></thead>
+            <tbody>
+              <tr><td>( <span class="blank blank-xs">1</span> )번</td><td>( <span class="blank">Hs, 건강염려증</span> )</td><td>+<span class="blank blank-xs">0.5</span>K</td></tr>
+              <tr><td>( <span class="blank blank-xs">4</span> )번</td><td>( <span class="blank">Pd, 반사회성</span> )</td><td>+<span class="blank blank-xs">0.4</span>K</td></tr>
+              <tr><td>( <span class="blank blank-xs">7</span> )번</td><td>( <span class="blank">Pt, 정신쇠약</span> )</td><td>+<span class="blank blank-xs">1.0</span>K</td></tr>
+              <tr><td>( <span class="blank blank-xs">8</span> )번</td><td>( <span class="blank">Sc, 조현병</span> )</td><td>+<span class="blank blank-xs">1.0</span>K</td></tr>
+              <tr><td>( <span class="blank blank-xs">9</span> )번</td><td>( <span class="blank">Ma, 경조증</span> )</td><td>+<span class="blank blank-xs">0.2</span>K</td></tr>
+            </tbody>
+          </table></div>
+          <div class="answer-box">1(Hs)+0.5K / 4(Pd)+0.4K / 7(Pt)+1.0K / 8(Sc)+1.0K / 9(Ma)+0.2K</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">33.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">K 원점수=16일 때 계산하시오.<br>
+          1번: 15 + (0.5×16) = 15 + <span class="blank blank-xs">8</span> = <span class="blank blank-xs">23</span><br>
+          4번: 24 + (0.4×16) = 24 + <span class="blank blank-xs">6.4</span> → 반올림 = <span class="blank blank-xs">30</span></div>
+          <div class="answer-box">1번: 23 / 4번: 30</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">34.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">K 교정 미적용 척도 유형 세 가지를 쓰시오.</div>
+          <div class="blank-group">
+            <div class="blank-cell"><span class="blank-label">① </span><span class="blank blank-lg">내용 척도</span></div>
+            <div class="blank-cell"><span class="blank-label">② </span><span class="blank blank-lg">보충 척도</span></div>
+            <div class="blank-cell"><span class="blank-label">③ </span><span class="blank blank-lg">MMPI-A 전체</span></div>
+          </div>
+          <div class="answer-box">① 내용 척도 ② 보충 척도 ③ MMPI-A 전체</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">35.</div><div class="q-body">
+          <div class="q-type q-type-short">단답형</div>
+          <div class="q-text">K 교정으로 인한 점수 변화가 가장 큰 척도는?</div>
+          <div class="answer-line"><div class="lines"><span></span></div></div>
+          <div class="answer-box">7번(Pt) — 1.0K 전량 적용</div>
+        </div></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ────────────────────────────────
+           섹션 06 — 임상척도 (NEW)
+      ──────────────────────────────── -->
+      <div class="section">
+        <div class="section-title"><span class="section-num">06</span> 임상척도</div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">36.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">5번 척도는 남성성-<span class="blank blank-sm">여성</span>성 척도이다. 0번 척도는 사회적 <span class="blank blank-sm">내향</span>성 척도이다. K교정은 특정 임상척도 원점수에 K점수의 일정 <span class="blank blank-sm">비율</span>을 더하는 방식이다.</div>
+          <div class="answer-box">여성 / 내향 / 비율(가중치)</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">37.</div><div class="q-body">
+          <div class="q-type q-type-multi">모두 고르기</div>
+          <div class="q-text">5번 척도 해석으로 옳은 것을 모두 고르시오.</div>
+          <div class="options">
+            <div class="option correct"><span class="option-mark">①</span> 성정체감 혼란 가능성을 시사할 수 있다</div>
+            <div class="option correct"><span class="option-mark">②</span> 점수만으로 단정하면 안 된다</div>
+            <div class="option correct"><span class="option-mark">③</span> 예술적 관심과 관련될 수 있다</div>
+            <div class="option correct"><span class="option-mark">④</span> 교육수준과 관련될 수 있다</div>
+            <div class="option"><span class="option-mark">⑤</span> 반드시 병리적이다</div>
+          </div>
+          <div class="answer-box">① ② ③ ④</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">38.</div><div class="q-body">
+          <div class="q-type q-type-multi">모두 고르기</div>
+          <div class="q-text">0번 척도의 특징으로 옳은 것을 모두 고르시오.</div>
+          <div class="options">
+            <div class="option correct"><span class="option-mark">①</span> 사회적 위축</div>
+            <div class="option correct"><span class="option-mark">②</span> 내향성</div>
+            <div class="option correct"><span class="option-mark">③</span> 대인관계 불편감</div>
+            <div class="option"><span class="option-mark">④</span> 충동성</div>
+            <div class="option correct"><span class="option-mark">⑤</span> 사회적 회피</div>
+          </div>
+          <div class="answer-box">① ② ③ ⑤</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">39.</div><div class="q-body">
+          <div class="q-type q-type-ox">OX</div>
+          <div class="ox-list">
+            <div class="ox-item is-x"><span class="ox-badge">X</span>5번 척도 상승은 반드시 성정체감 혼란이다.</div>
+            <div class="ox-item is-o"><span class="ox-badge">O</span>0번 척도는 사회적 내향성을 측정한다.</div>
+            <div class="ox-item is-x"><span class="ox-badge">X</span>K교정은 모든 척도에 동일하게 적용된다.</div>
+          </div>
+          <div class="answer-box">X / O / X</div>
+        </div></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ────────────────────────────────
+           섹션 07 — 코드타입 (NEW)
+      ──────────────────────────────── -->
+      <div class="section">
+        <div class="section-title"><span class="section-num">07</span> 코드타입</div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">40.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">코드타입은 가장 높은 <span class="blank blank-xs">2</span>개 또는 <span class="blank blank-xs">3</span>개 척도를 묶은 것이다. 코드타입은 보통 <span class="blank blank-xs">65</span>T 이상일 때 해석한다. 정의된 코드타입은 최소 <span class="blank blank-xs">5</span>점 차이가 필요하며, 이는 <span class="blank blank-sm">측정</span>오차 때문이다.</div>
+          <div class="answer-box">2 / 3 / 65T / 5점 / 측정</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">41.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">한 척도가 유난히 높게 상승한 형태를 <span class="blank blank-sm">스파이크</span>라고 한다.</div>
+          <div class="answer-box">스파이크(Spike)</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">42.</div><div class="q-body">
+          <div class="q-type q-type-match">연결하기</div>
+          <div class="match-wrap">
+            <div class="match-col">
+              <div class="match-header">개념</div>
+              <div class="match-item">2코드 <span class="match-answer">ㄷ. 가장 높은 2개 척도</span></div>
+              <div class="match-item">3코드 <span class="match-answer">ㄹ. 가장 높은 3개 척도</span></div>
+              <div class="match-item">정의된 코드타입 <span class="match-answer">ㅁ. 5점 차이 필요</span></div>
+              <div class="match-item">스파이크 <span class="match-answer">ㄱ. 척도 하나가 유난히 높음</span></div>
+              <div class="match-item">65T 기준 <span class="match-answer">ㄴ. 임상범위 기준</span></div>
+            </div>
+            <div class="match-col">
+              <div class="match-header">설명</div>
+              <div class="match-item">ㄱ. 척도 하나가 유난히 높음</div>
+              <div class="match-item">ㄴ. 임상범위 기준</div>
+              <div class="match-item">ㄷ. 가장 높은 2개 척도</div>
+              <div class="match-item">ㄹ. 가장 높은 3개 척도</div>
+              <div class="match-item">ㅁ. 5점 차이 필요</div>
+            </div>
+          </div>
+          <div class="answer-box">2코드→ㄷ / 3코드→ㄹ / 정의된 코드타입→ㅁ / 스파이크→ㄱ / 65T→ㄴ</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">43.</div><div class="q-body">
+          <div class="q-type q-type-multi">모두 고르기</div>
+          <div class="q-text">코드타입 설명으로 옳은 것을 모두 고르시오.</div>
+          <div class="options">
+            <div class="option correct"><span class="option-mark">①</span> 가장 높은 척도 조합이다</div>
+            <div class="option correct"><span class="option-mark">②</span> 65T 이상에서 해석한다</div>
+            <div class="option correct"><span class="option-mark">③</span> 정의된 코드타입은 5점 차이가 필요하다</div>
+            <div class="option correct"><span class="option-mark">④</span> 측정오차를 고려한다</div>
+            <div class="option"><span class="option-mark">⑤</span> 1점 차이도 중요하다</div>
+          </div>
+          <div class="answer-box">① ② ③ ④</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">44.</div><div class="q-body">
+          <div class="q-type q-type-short">단답형</div>
+          <div class="q-text">코드타입에서 5점 차이를 보는 이유는?</div>
+          <div class="answer-line"><div class="lines"><span></span></div></div>
+          <div class="answer-box">측정오차를 고려해 의미 있는 차이만 해석하기 위해서이다.</div>
+        </div></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ────────────────────────────────
+           섹션 08 — 재구성 임상척도 RC (NEW)
+      ──────────────────────────────── -->
+      <div class="section">
+        <div class="section-title"><span class="section-num">08</span> 재구성 임상척도 (RC)</div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">45.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">RC척도는 임상척도의 <span class="blank blank-sm">공통</span>요인을 제거하였다. RC척도는 <span class="blank blank-sm">K</span>교정을 적용하지 않는다. RC척도는 임상척도보다 <span class="blank blank-sm">내적</span> 일관성이 높다.</div>
+          <div class="answer-box">공통 / K교정 미적용 / 내적</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">46.</div><div class="q-body">
+          <div class="q-type q-type-multi">모두 고르기</div>
+          <div class="q-text">RC척도 특징으로 옳은 것을 모두 고르시오.</div>
+          <div class="options">
+            <div class="option correct"><span class="option-mark">①</span> 공통요인을 제거하였다</div>
+            <div class="option correct"><span class="option-mark">②</span> K교정을 적용하지 않는다</div>
+            <div class="option correct"><span class="option-mark">③</span> 임상척도와 점수 차이가 발생할 수 있다</div>
+            <div class="option correct"><span class="option-mark">④</span> 개별요인의 영향이 중요하다</div>
+            <div class="option"><span class="option-mark">⑤</span> 임상척도와 항상 동일하다</div>
+          </div>
+          <div class="answer-box">① ② ③ ④</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">47.</div><div class="q-body">
+          <div class="q-type q-type-ox">OX</div>
+          <div class="ox-list">
+            <div class="ox-item is-x"><span class="ox-badge">X</span>RC척도는 K교정을 한다.</div>
+            <div class="ox-item is-o"><span class="ox-badge">O</span>RC척도는 공통요인을 제거하였다.</div>
+            <div class="ox-item is-x"><span class="ox-badge">X</span>RC와 임상척도는 항상 같은 패턴이다.</div>
+          </div>
+          <div class="answer-box">X / O / X</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">48.</div><div class="q-body">
+          <div class="q-type q-type-short">단답형</div>
+          <div class="q-text">RC척도와 임상척도 점수가 달라지는 이유는?</div>
+          <div class="answer-line"><div class="lines"><span></span></div></div>
+          <div class="answer-box">공통요인 제거와 K교정 제거 때문이며 개별요인 비중 차이의 영향도 받기 때문이다.</div>
+        </div></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ────────────────────────────────
+           섹션 09 — 내용척도·내용소척도 (NEW)
+      ──────────────────────────────── -->
+      <div class="section">
+        <div class="section-title"><span class="section-num">09</span> 내용척도 · 내용소척도</div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">49.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">내용척도는 <span class="blank blank-sm">논리적</span> 방식으로 개발되었다. 내용척도는 문항 의미가 비교적 <span class="blank blank-sm">명확</span>하다. 내용척도는 <span class="blank blank-sm">인상</span> 관리에 취약하다.</div>
+          <div class="answer-box">논리적 / 명확 / 인상</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">50.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">내용소척도는 내용척도를 더 세부적으로 <span class="blank blank-sm">분류</span>한 것이다. 내용소척도를 해석할 때는 일반적으로 모척도가 <span class="blank blank-xs">65</span>T 이상일 때 고려한다.</div>
+          <div class="answer-box">분류(세분화) / 65T</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">51.</div><div class="q-body">
+          <div class="q-type q-type-match">연결하기</div>
+          <div class="match-wrap">
+            <div class="match-col">
+              <div class="match-header">개념</div>
+              <div class="match-item">내용척도 <span class="match-answer">ㄱ. 문항 의미가 명확함</span></div>
+              <div class="match-item">내용소척도 <span class="match-answer">ㄹ. 세부 하위 척도</span></div>
+              <div class="match-item">모척도 <span class="match-answer">ㄴ. 상위 척도</span></div>
+              <div class="match-item">내적 일관성 <span class="match-answer">ㄷ. 문항 간 상관 높음</span></div>
+              <div class="match-item">인상관리 취약 <span class="match-answer">ㅁ. 의도 파악 쉬움</span></div>
+            </div>
+            <div class="match-col">
+              <div class="match-header">설명</div>
+              <div class="match-item">ㄱ. 문항 의미가 명확함</div>
+              <div class="match-item">ㄴ. 상위 척도</div>
+              <div class="match-item">ㄷ. 문항 간 상관 높음</div>
+              <div class="match-item">ㄹ. 세부 하위 척도</div>
+              <div class="match-item">ㅁ. 의도 파악 쉬움</div>
+            </div>
+          </div>
+          <div class="answer-box">내용척도→ㄱ / 내용소척도→ㄹ / 모척도→ㄴ / 내적일관성→ㄷ / 인상관리취약→ㅁ</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">52.</div><div class="q-body">
+          <div class="q-type q-type-multi">모두 고르기</div>
+          <div class="q-text">내용척도 특징으로 옳은 것을 모두 고르시오.</div>
+          <div class="options">
+            <div class="option correct"><span class="option-mark">①</span> 논리적 방식</div>
+            <div class="option correct"><span class="option-mark">②</span> 내적 일관성 높음</div>
+            <div class="option correct"><span class="option-mark">③</span> 인상관리 취약</div>
+            <div class="option correct"><span class="option-mark">④</span> 다차원성 감소</div>
+            <div class="option"><span class="option-mark">⑤</span> 경험적 방식</div>
+          </div>
+          <div class="answer-box">① ② ③ ④</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">53.</div><div class="q-body">
+          <div class="q-type q-type-ox">OX</div>
+          <div class="ox-list">
+            <div class="ox-item is-x"><span class="ox-badge">X</span>내용척도는 경험적 방식이다.</div>
+            <div class="ox-item is-o"><span class="ox-badge">O</span>내용척도는 인상관리에 취약할 수 있다.</div>
+            <div class="ox-item is-o"><span class="ox-badge">O</span>내용소척도는 모척도를 세분화한 것이다.</div>
+          </div>
+          <div class="answer-box">X / O / O</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">54.</div><div class="q-body">
+          <div class="q-type q-type-short">단답형</div>
+          <div class="q-text">왜 내용척도는 인상관리에 취약한가?</div>
+          <div class="answer-line"><div class="lines"><span></span></div></div>
+          <div class="answer-box">문항 의미가 명확하여 수검자가 검사 의도를 쉽게 파악할 수 있기 때문이다.</div>
+        </div></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- ────────────────────────────────
+           섹션 10 — 통합 서술형 (기존 유지)
+      ──────────────────────────────── -->
+      <div class="section">
+        <div class="section-title"><span class="section-num">10</span> 통합 서술형</div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">55.</div><div class="q-body">
+          <div class="q-type q-type-short">서술형</div>
+          <div class="q-text">MMPI-2가 T점수를 사용하는 이유 두 가지를 쓰시오.</div>
+          <div class="answer-line"><div class="lines"><span></span><span></span></div></div>
+          <div class="answer-box">① 원점수는 집단 내 상대적 위치 파악 불가<br>② T점수는 평균(50)·SD(10) 고정으로 즉시 위치 파악 가능</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">56.</div><div class="q-body">
+          <div class="q-type q-type-short">서술형</div>
+          <div class="q-text">L 척도가 논리적 방식으로 개발된 이유를 쓰시오.</div>
+          <div class="answer-line"><div class="lines"><span></span><span></span></div></div>
+          <div class="answer-box">사소한 인간적 약점을 담은 문항 내용 자체로 방어를 탐지할 수 있어 임상집단 비교가 불필요.</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">57.</div><div class="q-body">
+          <div class="q-type q-type-short">서술형</div>
+          <div class="q-text">K 교정 척도 개발 논리를 단계적으로 쓰시오.</div>
+          <div class="answer-line"><div class="lines"><span></span><span></span><span></span></div></div>
+          <div class="answer-box">① 문제 있어도 임상척도 정상인 환자 집단 발견 → ② vs 정상인 경험적 비교 → ③ 변별 문항으로 K 구성 → ④ K 높으면 방어적 판단 → 일정 비율 더해 교정</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">58.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">점수 상승이 <b>( <span class="blank">긍정적</span> )</b>으로 해석되는 보충 척도 3가지를 쓰시오.</div>
+          <div class="blank-group">
+            <div class="blank-cell"><span class="blank-label">① </span><span class="blank blank-lg">Es (자아강도)</span></div>
+            <div class="blank-cell"><span class="blank-label">② </span><span class="blank blank-lg">Do (지배성)</span></div>
+            <div class="blank-cell"><span class="blank-label">③ </span><span class="blank blank-lg">Re (사회적 책임감)</span></div>
+          </div>
+          <div class="answer-box">긍정적 / Es(자아강도) / Do(지배성) / Re(사회적 책임감)</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">59.</div><div class="q-body">
+          <div class="q-type q-type-short">서술형</div>
+          <div class="q-text">K 교정의 한계점을 세 가지 서술하시오.</div>
+          <div class="answer-line"><div class="lines"><span></span><span></span><span></span></div></div>
+          <div class="answer-box">① K 높아도 실제 안정성 높은 사람 있어 왜곡 가능<br>② 내용·보충 척도엔 미적용 → 논리적 일관성 부족<br>③ MMPI-A에 미적용 → 근거 약하다는 반증</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">60.</div><div class="q-body">
+          <div class="q-type q-type-short">서술형</div>
+          <div class="q-text">심리검사에 오차가 존재하는 이유와 표준화가 중요한 이유를 각각 서술하시오.</div>
+          <div class="answer-line"><div class="lines"><span></span><span></span></div></div>
+          <div class="answer-box">오차: 심리적 특성은 직접 관찰이 어렵고 일부 표본만 측정하기 때문이다.<br>표준화: 검사 결과를 객관적으로 비교하고 해석하기 위해서이다.</div>
+        </div></div></div>
+      </div>
+
+      <div class="doc-footer">
+        <span>심리검사 및 진단 — MMPI-2 통합 기말 예상문제 (총 60문항)</span>
+        <span>광운대 상담복지정책대학원 · 2026</span>
+      </div>
+    </div>
+  </div><!-- /panel-mmpi -->
+
+  <!-- ══ WISC-IV 탭 ══ -->
+  <div class="tab-panel" id="panel-wais">
+    <div class="toolbar">
+      <button class="btn" onclick="window.print()">🖨 인쇄</button>
+      <button class="btn btn-outline" id="toggle-wais" onclick="toggleAnswers('wais')">✅ 정답 보기</button>
+      <span class="mode-note" id="note-wais">문제 모드</span>
+    </div>
+    <div class="doc" id="doc-wais">
+      <div class="doc-header">
+        <div class="doc-subject">심리검사 및 진단 · 기말 예상문제</div>
+        <div class="doc-title">WISC-IV 웩슬러 아동 지능검사<br>소검사 구성 · 점수 체계 · 실시 절차</div>
+        <div class="doc-meta"><span>총 35문항</span><span>수업 강의록 기반</span><span>광운대 상담복지정책대학원</span></div>
+      </div>
+      <div class="notice">빈칸에 알맞은 말을 써넣으시오. 교수님이 "시험에 나올 수 있다"고 직접 언급한 내용을 중심으로 구성하였습니다.</div>
+
+      <div class="section">
+        <div class="section-title"><span class="section-num">01</span> 점수 체계</div>
+        <div class="q-item"><div class="q-row"><div class="q-num">1.</div><div class="q-body">
+          <div class="q-text">지수점수(IQ) 평균 <b>( <span class="blank blank-sm">100</span> )</b>, SD <b>( <span class="blank blank-sm">15</span> )</b>. 소검사 환산점수 평균 <b>( <span class="blank blank-sm">10</span> )</b>, SD <b>( <span class="blank blank-xs">3</span> )</b>.</div>
+          <div class="q-hint">교수님이 직접 퀴즈로 확인한 핵심 수치.</div>
+          <div class="answer-box">IQ: 100 / 15 / 환산점수: 10 / 3</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">2.</div><div class="q-body">
+          <div class="q-text">T점수 평균 ( <span class="blank blank-xs">50</span> ), SD ( <span class="blank blank-xs">10</span> ).</div>
+          <div class="answer-box">50 / 10</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">3.</div><div class="q-body">
+          <div class="q-text">점수 산출 흐름: <b>( <span class="blank">원점수</span> )</b> → <b>( <span class="blank blank-lg">소검사 환산점수</span> )</b> → <b>( <span class="blank blank-sm">지표 IQ</span> )</b> → <b>( <span class="blank blank-sm">FSIQ</span> )</b></div>
+          <div class="answer-box">원점수 → 소검사 환산점수 → 지표 IQ → FSIQ</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">4.</div><div class="q-body">
+          <div class="q-text">정규분포 SD 범위별 포함 비율.</div>
+          <div class="q-table"><table>
+            <thead><tr><th>범위</th><th>비율</th></tr></thead>
+            <tbody>
+              <tr><td>± 1 SD</td><td><span class="blank blank-xs">68</span> %</td></tr>
+              <tr><td>± 2 SD</td><td><span class="blank blank-xs">95</span> %</td></tr>
+              <tr><td>± 3 SD</td><td><span class="blank blank-xs">99</span> %</td></tr>
+            </tbody>
+          </table></div>
+          <div class="q-hint">"시험에 낼 수도 있는데" 교수님 직접 언급.</div>
+          <div class="answer-box">68% / 95% / 99%</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">5.</div><div class="q-body">
+          <div class="q-text">IQ 분류 명칭을 채우시오.</div>
+          <div class="q-table"><table>
+            <thead><tr><th>IQ 범위</th><th>분류</th></tr></thead>
+            <tbody>
+              <tr><td>130 이상</td><td><span class="blank blank-lg">Very Superior (매우 우수)</span></td></tr>
+              <tr><td>120~129</td><td><span class="blank blank-lg">Superior (우수)</span></td></tr>
+              <tr><td>110~119</td><td><span class="blank blank-lg">High Average (평균 상)</span></td></tr>
+              <tr><td>90~109</td><td><span class="blank blank-lg">Average (평균)</span></td></tr>
+              <tr><td>80~89</td><td><span class="blank blank-lg">Low Average (평균 하)</span></td></tr>
+              <tr><td>70~79</td><td><span class="blank blank-lg">Borderline (경계선)</span></td></tr>
+              <tr><td>69 이하</td><td><span class="blank blank-lg">지적장애 (MR)</span></td></tr>
+            </tbody>
+          </table></div>
+          <div class="answer-box">130↑ Very Superior / 120~129 Superior / 110~119 High Average / 90~109 Average / 80~89 Low Average / 70~79 Borderline / 69↓ 지적장애</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">6.</div><div class="q-body">
+          <div class="q-text">평균 ±1SD 이내 <b>( <span class="blank blank-sm">Normal</span> )</b>, 벗어난 범위 <b>( <span class="blank blank-sm">Abnormal</span> )</b>, 경계 구간 <b>( <span class="blank">Borderline</span> )</b>. 이런 방식을 <b>( <span class="blank blank-lg">규준적(Normative) 접근</span> )</b>이라 한다.</div>
+          <div class="answer-box">Normal / Abnormal / Borderline / 규준적 접근</div>
+        </div></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="section">
+        <div class="section-title"><span class="section-num">02</span> 4대 지표 · 소검사 구성</div>
+        <div class="q-item"><div class="q-row"><div class="q-num">7.</div><div class="q-body">
+          <div class="q-text">4개 지표 한국어 명칭을 채우시오.</div>
+          <div class="q-table"><table>
+            <thead><tr><th>약자</th><th>한국어 명칭</th></tr></thead>
+            <tbody>
+              <tr><td>VCI</td><td><span class="blank blank-lg">언어이해지표</span></td></tr>
+              <tr><td>PRI</td><td><span class="blank blank-lg">지각추론지표</span></td></tr>
+              <tr><td>WMI</td><td><span class="blank blank-lg">작업기억지표</span></td></tr>
+              <tr><td>PSI</td><td><span class="blank blank-lg">처리속도지표</span></td></tr>
+            </tbody>
+          </table></div>
+          <div class="answer-box">VCI=언어이해 / PRI=지각추론 / WMI=작업기억 / PSI=처리속도</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">8.</div><div class="q-body">
+          <div class="q-text">핵심 소검사 <b>( <span class="blank blank-xs">10</span> )</b>개, 보충 소검사 <b>( <span class="blank blank-xs">5</span> )</b>개.</div>
+          <div class="answer-box">핵심 10 + 보충 5</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">9.</div><div class="q-body">
+          <div class="q-text">각 지표의 핵심 소검사를 쓰시오.</div>
+          <div class="q-table"><table>
+            <thead><tr><th>지표</th><th>핵심 소검사</th></tr></thead>
+            <tbody>
+              <tr><td>VCI</td><td><span class="blank blank-sm">공통성</span> / <span class="blank blank-sm">어휘</span> / <span class="blank blank-sm">이해</span></td></tr>
+              <tr><td>PRI</td><td><span class="blank blank-sm">토막짜기</span> / <span class="blank blank-sm">행렬추론</span> / <span class="blank blank-lg">빠진곳찾기</span></td></tr>
+              <tr><td>WMI</td><td><span class="blank blank-sm">숫자</span> / <span class="blank blank-sm">순차연결</span></td></tr>
+              <tr><td>PSI</td><td><span class="blank blank-sm">기호쓰기</span> / <span class="blank blank-sm">동명찾기</span></td></tr>
+            </tbody>
+          </table></div>
+          <div class="answer-box">VCI: 공통성·어휘·이해 / PRI: 토막짜기·행렬추론·빠진곳찾기 / WMI: 숫자·순차연결 / PSI: 기호쓰기·동명찾기</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">10.</div><div class="q-body">
+          <div class="q-text">FSIQ 외 추가 지수: <b>( <span class="blank blank-xs">GAI</span> )</b> = 일반능력지수, <b>( <span class="blank blank-xs">CPI</span> )</b> = 인지효율지수.</div>
+          <div class="answer-box">GAI / CPI</div>
+        </div></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="section">
+        <div class="section-title"><span class="section-num">03</span> 소검사별 실시 · 채점</div>
+        <div class="q-item"><div class="q-row"><div class="q-num">11.</div><div class="q-body">
+          <div class="q-text">토막짜기 시간 보너스 시작 문항 <b>( <span class="blank blank-xs">9</span> )번</b>, 보너스 포함 최대 <b>( <span class="blank blank-xs">68</span> )점</b>, 제외 시 <b>( <span class="blank blank-xs">50</span> )점</b>, 차이 <b>( <span class="blank blank-xs">18</span> )점</b>.</div>
+          <div class="q-hint">"시험에 나올 가능성이 굉장히 높다" 교수님 직접 언급.</div>
+          <div class="answer-box">9번 / 68점 / 50점 / 18점</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">12.</div><div class="q-body">
+          <div class="q-text">토막짜기 제시: 1~2번 <b>( <span class="blank blank-sm">모형</span> )</b>, 3번 <b>( <span class="blank blank-lg">모형+그림</span> )</b>, 4번~ <b>( <span class="blank blank-sm">그림만</span> )</b>.</div>
+          <div class="answer-box">1~2번: 모형 / 3번: 모형+그림 / 4번~: 그림만</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">13.</div><div class="q-body">
+          <div class="q-text">역순 규칙: 연속 정답 시 이전 문항 <b>( <span class="blank blank-lg">만점 자동 부여</span> )</b>. 연속 <b>( <span class="blank blank-xs">2</span> )</b>회 0점 시 중지.</div>
+          <div class="answer-box">만점 자동 부여 / 2회 0점 = 중지</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">14.</div><div class="q-body">
+          <div class="q-text">기호쓰기 A형 <b>( <span class="blank blank-sm">6~7</span> )세</b>, B형 <b>( <span class="blank blank-sm">8~16</span> )세</b>, 제한시간 <b>( <span class="blank blank-xs">2</span> )분</b>.</div>
+          <div class="answer-box">A형: 6~7세 / B형: 8~16세 / 2분</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">15.</div><div class="q-body">
+          <div class="q-text">기호쓰기 핵심은 <b>( <span class="blank blank-sm">속도</span> )</b>. 완벽주의 아동 점수 <b>( <span class="blank blank-sm">낮음</span> )</b>, 승부욕 강한 아동 <b>( <span class="blank blank-sm">높음</span> )</b>.</div>
+          <div class="answer-box">속도 / 낮음 / 높음</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">16.</div><div class="q-body">
+          <div class="q-text">순차연결 실시 불가: <b>( <span class="blank blank-lg">가나다라를 외우지 못할 때</span> )</b>. 대체 소검사: <b>( <span class="blank blank-sm">산수</span> )</b>. 지표: <b>( <span class="blank blank-sm">WMI</span> )</b>.</div>
+          <div class="q-hint">"시험에 나올 수도 있습니다" 교수님 직접 언급.</div>
+          <div class="answer-box">가나다라 미암기 → 산수로 대체 / WMI</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">17.</div><div class="q-body">
+          <div class="q-text">이해 소검사: 두 카테고리 답변 <b>( <span class="blank blank-xs">2</span> )</b>점, 한 카테고리 <b>( <span class="blank blank-xs">1</span> )</b>점. 한 카테고리만 나오면 <b>( <span class="blank blank-lg">추가 답을 요청</span> )</b>할 수 있다.</div>
+          <div class="answer-box">2점 / 1점 / 추가 답 요청</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">18.</div><div class="q-body">
+          <div class="q-text">어휘 소검사 측정 내용: <b>( <span class="blank blank-lg">언어화 능력</span> )</b>. 두 특징 설명 <b>( <span class="blank blank-xs">2</span> )</b>점, 한 특징 <b>( <span class="blank blank-xs">1</span> )</b>점, 가리키기 <b>( <span class="blank blank-xs">0</span> )</b>점.</div>
+          <div class="answer-box">언어화 능력 / 2점 / 1점 / 0점</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">19.</div><div class="q-body">
+          <div class="q-text">공통성: 6~8세 <b>( <span class="blank blank-xs">1</span> )</b>번부터, 9~16세 <b>( <span class="blank blank-xs">3</span> )</b>번부터. 1·2번 만점 미달 시 <b>( <span class="blank blank-lg">정답 알려줄 수 있다</span> )</b>.</div>
+          <div class="answer-box">1번 / 3번 / 정답 교정 가능</div>
+        </div></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="section">
+        <div class="section-title"><span class="section-num">04</span> 모두 고르시오</div>
+        <div class="q-item"><div class="q-row"><div class="q-num">20.</div><div class="q-body">
+          <div class="q-text">VCI에 속하는 소검사를 모두 고르시오.</div>
+          <div class="options">
+            <div class="option correct"><span class="option-mark">① </span>공통성</div>
+            <div class="option"><span class="option-mark">② </span>숫자</div>
+            <div class="option correct"><span class="option-mark">③ </span>어휘</div>
+            <div class="option"><span class="option-mark">④ </span>토막짜기</div>
+            <div class="option correct"><span class="option-mark">⑤ </span>이해</div>
+            <div class="option correct"><span class="option-mark">⑥ </span>상식 (보충)</div>
+          </div>
+          <div class="answer-box">① ③ ⑤ (핵심) / ⑥ (보충)</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">21.</div><div class="q-body">
+          <div class="q-text">기호쓰기에 관한 옳은 설명을 모두 고르시오.</div>
+          <div class="options">
+            <div class="option correct"><span class="option-mark">① </span>A형은 6~7세, B형은 8~16세 대상이다.</div>
+            <div class="option"><span class="option-mark">② </span>제한시간은 3분이다.</div>
+            <div class="option correct"><span class="option-mark">③ </span>반드시 차례대로 실시해야 한다.</div>
+            <div class="option correct"><span class="option-mark">④ </span>완벽주의 아동은 점수가 낮게 나올 수 있다.</div>
+            <div class="option correct"><span class="option-mark">⑤ </span>지능보다 성격의 영향을 많이 받는다.</div>
+          </div>
+          <div class="answer-box">① ③ ④ ⑤ (② 오답: 2분)</div>
+        </div></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="section">
+        <div class="section-title"><span class="section-num">05</span> 줄긋기</div>
+        <div class="q-item"><div class="q-row"><div class="q-num">22.</div><div class="q-body">
+          <div class="q-text">소검사와 지표를 연결하시오.</div>
+          <div class="match-wrap">
+            <div class="match-col">
+              <div class="match-header">소검사</div>
+              <div class="match-item">공통성 <span class="match-answer">VCI</span></div>
+              <div class="match-item">토막짜기 <span class="match-answer">PRI</span></div>
+              <div class="match-item">숫자 <span class="match-answer">WMI</span></div>
+              <div class="match-item">기호쓰기 <span class="match-answer">PSI</span></div>
+              <div class="match-item">행렬추론 <span class="match-answer">PRI</span></div>
+              <div class="match-item">순차연결 <span class="match-answer">WMI</span></div>
+              <div class="match-item">어휘 <span class="match-answer">VCI</span></div>
+              <div class="match-item">동명찾기 <span class="match-answer">PSI</span></div>
+            </div>
+            <div class="match-col">
+              <div class="match-header">지표</div>
+              <div class="match-item">언어이해 (VCI)</div>
+              <div class="match-item">지각추론 (PRI)</div>
+              <div class="match-item">작업기억 (WMI)</div>
+              <div class="match-item">처리속도 (PSI)</div>
+            </div>
+          </div>
+          <div class="answer-box">공통성·어휘→VCI / 토막짜기·행렬추론→PRI / 숫자·순차연결→WMI / 기호쓰기·동명찾기→PSI</div>
+        </div></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="section">
+        <div class="section-title"><span class="section-num">06</span> 간단 서술</div>
+        <div class="q-item"><div class="q-row"><div class="q-num">23.</div><div class="q-body">
+          <div class="q-text">어휘 소검사에서 아동이 시계를 가리키며 "저거요"라고 했다. 채점과 이유를 쓰시오.</div>
+          <div class="answer-line"><div class="lines"><span></span><span></span></div></div>
+          <div class="answer-box">0점. 어휘 소검사는 언어화 능력을 측정하므로 가리키는 행동은 채점 불가.</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">24.</div><div class="q-body">
+          <div class="q-text">3번부터 시작한 아동이 3·4·5번을 모두 맞혔다. 1·2번 채점은?</div>
+          <div class="answer-line"><div class="lines"><span></span></div></div>
+          <div class="answer-box">역순 규칙에 의해 만점 자동 부여.</div>
+        </div></div></div>
+        <div class="q-item"><div class="q-row"><div class="q-num">25.</div><div class="q-body">
+          <div class="q-text">순차연결 실시 불가 시황과 대체 소검사를 쓰시오.</div>
+          <div class="answer-line"><div class="lines"><span></span><span></span></div></div>
+          <div class="answer-box">가나다라를 외우지 못하는 경우. 산수 소검사로 대체.</div>
+        </div></div></div>
+      </div>
+
+      <div class="doc-footer">
+        <span>심리검사 및 진단 — WISC-IV 기말 예상문제</span>
+        <span>광운대 상담복지정책대학원 · 2026</span>
+      </div>
+    </div>
+  </div><!-- /panel-wais -->
+</div><!-- /page-psych -->
+
+<!-- ══════════ 상담이론 페이지 ══════════ -->
+<div class="page" id="page-counsel">
+  <header class="site-header">
+    <div class="site-logo" onclick="goTo('home')"><span class="bear">🐻</span> borabear forest</div>
+    <button class="back-btn" onclick="goTo('home')">← 과목 선택</button>
+  </header>
+  <div class="counsel-inner">
+    <div style="margin-bottom: 28px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;">Counseling Theory · 상담이론과 실제</div>
+      <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700;margin-bottom:4px;">이론을 선택하세요</div>
+      <div style="font-size:12px;color:var(--ink3);">문제가 추가되면 이론별로 바로 풀 수 있어요</div>
+    </div>
+    <div class="theory-list">
+      <div class="theory-item" onclick="alert('준비 중입니다. 기출문제를 공유해주세요!')">
+        <div class="theory-left"><div class="theory-num">01</div><div><div class="theory-name">정신분석학</div><div class="theory-who">Sigmund Freud</div></div></div>
+        <span class="theory-badge coming">준비중</span>
+      </div>
+      <div class="theory-item" onclick="alert('준비 중입니다. 기출문제를 공유해주세요!')">
+        <div class="theory-left"><div class="theory-num">02</div><div><div class="theory-name">분석심리학</div><div class="theory-who">Carl Gustav Jung</div></div></div>
+        <span class="theory-badge coming">준비중</span>
+      </div>
+      <div class="theory-item" onclick="alert('준비 중입니다. 기출문제를 공유해주세요!')">
+        <div class="theory-left"><div class="theory-num">03</div><div><div class="theory-name">개인심리학</div><div class="theory-who">Alfred Adler</div></div></div>
+        <span class="theory-badge coming">준비중</span>
+      </div>
+      <div class="theory-item" onclick="alert('준비 중입니다. 기출문제를 공유해주세요!')">
+        <div class="theory-left"><div class="theory-num">04</div><div><div class="theory-name">행동치료</div><div class="theory-who">Behavior Therapy</div></div></div>
+        <span class="theory-badge coming">준비중</span>
+      </div>
+      <div class="theory-item" onclick="alert('준비 중입니다. 기출문제를 공유해주세요!')">
+        <div class="theory-left"><div class="theory-num">05</div><div><div class="theory-name">합리적·정서행동치료</div><div class="theory-who">Albert Ellis · REBT</div></div></div>
+        <span class="theory-badge coming">준비중</span>
+      </div>
+      <div class="theory-item" onclick="goTo('cognitive')">
+        <div class="theory-left"><div class="theory-num">06</div><div><div class="theory-name">인지치료</div><div class="theory-who">Aaron Beck</div></div></div>
+        <span class="theory-badge ready">문제풀기 →</span>
+      </div>
+      <div class="theory-item" onclick="alert('준비 중입니다. 기출문제를 공유해주세요!')">
+        <div class="theory-left"><div class="theory-num">07</div><div><div class="theory-name">인간중심치료</div><div class="theory-who">Carl Rogers</div></div></div>
+        <span class="theory-badge coming">준비중</span>
+      </div>
+      <div class="theory-item" onclick="alert('준비 중입니다. 기출문제를 공유해주세요!')">
+        <div class="theory-left"><div class="theory-num">08</div><div><div class="theory-name">실존적 심리치료</div><div class="theory-who">Existential Psychotherapy</div></div></div>
+        <span class="theory-badge coming">준비중</span>
+      </div>
+      <div class="theory-item" onclick="alert('준비 중입니다. 기출문제를 공유해주세요!')">
+        <div class="theory-left"><div class="theory-num">09</div><div><div class="theory-name">게슈탈트치료</div><div class="theory-who">Fritz Perls</div></div></div>
+        <span class="theory-badge coming">준비중</span>
+      </div>
+      <div class="theory-item" onclick="alert('준비 중입니다. 기출문제를 공유해주세요!')">
+        <div class="theory-left"><div class="theory-num">10</div><div><div class="theory-name">현실치료</div><div class="theory-who">William Glasser</div></div></div>
+        <span class="theory-badge coming">준비중</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function goTo(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleAnswers(name) {
+  const doc = document.getElementById('doc-' + name);
+  const btn = document.getElementById('toggle-' + name);
+  const note = document.getElementById('note-' + name);
+  const on = doc.classList.toggle('show-answers');
+  btn.textContent = on ? '📝 문제 모드로' : '✅ 정답 보기';
+  note.textContent = on ? '정답 모드' : '문제 모드';
+}
+</script>
+</body>
+</html>
+
+<!-- ══════════ 인지치료 퀴즈 페이지 ══════════ -->
+<div class="page" id="page-cognitive">
+  <header class="site-header">
+    <div class="site-logo" onclick="goTo('counsel')"><span class="bear">🐻</span> borabear forest</div>
+    <button class="back-btn" onclick="goTo('counsel')">← 이론 목록</button>
+  </header>
+  <div class="cq-wrap">
+    <div class="cq-progress-bar-wrap">
+      <div class="cq-progress-bar-fill" id="cq-bar"></div>
+    </div>
+    <div class="cq-inner">
+      <div class="cq-meta">
+        <span class="cq-tag">인지치료 · Aaron Beck</span>
+        <span class="cq-counter" id="cq-counter">1 / 16</span>
+      </div>
+      <div class="cq-card" id="cq-card">
+        <div class="cq-qnum" id="cq-qnum">Q1</div>
+        <div class="cq-question" id="cq-question"></div>
+        <div class="cq-options" id="cq-options"></div>
+        <div class="cq-explanation" id="cq-explanation"></div>
+      </div>
+      <div class="cq-nav">
+        <button class="cq-btn outline" id="cq-prev" onclick="cqMove(-1)">← 이전</button>
+        <button class="cq-btn" id="cq-next">다음 →</button>
+      </div>
+      <div class="cq-result" id="cq-result">
+        <div class="cq-result-emoji" id="cq-result-emoji"></div>
+        <div class="cq-result-title" id="cq-result-title"></div>
+        <div class="cq-result-score" id="cq-result-score"></div>
+        <div class="cq-result-review" id="cq-result-review"></div>
+        <button class="cq-btn" style="margin-top:24px;" onclick="cqRestart()">🔄 다시 풀기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.cq-wrap { flex: 1; display: flex; flex-direction: column; background: var(--cream); }
+.cq-progress-bar-wrap { height: 4px; background: var(--line2); }
+.cq-progress-bar-fill { height: 100%; background: var(--accent-b); transition: width .4s ease; width: 0%; }
+.cq-inner { max-width: 680px; margin: 0 auto; width: 100%; padding: 24px 16px 60px; }
+@media (min-width: 600px) { .cq-inner { padding: 36px 24px 80px; } }
+.cq-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.cq-tag { font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-b); }
+.cq-counter { font-size: 11px; color: var(--ink3); font-weight: 600; }
+.cq-card { background: #fff; border: 1px solid var(--line2); border-radius: 6px; padding: 24px 20px; margin-bottom: 16px; }
+@media (min-width: 600px) { .cq-card { padding: 32px 28px; } }
+.cq-qnum { font-family: 'Noto Serif KR', serif; font-size: 11px; color: var(--ink3); margin-bottom: 10px; font-weight: 600; }
+.cq-question { font-size: 14px; line-height: 1.9; color: var(--ink); margin-bottom: 20px; font-weight: 500; white-space: pre-line; }
+.cq-options { display: flex; flex-direction: column; gap: 8px; }
+.cq-opt {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 11px 14px; border: 1.5px solid var(--line2); border-radius: 5px;
+  cursor: pointer; font-size: 13px; line-height: 1.65;
+  transition: all .15s; background: var(--cream);
+  text-align: left; width: 100%;
+  font-family: 'Noto Sans KR', sans-serif; color: var(--ink);
+}
+.cq-opt:hover:not(:disabled) { border-color: var(--accent-b); background: #f0f6f2; }
+.cq-opt-num { font-weight: 700; color: var(--ink3); min-width: 22px; flex-shrink: 0; font-size: 12px; padding-top: 1px; }
+.cq-opt.correct { border-color: var(--accent-b) !important; background: #e8f4ec !important; }
+.cq-opt.correct .cq-opt-num { color: var(--accent-b); }
+.cq-opt.wrong { border-color: var(--red) !important; background: var(--red-bg) !important; }
+.cq-opt.wrong .cq-opt-num { color: var(--red); }
+.cq-opt:disabled { cursor: default; opacity: 1; }
+.cq-explanation { display: none; margin-top: 14px; background: var(--answer-bg); border-left: 3px solid var(--accent-b); padding: 10px 14px; font-size: 12px; line-height: 1.75; color: var(--ink2); border-radius: 0 4px 4px 0; white-space: pre-line; }
+.cq-explanation.show { display: block; }
+.cq-box { background: var(--answer-bg); border: 1px solid var(--line2); border-radius: 5px; padding: 12px 14px; font-size: 13px; line-height: 1.85; color: var(--ink2); margin-bottom: 16px; white-space: pre-line; }
+.cq-nav { display: flex; justify-content: space-between; gap: 10px; }
+.cq-btn { font-family: 'Noto Sans KR', sans-serif; font-size: 13px; font-weight: 600; padding: 10px 22px; border-radius: 6px; border: 1.5px solid var(--ink); background: var(--ink); color: #fff; cursor: pointer; transition: opacity .15s; }
+.cq-btn:hover { opacity: .8; }
+.cq-btn.outline { background: transparent; color: var(--ink); }
+.cq-btn:disabled { opacity: .3; cursor: default; }
+.cq-result { display: none; text-align: center; padding: 40px 20px 20px; }
+.cq-result.show { display: block; }
+.cq-result-emoji { font-size: 52px; margin-bottom: 16px; }
+.cq-result-title { font-family: 'Noto Serif KR', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.cq-result-score { font-size: 14px; color: var(--ink2); margin-bottom: 20px; }
+.cq-result-review { text-align: left; background: #fff; border: 1px solid var(--line2); border-radius: 6px; padding: 16px; font-size: 12px; line-height: 1.8; color: var(--ink2); }
+.cq-result-review .r-item { padding: 6px 0; border-bottom: 1px dashed var(--line2); }
+.cq-result-review .r-item:last-child { border-bottom: none; }
+.r-correct { color: var(--accent-b); font-weight: 600; }
+.r-wrong { color: var(--red); font-weight: 600; }
+</style>
+
+<script>
+const CQ_DATA = [
+  {
+    q: "1. 인지치료이론의 철학적 배경에 대한 설명으로 옳지 않은 것은?",
+    opts: [
+      "인지치료는 상담자와 내담자의 협동적 관계인 협동적 경험주의 철학을 강조한다.",
+      "인지치료는 정신분석 상담과 마찬가지로 개인의 무의식적 경험을 중시한다.",
+      "인지치료는 이성을 중시했을 뿐만 아니라 개인의 주관적 경험을 강조하는 스토아 학파의 영향을 받았다.",
+      "인지치료는 자가치료의 철학을 강조한다."
+    ],
+    answer: 1,
+    exp: "인지치료는 의식적 사고(자동적 사고, 핵심신념 등)를 다루며, 무의식을 중시하는 정신분석과는 다른 접근입니다."
+  },
+  {
+    q: "2. 내담자의 인지적 변화를 촉진하기 위하여 주로 질문을 통해 대화를 해 나가는 방식을 뜻하는 기법은?",
+    opts: ["재귀인하기", "활동계획표", "대처 카드", "소크라테스식 대화법"],
+    answer: 3,
+    exp: "소크라테스식 대화법은 상담자가 해답을 제시하지 않고 질문을 통해 내담자 스스로 대안적 사고를 발견하도록 돕는 기법입니다."
+  },
+  {
+    q: "3. 다음 상담 장면에서 내담자가 보이는 인지적 오류는?",
+    box: "내담자: 저는 아마 이번 시험도 실패할 거예요.\n노력이요? 노력해 볼 필요도 없어요.\n노력과는 상관없이 지금까지 그래 왔던 것처럼 전 이번에도 망할 거예요.",
+    opts: ["의미확대와 의미축소", "과잉일반화", "잘못된 명명", "흑백논리적 사고"],
+    answer: 1,
+    exp: "과잉일반화: 한두 번의 경험을 근거로 '항상', '언제나'와 같이 광범위한 결론을 내리는 것입니다. '지금까지 그래 왔으니 이번에도 망할 것'이 대표적입니다."
+  },
+  {
+    q: "4. 다음 설명에 해당하는 인지치료이론의 치료 기법은?",
+    box: "자동적 사고의 탐색을 위해 사용하는 기법이다.\n엘리스의 ABC 기법을 활용해 사건·감정·행동반응을 적고, 그 사이에 개입된 생각을 인식하게 하며, 자동적 사고의 타당성을 검토해 더 현실적인 사고와 감정 변화를 체험하도록 한다.",
+    opts: ["행동실험", "하향 화살표 기법", "인도된 발견", "역기능적 사고 기록하기"],
+    answer: 3,
+    exp: "역기능적 사고 기록하기(DTR): 상황-자동적 사고-감정-합리적 반응-결과를 표에 기록하며 자동적 사고를 탐색하고 수정하는 구조화된 기법입니다."
+  },
+  {
+    q: "5. 벡(A. Beck)이 제시한 인지적 오류의 내용과 명칭이 바르게 연결된 것은?",
+    box: "㉠ 내담자가 두 번째 회기에 오지 않을 경우, 상담자가 첫 회기에서 자기가 무엇인가 잘못했기 때문이라고 강하게 믿는 것\n㉡ 많은 사람 앞에서 강의한 후, 대다수의 긍정적인 반응보다 소수의 부정적인 반응에만 초점을 맞추어 강의가 실패했다고 단정하는 것\n㉢ 남자 친구가 바쁜 일로 연락을 하지 못하면 나를 멀리하여 그런 것이라고 결론을 내리고 이별을 준비하는 것\n㉣ 한두 번 실연당한 경험 후에 누구를 만나든 항상 실연을 당할 것이라고 생각하는 것\n\nⓐ 임의적 추론  ⓑ 과잉일반화  ⓒ 개인화  ⓓ 선택적 추론",
+    opts: [
+      "㉠-ⓐ, ㉡-ⓒ, ㉢-ⓓ, ㉣-ⓑ",
+      "㉠-ⓐ, ㉡-ⓓ, ㉢-ⓑ, ㉣-ⓒ",
+      "㉠-ⓒ, ㉡-ⓑ, ㉢-ⓐ, ㉣-ⓓ",
+      "㉠-ⓒ, ㉡-ⓓ, ㉢-ⓐ, ㉣-ⓑ"
+    ],
+    answer: 3,
+    exp: "㉠ 개인화(ⓒ): 외부 사건을 자신과 연결\n㉡ 선택적 추론(ⓓ): 부정적 정보에만 주의\n㉢ 임의적 추론(ⓐ): 근거 없이 부정적 결론\n㉣ 과잉일반화(ⓑ): 한두 경험으로 광범위한 결론"
+  },
+  {
+    q: "6. 인지치료의 상담기법과 적용의 연결로 옳은 것을 모두 고른 것은?",
+    box: "ㄱ. 특별한 의미 이해하기: 우울한 내담자가 사용하는 '우울한', '죽고 싶은' 등 모호한 단어의 의미를 질문한다.\nㄴ. 절대성에 도전하기: '친구들은 나보다 똑똑해요'와 같은 표현에 대해 질문하고 도전한다.\nㄷ. 장점과 단점 목록 만들기: 앞으로 다가올 사건에 대해 시연하도록 한다.\nㄹ. 재귀인하기: 일어날 가능성이 적은 경우, '가정(what-if) 기법'으로 두려움을 다룬다.",
+    opts: ["ㄱ, ㄴ", "ㄱ, ㄷ", "ㄴ, ㄷ", "ㄷ, ㄹ", "ㄱ, ㄴ, ㄹ"],
+    answer: 0,
+    exp: "ㄱ 특별한 의미 이해하기 ✅  ㄴ 절대성에 도전하기 ✅\nㄷ 장점·단점 목록은 시연이 아님 ✗\nㄹ 재귀인하기는 책임 귀인 재조정이며, what-if는 파국화 기법 ✗"
+  },
+  {
+    q: "7. 다음에서 설명하는 인지적 오류로 옳은 것은?",
+    box: "○ 상황이나 사건의 주된 내용은 무시하고 특정 정보에만 주의를 기울여 전체 맥락의 중요한 부분을 간과하는 것\n○ 작품발표회에서 다수가 긍정적인 반응을 보였음에도 불구하고 부정적 반응을 보인 소수에게 주의를 기울여 실패한 작품이라고 단정 짓는 경우",
+    opts: ["개인화", "선택적 추론", "부정적 예측", "과잉일반화"],
+    answer: 1,
+    exp: "선택적 추론(선택적 추상화): 전체 맥락을 무시하고 부정적인 특정 정보에만 선택적으로 주의를 기울이는 인지적 오류입니다."
+  },
+  {
+    q: "8. 다음 사고는 어떤 인지적 왜곡에 해당하는가?\n\n'명문 대학에 가지 못하면 난 실패한 것이다.'",
+    opts: ["당위적 사고", "선택적 추상화", "이분법적 사고", "과잉일반화"],
+    answer: 2,
+    exp: "이분법적 사고(흑백논리): 성공 아니면 실패, 명문대 아니면 실패자처럼 모든 것을 두 가지 극단 중 하나로만 보는 사고입니다."
+  },
+  {
+    q: "9. 다음이 설명하는 내용은 어떤 이론에 관한 것인가?",
+    box: "○ 협력적 경험주의 원칙에 기초한다.\n○ 소크라테스식 대화를 한다.\n○ 내담자에게 신념이 타당한지 스스로 검토해 볼 수 있도록 행동 실험을 요구한다.",
+    opts: ["인지치료", "합리적 정서행동치료", "행동치료", "현실치료", "경험치료"],
+    answer: 0,
+    exp: "협력적 경험주의, 소크라테스식 대화, 행동실험은 모두 벡(Beck)의 인지치료의 핵심 특징입니다."
+  },
+  {
+    q: "10. 다음 사례에서 내담자의 인지왜곡은?",
+    box: "내담자: 수업시간에 발표를 했는데 학생들이 큰 박수를 치고 선생님께서도 아주 잘했다고 칭찬을 하셨어요.\n그런데 어떤 한 명이 제 발표가 지루했다고 불평을 하는 거예요.\n그래서 저는 그 발표수업을 잘 못했다고 생각해요.",
+    opts: ["파국화", "마음읽기", "선택적 추론", "과잉일반화", "이분법적 사고"],
+    answer: 2,
+    exp: "선택적 추론: 다수의 긍정적 반응은 무시하고 소수의 부정적 반응에만 주의를 기울여 전체를 실패로 단정 짓는 오류입니다."
+  },
+  {
+    q: "11. 상담이론별 목표 진술로 옳은 것은?",
+    opts: [
+      "인지치료: 가끔 실수하더라도 나는 괜찮다.",
+      "행동주의 상담: 착한 학생이 되도록 노력한다.",
+      "인간중심 상담: 부모님의 칭찬을 받기 위해 성적을 올린다.",
+      "여성주의 상담: 나의 심리적 취약성이 성 학대 발생의 원인임을 인식한다.",
+      "현실치료: 결국은 부모님으로 인해 나의 문제가 발생했다는 것을 인식한다."
+    ],
+    answer: 0,
+    exp: "'가끔 실수하더라도 나는 괜찮다'는 역기능적 신념(완벽해야 한다)을 수정하는 인지치료의 목표입니다.\n②는 구체적 행동 목표 부재, ③은 외적 동기(인간중심 ✗), ④⑤는 각 이론과 불일치."
+  },
+  {
+    q: "12. 벡(A. Beck)의 인지왜곡에 관한 개념과 그 예로 옳은 것을 모두 고른 것은?",
+    box: "ㄱ. 개인화: A는 자신이 제안한 가족여행에서 사고가 나자 자기 때문이라고 생각했다.\nㄴ. 잘못된 명명: B는 사소한 실수를 하자 \"나는 바보야!\"라고 자신을 단정 지었다.\nㄷ. 임의적 추론: C는 남자친구 카톡 답장이 늦어지자, 자신을 더 이상 사랑하지 않는다고 결론 내리고 먼저 헤어지자고 하였다.\nㄹ. 선택적 추론: D는 면접시험에서 사소한 실수를 하였는데, 이 실수로 불합격할 것이고 더 이상 살아갈 가치가 없다고 결론 내렸다.",
+    opts: ["ㄱ, ㄴ", "ㄷ, ㄹ", "ㄱ, ㄴ, ㄷ", "ㄴ, ㄷ, ㄹ", "ㄱ, ㄴ, ㄷ, ㄹ"],
+    answer: 2,
+    exp: "ㄱ 개인화 ✅  ㄴ 잘못된 명명 ✅  ㄷ 임의적 추론 ✅\nㄹ은 선택적 추론이 아니라 파국화(catastrophizing)입니다. 사소한 실수 → 불합격 → 삶의 가치 없음으로 극단화되기 때문입니다."
+  },
+  {
+    q: "13. 인지치료에 관한 설명으로 옳지 않은 것은?",
+    opts: [
+      "자가치료(self-treatment)의 철학을 강조한다.",
+      "인지도식은 과거경험을 일반화한 인지적 구조로 자신과 세상 등에 대한 신념으로 구성된다.",
+      "핵심신념은 개인이 어떻게 생각하고 느끼고 행동하는지에 대한 기본이 된다.",
+      "중간신념은 핵심신념으로부터 나온 태도, 규칙, 기대, 가정 등으로 구성된다.",
+      "자동적 사고는 누구나 즉시 인식할 수 있다."
+    ],
+    answer: 4,
+    exp: "자동적 사고는 매우 빠르게 의식을 스쳐 지나가며, 훈련 없이는 인식하기 어렵습니다. 인지치료의 핵심 목표 중 하나가 바로 자동적 사고를 포착하고 인식하도록 돕는 것입니다."
+  },
+  {
+    q: "14. 인지왜곡의 유형과 예시의 연결이 옳은 것을 모두 고른 것은?",
+    box: "ㄱ. 파국화: 새로 전학 가는 학교의 아이들은 모두 나를 싫어할 거야.\nㄴ. 과잉일반화: 오늘 동아리 모임에서 불편했어. 아무래도 나는 친구를 사귀는 데 필요한 자질이 없나봐.\nㄷ. 임의적 추론: (시험 준비로 남자친구의 연락이 뜸하자) 이제 남자친구가 나랑 헤어지려고 연락을 안 하는구나.\nㄹ. 정신적 여과: (친구들이 웃으며 이야기하는 모습을 보고) 애들이 내 외모를 비웃는 걸 거야.",
+    opts: ["ㄱ, ㄴ", "ㄷ, ㄹ", "ㄱ, ㄴ, ㄷ", "ㄴ, ㄷ, ㄹ", "ㄱ, ㄴ, ㄷ, ㄹ"],
+    answer: 3,
+    exp: "ㄴ 과잉일반화 ✅  ㄷ 임의적 추론 ✅  ㄹ 정신적 여과(선택적 추론) ✅\nㄱ은 파국화가 아니라 임의적 추론 또는 과잉일반화에 가깝습니다. 파국화는 '최악의 결과'를 재앙으로 상상하는 것입니다."
+  },
+  {
+    q: "15. 자신과 무관한 사건을 자신과 관련된 것으로 잘못 해석하는 것을 의미하는 인지적 오류는?",
+    opts: ["흑백논리적 사고", "과잉일반화", "개인화", "정신적 여과"],
+    answer: 2,
+    exp: "개인화: 자신과 무관한 외부 사건을 자신과 연결 지어 해석하는 오류입니다. 예) 지나가는 사람의 웃음소리를 듣고 나를 비웃는다고 지각하는 것."
+  },
+  {
+    q: "16. 다음 지문의 우울에 이르는 사고 과정 중 빈 칸에 적절한 것은?",
+    box: "(경적 스트레스와 부정적 생활사건 + 역기능적 인지도식) → 인지적 오류 → (          ) → 우울",
+    opts: ["자동적 사고", "수동적 사고", "적극적 사고", "합리적 사고"],
+    answer: 0,
+    exp: "자동적 사고는 아무리 비합리적이라고 할지라도 믿어지며 당위성을 가진 말로 표현되고 상황을 극단적으로 보는 경향성을 내포한다.\n인지치료에 따르면 기분의 변화를 초래하는 것은 상황 자체가 아닌 개인의 부정적 사고이다."
+  }
+];
+
+let cqCurrent = 0;
+let cqAnswered = new Array(CQ_DATA.length).fill(null);
+
+function cqRender() {
+  const q = CQ_DATA[cqCurrent];
+  const total = CQ_DATA.length;
+  document.getElementById('cq-bar').style.width = (cqCurrent / total * 100) + '%';
+  document.getElementById('cq-counter').textContent = (cqCurrent + 1) + ' / ' + total;
+  document.getElementById('cq-qnum').textContent = 'Q' + (cqCurrent + 1);
+  document.getElementById('cq-question').textContent = q.q;
+
+  // 박스 영역 (box 필드 있을 때)
+  let boxEl = document.getElementById('cq-box');
+  if (!boxEl) {
+    boxEl = document.createElement('div');
+    boxEl.id = 'cq-box';
+    boxEl.className = 'cq-box';
+    document.getElementById('cq-question').after(boxEl);
+  }
+  if (q.box) {
+    boxEl.textContent = q.box;
+    boxEl.style.display = 'block';
+  } else {
+    boxEl.style.display = 'none';
+  }
+
+  const marks = ['①', '②', '③', '④', '⑤'];
+  const optWrap = document.getElementById('cq-options');
+  optWrap.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'cq-opt';
+    btn.innerHTML = '<span class="cq-opt-num">' + marks[i] + '</span><span>' + opt + '</span>';
+    const chosen = cqAnswered[cqCurrent];
+    if (chosen !== null) {
+      btn.disabled = true;
+      if (i === q.answer) btn.classList.add('correct');
+      else if (i === chosen) btn.classList.add('wrong');
+    } else {
+      btn.onclick = () => cqSelect(i);
+    }
+    optWrap.appendChild(btn);
+  });
+
+  const exp = document.getElementById('cq-explanation');
+  if (cqAnswered[cqCurrent] !== null) {
+    exp.textContent = '💡 ' + q.exp;
+    exp.classList.add('show');
+  } else {
+    exp.textContent = '';
+    exp.classList.remove('show');
+  }
+
+  document.getElementById('cq-prev').disabled = cqCurrent === 0;
+  const nextBtn = document.getElementById('cq-next');
+  if (cqCurrent === total - 1) {
+    nextBtn.textContent = '결과 보기 →';
+    nextBtn.onclick = cqShowResult;
+  } else {
+    nextBtn.textContent = '다음 →';
+    nextBtn.onclick = () => cqMove(1);
+  }
+}
+
+function cqSelect(i) {
+  cqAnswered[cqCurrent] = i;
+  cqRender();
+}
+
+function cqMove(dir) {
+  const next = cqCurrent + dir;
+  if (next < 0 || next >= CQ_DATA.length) return;
+  cqCurrent = next;
+  cqRender();
+}
+
+function cqShowResult() {
+  document.getElementById('cq-card').style.display = 'none';
+  document.querySelector('.cq-nav').style.display = 'none';
+  document.getElementById('cq-bar').style.width = '100%';
+
+  const correct = cqAnswered.filter((a, i) => a === CQ_DATA[i].answer).length;
+  const total = CQ_DATA.length;
+  const pct = Math.round(correct / total * 100);
+
+  let emoji = '😢', title = '아직 갈 길이 멀어!';
+  if (pct >= 90) { emoji = '🏆'; title = '완벽해! 벡 선생님도 인정!'; }
+  else if (pct >= 70) { emoji = '👍'; title = '잘했어! 조금만 더!'; }
+  else if (pct >= 50) { emoji = '🤔'; title = '절반은 왔어, 화이팅!'; }
+
+  document.getElementById('cq-result-emoji').textContent = emoji;
+  document.getElementById('cq-result-title').textContent = title;
+  document.getElementById('cq-result-score').textContent = total + '문제 중 ' + correct + '개 정답 (' + pct + '%)';
+
+  const marks = ['①', '②', '③', '④', '⑤'];
+  const review = document.getElementById('cq-result-review');
+  let html = '<div style="font-weight:700;margin-bottom:10px;font-size:13px;">📋 문제별 결과</div>';
+  CQ_DATA.forEach((q, i) => {
+    const chosen = cqAnswered[i];
+    const ok = chosen === q.answer;
+    html += '<div class="r-item"><span class="' + (ok ? 'r-correct' : 'r-wrong') + '">' + (ok ? '✅' : '❌') + ' Q' + (i+1) + '</span>';
+    html += '&nbsp;정답: ' + marks[q.answer];
+    if (!ok && chosen !== null) html += '&nbsp;내 선택: ' + marks[chosen];
+    else if (chosen === null) html += '&nbsp;<span style="color:var(--ink3)">미응답</span>';
+    html += '</div>';
+  });
+  review.innerHTML = html;
+  document.getElementById('cq-result').classList.add('show');
+}
+
+function cqRestart() {
+  cqCurrent = 0;
+  cqAnswered = new Array(CQ_DATA.length).fill(null);
+  document.getElementById('cq-card').style.display = 'block';
+  document.querySelector('.cq-nav').style.display = 'flex';
+  document.getElementById('cq-result').classList.remove('show');
+  cqRender();
+}
+
+// page-cognitive 진입 시 초기화
+const _origGoTo = goTo;
+goTo = function(name) {
+  _origGoTo(name);
+  if (name === 'cognitive') {
+    cqCurrent = 0;
+    cqAnswered = new Array(CQ_DATA.length).fill(null);
+    const card = document.getElementById('cq-card');
+    const nav = document.querySelector('.cq-nav');
+    const result = document.getElementById('cq-result');
+    if (card) card.style.display = 'block';
+    if (nav) nav.style.display = 'flex';
+    if (result) result.classList.remove('show');
+    cqRender();
+  }
+};
+</script>
