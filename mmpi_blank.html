@@ -396,6 +396,30 @@ body {
 .sec-btn-ex { border-color: var(--accent-b); color: var(--accent-b); }
 .sec-btn-ex:hover { background: var(--accent-b); color: #fff; }
 .sec-nav-div { color: var(--line); font-size: 12px; padding: 0 4px; }
+
+/* ── 플로팅 상단 복귀 버튼 ── */
+.float-top {
+  position: fixed;
+  bottom: 28px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent-a);
+  color: #fff;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+  transition: opacity .2s, background .15s;
+  z-index: 999;
+  line-height: 1;
+}
+.float-top:hover { background: var(--ink); }
+.float-top.visible { display: flex; }
 </style>
 </head>
 <body>
@@ -3302,6 +3326,8 @@ body {
       </div>
     </div>
   </div><!-- /panel-wais -->
+
+  <button class="float-top" id="float-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 </div><!-- /page-psych -->
 
 <!-- ══════════ 상담이론 페이지 ══════════ -->
@@ -6240,6 +6266,19 @@ switchTab = function(name, btn) {
 
 // 초기화
 q120Init();
+</script>
+
+<script>
+(function() {
+  var btn = document.getElementById('float-top-btn');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 300) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  });
+})();
 </script>
 </body>
 </html>
