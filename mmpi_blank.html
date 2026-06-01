@@ -366,7 +366,37 @@ body {
   .show-answers .answer-box { display: block !important; }
   @page { margin: 16mm; size: A4; }
 }
-  </style>
+  
+/* ── 섹션 네비 바 ── */
+.sec-nav {
+  background: var(--cream);
+  border-bottom: 1px solid var(--line2);
+  padding: 6px 24px;
+}
+.sec-nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.sec-btn {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 11px;
+  color: var(--ink3);
+  border: 1px solid var(--line2);
+  background: transparent;
+  padding: 3px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all .15s;
+}
+.sec-btn:hover { background: var(--accent-a); color: #fff; border-color: var(--accent-a); }
+.sec-btn-ex { border-color: var(--accent-b); color: var(--accent-b); }
+.sec-btn-ex:hover { background: var(--accent-b); color: #fff; }
+.sec-nav-div { color: var(--line); font-size: 12px; padding: 0 4px; }
+</style>
 </head>
 <body>
 
@@ -431,13 +461,18 @@ body {
       <button class="btn btn-outline" id="toggle-mmpi" onclick="toggleAnswers('mmpi')">✅ 정답 보기</button>
       <span class="mode-note" id="note-mmpi">문제 모드</span>
     </div>
+    <div class="sec-nav" id="sec-nav-mmpi">
+      <div class="sec-nav-inner">
+        <a class="sec-btn" href="#mmpi-sec-01">기본개념</a><a class="sec-btn" href="#mmpi-sec-02">T점수</a><a class="sec-btn" href="#mmpi-sec-03">개발방식</a><a class="sec-btn" href="#mmpi-sec-04">타당도</a><a class="sec-btn" href="#mmpi-sec-05">K교정</a><a class="sec-btn" href="#mmpi-sec-06">임상척도</a><a class="sec-btn" href="#mmpi-sec-07">코드타입</a><a class="sec-btn" href="#mmpi-sec-08">RC척도</a><a class="sec-btn" href="#mmpi-sec-09">내용척도</a><a class="sec-btn" href="#mmpi-sec-11">실시해석</a><a class="sec-btn" href="#mmpi-sec-12">통계개념</a><a class="sec-btn" href="#mmpi-sec-13">장단점</a><a class="sec-btn" href="#mmpi-sec-14">PSY-5</a><a class="sec-btn" href="#mmpi-sec-15">종합해석</a><a class="sec-btn" href="#mmpi-sec-17">서술형</a><span class="sec-nav-div">|</span><a class="sec-btn sec-btn-ex" href="#mmpi-sec-18">청상기출</a>
+      </div>
+    </div>
 
     <div class="doc" id="doc-mmpi">
       <div class="doc-header">
         <div class="doc-subject">심리검사 및 진단 · 기말 예상문제</div>
         <div class="doc-title">MMPI-2 — 개념·척도·코드타입 통합 예상문제</div>
         <div class="doc-meta">
-          <span>총 200문항</span>
+          
           <span>수업 강의록 기반</span>
           <span>광운대 상담복지정책대학원</span>
         </div>
@@ -447,7 +482,7 @@ body {
       <!-- ────────────────────────────────
            섹션 01 — 심리검사 기본개념 (NEW)
       ──────────────────────────────── -->
-      <div class="section">
+      <div class="section" id="mmpi-sec-01">
         <div class="section-title"><span class="section-num">01</span> 심리검사 기본개념</div>
 
         <div class="q-item"><div class="q-row"><div class="q-num">1.</div><div class="q-body">
@@ -514,7 +549,7 @@ body {
       <!-- ────────────────────────────────
            섹션 02 — T점수·표준화·규준 (기존+보완)
       ──────────────────────────────── -->
-      <div class="section">
+      <div class="section" id="mmpi-sec-02">
         <div class="section-title"><span class="section-num">02</span> T점수 · 표준화 · 규준</div>
 
         <div class="q-item"><div class="q-row"><div class="q-num">7.</div><div class="q-body">
@@ -646,7 +681,7 @@ body {
       <!-- ────────────────────────────────
            섹션 03 — MMPI 개발방식 (기존+보완)
       ──────────────────────────────── -->
-      <div class="section">
+      <div class="section" id="mmpi-sec-03">
         <div class="section-title"><span class="section-num">03</span> MMPI-2 개발방식 — 경험적 준거방식</div>
 
         <div class="q-item"><div class="q-row"><div class="q-num">20.</div><div class="q-body">
@@ -714,38 +749,11 @@ body {
           <div class="answer-box">Hathaway / 1939 / 1943 · Minnesota Multiphasic Personality Inventory</div>
         </div></div></div>
         <div class="q-item"><div class="q-row"><div class="q-num">27.</div><div class="q-body">
-          <div class="q-type q-type-multi">선택형</div>
-          <div class="q-text">MMPI 원판의 규준집단 중 임상집단은 몇 명이었나?</div>
-          <div class="options">
-            <div class="option correct"><span class="option-mark">①</span> 221명</div>
-            <div class="option"><span class="option-mark">②</span> 504명</div>
-            <div class="option"><span class="option-mark">③</span> 724명</div>
-            <div class="option"><span class="option-mark">④</span> 2600명</div>
-          </div>
-          <div class="answer-box">정답 ① · 8개 정신과적 범주, 각 집단 약 50명</div>
-        </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">28.</div><div class="q-body">
-          <div class="q-type q-type-blank">빈칸</div>
-          <div class="q-text">MMPI-2는 <span class="blank blank-sm">1989</span>년에 출판되었으며, <span class="blank blank-xs">7</span>개 검사 지역에서 총 <span class="blank blank-sm">2600</span>명의 자료가 사용되었다.</div>
-          <div class="answer-box">1989 / 7 / 2600 · 재표준화 위원회 1982년 구성</div>
-        </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">29.</div><div class="q-body">
-          <div class="q-type q-type-multi">선택형</div>
-          <div class="q-text">한국판 MMPI-2/MMPI-A가 발표된 연도는?</div>
-          <div class="options">
-            <div class="option correct"><span class="option-mark">①</span> 2005년</div>
-            <div class="option"><span class="option-mark">②</span> 1989년</div>
-            <div class="option"><span class="option-mark">③</span> 1963년</div>
-            <div class="option"><span class="option-mark">④</span> 1999년</div>
-          </div>
-          <div class="answer-box">정답 ① · 2000년 인구·주택 총조사 기준</div>
-        </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">30.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">MMPI 원판 개발 방법은 <span class="blank">경험적 준거방식</span>(empirical criterion keying)으로, 임상집단과 비교집단을 <span class="blank blank-xs">변별</span>하는 데 유용한 문항들을 선정하였다.</div>
           <div class="answer-box">경험적 준거방식 / 변별 · 이론적 이해보다 경험적 유용성 중심</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">31.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">28.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">MMPI-A 출판 연도와 문항 수는?</div>
           <div class="options">
@@ -756,12 +764,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 13~18세 청소년용, 전반부 350문항</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">32.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">29.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">MMPI 원판 개정의 필요성으로는 새로운 <span class="blank blank-xs">규준</span> 필요, 구식·성차별적 문항 문제, <span class="blank">중요 성격특성</span>(예: 자살·약물) 관련 문항 부재 등이 있었다.</div>
           <div class="answer-box">규준 / 중요 성격특성 · 원판 1943년 이래 한 차례도 개정 없었음</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">33.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">30.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">MMPI 원판 규준집단의 주요 문제는?</div>
           <div class="options">
@@ -778,28 +786,28 @@ body {
       <!-- ────────────────────────────────
            섹션 04 — 타당도척도 (NEW)
       ──────────────────────────────── -->
-      <div class="section">
+      <div class="section" id="mmpi-sec-04">
         <div class="section-title"><span class="section-num">04</span> 타당도 척도</div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">34.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">31.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">L척도는 <span class="blank blank-sm">순진</span>한 방어를 반영한다. K척도는 <span class="blank blank-sm">세련</span>된 방어를 반영할 수 있다. F척도 상승 시 먼저 <span class="blank blank-sm">VRIN</span>과 <span class="blank blank-sm">TRIN</span>을 확인해야 한다.</div>
           <div class="answer-box">순진 / 세련 / VRIN / TRIN</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">35.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">32.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">VRIN은 문항쌍 간 <span class="blank blank-sm">일관</span>성을 측정한다. TRIN은 예/아니오 <span class="blank blank-sm">고정</span> 반응을 측정한다. Fp척도는 증상 <span class="blank blank-sm">과장</span> 가능성을 탐지한다. VRIN/TRIN이 <span class="blank blank-xs">80</span>T 이상이면 프로파일 해석이 어려울 수 있다. Fp가 <span class="blank blank-xs">100</span>T 이상이면 타당하지 않을 가능성이 있다.</div>
           <div class="answer-box">일관 / 고정 / 과장 / 80T / 100T</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">36.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">33.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">무응답 척도(<span class="blank blank-xs">?</span>)는 <span class="blank blank-sm">응답</span>하지 않은 문항 수를 의미한다. 무응답이 많으면 전체 점수가 전반적으로 <span class="blank blank-sm">낮아질</span> 수 있다. 무응답이 <span class="blank blank-xs">30</span>개 이상일 때 해석하지 않는다.</div>
           <div class="answer-box">? (물음표) / 응답 / 낮아질 / 30</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">37.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">34.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸 · 표</div>
           <div class="q-text">무응답(?) 척도의 점수별 의미를 완성하시오.</div>
           <div class="q-table"><table>
@@ -842,19 +850,19 @@ body {
         </div></div></div>
 
 
-        <div class="q-item"><div class="q-row"><div class="q-num">38.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">35.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">수검자가 MMPI-2 문항에 응답하지 않는 이유는 다양하다. 심각한 ① <span class="blank blank-lg">정신증적 문제</span>를 겪고 있는 사람은 문항 응답 과정 자체를 힘들어할 수 있고, ② <span class="blank blank-lg">독해 능력</span>이 충분하지 못한 사람은 다소 복잡한 문항의 내용을 이해하는 데 어려움이 있을 수 있으며, 어떤 사람들은 자신의 특정 문제가 지나치게 노출되는 것에 대한 ③ <span class="blank blank-lg">방어적인 태도</span>로 인해 해당 문항의 응답을 기피할 수 있다.</div>
           <div class="answer-box">① 정신증적 문제 ② 독해 능력 ③ 방어적인 태도</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">39.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">36.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">L, K, S 척도는 방어성을 탐지하는 척도들로, 수검자가 자신의 모습을 과도하게 ① <span class="blank blank-lg">긍정적인 방향</span>으로 제시하고자 자신의 문제를 ② <span class="blank blank-lg">과소보고</span>하였을 때 상승된다.</div>
           <div class="answer-box">① 긍정적인 방향 ② 과소보고</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">40.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">37.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">F척도 상승 원인을 쓰시오.</div>
           <div class="blank-group">
@@ -865,7 +873,7 @@ body {
           <div class="answer-box">① 정신병리 심함 ② Faking bad ③ 불성실 응답</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">41.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">38.</div><div class="q-body">
           <div class="q-type q-type-match">연결하기</div>
           <div class="match-wrap">
             <div class="match-col">
@@ -892,7 +900,7 @@ body {
           <div class="answer-box">L→ㄹ / F→ㅇ / K→ㄷ / VRIN→ㅂ / TRIN→ㅅ / Fp→ㅁ / Fb→ㄴ / ?→ㄱ</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">42.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">39.</div><div class="q-body">
           <div class="q-type q-type-multi">모두 고르기</div>
           <div class="q-text">F척도 상승 원인으로 옳은 것을 모두 고르시오.</div>
           <div class="options">
@@ -905,7 +913,7 @@ body {
           <div class="answer-box">① ② ③ ⑤</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">43.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">40.</div><div class="q-body">
           <div class="q-type q-type-multi">모두 고르기</div>
           <div class="q-text">K척도 설명으로 옳은 것을 모두 고르시오.</div>
           <div class="options">
@@ -918,25 +926,24 @@ body {
           <div class="answer-box">① ② ④ ⑤</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">44.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">41.</div><div class="q-body">
           <div class="q-type q-type-short">단답형</div>
           <div class="q-text">F척도 상승 시 VRIN/TRIN을 먼저 보는 이유는?</div>
           <div class="answer-line"><div class="lines"><span></span></div></div>
           <div class="answer-box">무선반응이나 고정반응으로 인해 F가 인위적으로 상승했는지 확인하기 위해서이다.</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">45.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">42.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">임상 장면에서 F(B) 척도 T점수가 ① <span class="blank blank-sm">110</span>점 이상이면서 F척도의 T점수보다 최소 ② <span class="blank blank-sm">30</span>점 이상 높게 나타났을 때 태도 변화가 발생했다고 볼 수 있다. 비임상 장면에서는 F(B) 척도의 T점수가 ③ <span class="blank blank-sm">90</span>점 이상이면서 F척도의 T점수보다 최소 ④ <span class="blank blank-sm">30</span>점 이상 높을 때 유의한 태도 변화로 간주된다.</div>
           <div class="answer-box">① 110점 ② 30점 ③ 90점 ④ 30점</div>
         </div></div></div>
-      </div>
-        <div class="q-item"><div class="q-row"><div class="q-num">46.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">43.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">VRIN은 <span class="blank blank-sm">무선반응</span> 비일관성, TRIN은 <span class="blank blank-sm">고정반응</span> 비일관성을 측정한다.</div>
           <div class="answer-box">무선반응 / 고정반응 · VRIN=Variable Response Inconsistency / TRIN=True Response Inconsistency</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">47.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">44.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">F 척도는 검사 <span class="blank">　　　</span>부의 비전형 반응을 탐지한다.</div>
           <div class="options">
@@ -947,12 +954,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · F는 1~370번 문항에 분포, 후반부는 F(B) 척도</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">48.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">45.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">F(B) 척도는 <span class="blank blank-sm">281</span>번 문항 이후에 분포하며, <span class="blank blank-xs">40</span>개 문항으로 구성된다.</div>
           <div class="answer-box">281 / 40 · 281번 이후 40개 문항</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">49.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">46.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">F(P)는 규준집단과 <span class="blank">　　　</span> 모두에서 비전형적인 반응으로 구성된다.</div>
           <div class="options">
@@ -963,12 +970,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · F(P)는 정신병리에 덜 민감 → Faking bad 탐지에 유리</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">50.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">47.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">FBS는 원래 <span class="blank">Fake Bad</span> Scale로 불렸으며, <span class="blank blank-sm">개인 상해</span> 소송 장면에서 증상 과장을 탐지한다.</div>
           <div class="answer-box">Fake Bad / 개인 상해 · 43개 문항, 신체·인지 증상 과장 탐지</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">51.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">48.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">L 척도는 <span class="blank">　　　</span>하고 세련되지 못한 방어 태도를 탐지한다.</div>
           <div class="options">
@@ -979,12 +986,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 사소한 결점조차 부인, 교육수준 높을수록 낮은 경향</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">52.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">49.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">K 척도는 정상인의 경우 <span class="blank blank-sm">자아강도</span> 또는 심리적 자원을 의미하며, 높은 점수는 <span class="blank blank-sm">방어적</span> 성향을 시사한다.</div>
           <div class="answer-box">자아강도 / 방어적 · L보다 세련된 방어, 30개 문항으로 구성</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">53.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">50.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">S 척도는 어떤 집단 지원자들의 자료를 정상군과 비교하여 개발되었나?</div>
           <div class="options">
@@ -995,7 +1002,7 @@ body {
           </div>
           <div class="answer-box">정답 ① · Superlative Self-Presenting, K와 상관 매우 높음</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">54.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">51.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">타당도 프로파일에서 L↑·K↑·F↓ 'V자' 형태는 어떤 태도를 시사하는가?</div>
           <div class="options">
@@ -1006,12 +1013,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 경사가 심할수록 자신을 좋게 보이려는 경향</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">55.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">52.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">뒤집힌 V형(F↑·L↓·K↓)은 <span class="blank">Faking bad</span> 가능성과 함께, 자신의 어려움을 인정하고 <span class="blank blank-xs">협조</span>적 태도를 시사한다.</div>
           <div class="answer-box">Faking bad / 협조 · F 65T 이상, L·K 50T 이하</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">56.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">53.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">무응답 원점수 30개 이상일 때의 해석은?</div>
           <div class="options">
@@ -1022,12 +1029,7 @@ body {
           </div>
           <div class="answer-box">정답 ① · 11~29개는 무효일 수 있음, 10개 이하는 유효</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">57.</div><div class="q-body">
-          <div class="q-type q-type-blank">빈칸</div>
-          <div class="q-text">'그렇다'와 '아니다'에 모두 답한 문항은 <span class="blank blank-sm">무응답</span>으로 처리되며, 10개 이하면 <span class="blank blank-xs">유효</span>할 것으로 본다.</div>
-          <div class="answer-box">무응답 / 유효 · 무응답 척도(Cannot Say, ?) 기준</div>
-        </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">58.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">54.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">VRIN T점수 80 이상에서 제일 먼저 의심해야 할 것은?</div>
           <div class="options">
@@ -1038,7 +1040,7 @@ body {
           </div>
           <div class="answer-box">정답 ① · 비협조·동기결여·독해력 부족·심한 내적 혼란</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">59.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">55.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">K 척도가 40 미만일 때 시사하는 것은?</div>
           <div class="options">
@@ -1049,12 +1051,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · K 40~64 유효, 40 미만 부정 왜곡 가능</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">60.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">56.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">F 척도는 정상집단에서 응답률이 <span class="blank blank-xs">10</span>% 미만인 <span class="blank blank-xs">60</span>개 문항으로 구성된다.</div>
           <div class="answer-box">10 / 60 · 비전형적 반응·비정형적 사고 탐지</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">61.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">57.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">K로 상승하는 타당도 형태(L↓→F→K↑)의 특징은?</div>
           <div class="options">
@@ -1065,7 +1067,7 @@ body {
           </div>
           <div class="answer-box">정답 ① · L≈40, F≈50~55, K≈65~75</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">62.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">58.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">뒤집힌 V & 높은 K(K↑·F≥K·L↓) 형태의 특징은?</div>
           <div class="options">
@@ -1076,12 +1078,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 정서적 고통감 없이 만성 적응</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">63.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">59.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">F(B) T점수가 F에 비해 <span class="blank blank-xs">30</span> 이상 높을 때 검사 과정에서 수검 태도의 변화가 있었다고 판단한다.</div>
           <div class="answer-box">30 · 후반부 응답 태도 변화 탐지 기준</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">64.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">60.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">모두 '예' 반응 프로파일의 특징으로 옳은 것은?</div>
           <div class="options">
@@ -1093,45 +1095,154 @@ body {
           <div class="answer-box">정답 ① · 임상 척도 6·(7)·8·9번도 90T 이상으로 상승</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">65.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">61.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸 ★암기</div>
           <div class="q-text">MMPI-2 타당도 척도를 순서대로 쓰시오. (? → VRIN → TRIN → F → <span class="blank blank-xs">Fb</span> → <span class="blank blank-xs">Fp</span> → <span class="blank blank-xs">FBS</span> → <span class="blank blank-xs">L</span> → <span class="blank blank-xs">K</span> → <span class="blank blank-xs">S</span>)</div>
           <div class="answer-box">? / VRIN / TRIN / F / Fb / Fp / FBS / L / K / S<br>교수님 직접 강조: "타당도 척도는 이 순서대로 다 외워야 합니다."</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">66.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">62.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸 ★암기</div>
           <div class="q-text">L척도 점수 해석 기준: <span class="blank blank-xs">65</span>T 이상이면 타당성이 <span class="blank blank-sm">의심</span>스럽고, <span class="blank blank-xs">80</span>T 이상이면 <span class="blank blank-lg">해석이 어렵거나 타당성이 크게 저하</span>된다.</div>
           <div class="answer-box">65T 이상 → 타당성 의심 / 80T 이상 → 해석 어려움·타당성 크게 저하<br>교수님 직접 언급: "65점과 80점을 커트라인으로 기억하라."</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">67.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">63.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸 ★암기</div>
           <div class="q-text">Fp척도 점수별 해석: Fp가 <span class="blank blank-xs">100</span>T 이상이면 과대 보고가 시사되어 프로파일 해석이 <span class="blank blank-sm">불가능</span>하다. Fp가 <span class="blank blank-sm">70~99</span>T이면 도움을 청하는 의도로 <span class="blank blank-sm">과장</span>된 것일 수 있다. Fp가 <span class="blank blank-xs">70</span>T 미만이면 <span class="blank blank-lg">실제 심각한 정신병리</span>를 반영한 것으로 볼 수 있다.</div>
           <div class="answer-box">100T 이상 → 과대 보고, 프로파일 해석 불가<br>70~99T → 도움 요청 의도로 과장 가능성<br>70T 미만 → 실제 심각한 정신병리 (타당성 의심 불필요)</div>
         </div></div></div>
 
-      <hr class="divider">
+        <div class="q-item"><div class="q-row"><div class="q-num">64.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸 · 표</div>
+          <div class="q-text">F(비전형) 척도의 장면별 절단점을 완성하시오.</div>
+          <div class="q-table"><table>
+            <thead><tr><th>장면</th><th>T점수</th><th>프로파일 타당성</th></tr></thead>
+            <tbody>
+              <tr><td>입원</td><td><span class="blank blank-xs">≥100</span></td><td>타당하지 않을 수 있음</td></tr>
+              <tr><td>입원</td><td>80~99</td><td><span class="blank blank-lg">과장된 것일 수 있음, 그러나 타당할 것임</span></td></tr>
+              <tr><td>외래</td><td><span class="blank blank-xs">≥90</span></td><td>타당하지 않을 수 있음</td></tr>
+              <tr><td>외래</td><td>70~89</td><td><span class="blank blank-lg">과장된 것일 수 있음, 그러나 타당할 것임</span></td></tr>
+              <tr><td>비임상</td><td><span class="blank blank-xs">≥80</span></td><td>타당하지 않을 수 있음</td></tr>
+            </tbody>
+          </table></div>
+          <div class="answer-box">입원 ≥100T / 외래 ≥90T / 비임상 ≥80T</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">65.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸 · 표</div>
+          <div class="q-text">K(교정) 척도의 장면별 절단점을 완성하시오.</div>
+          <div class="q-table"><table>
+            <thead><tr><th>장면</th><th>T점수</th><th>프로파일 타당성</th><th>점수 상승 이유</th></tr></thead>
+            <tbody>
+              <tr><td>임상</td><td><span class="blank blank-xs">≥65</span></td><td>타당하지 않을 수 있음</td><td><span class="blank blank-sm">과소보고 / '아니다' 경향성</span></td></tr>
+              <tr><td>임상</td><td>40~64</td><td>타당함</td><td></td></tr>
+              <tr><td>임상</td><td><span class="blank blank-xs">&lt;40</span></td><td>타당하지 않을 수 있음</td><td><span class="blank blank-sm">과대보고 / '그렇다' 경향성</span></td></tr>
+              <tr><td>비임상</td><td><span class="blank blank-xs">≥75</span></td><td>타당하지 않을 수 있음</td><td><span class="blank blank-sm">과소보고 / '아니다' 경향성</span></td></tr>
+              <tr><td>비임상</td><td>40~64</td><td>타당함</td><td></td></tr>
+              <tr><td>비임상</td><td><span class="blank blank-xs">&lt;40</span></td><td>타당하지 않을 수 있음</td><td><span class="blank blank-sm">과대보고 / '그렇다' 경향성</span></td></tr>
+            </tbody>
+          </table></div>
+          <div class="answer-box">임상 ≥65T / 비임상 ≥75T / 양쪽 &lt;40T 과대보고</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">66.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸 · 표</div>
+          <div class="q-text">TRIN 척도의 점수별 의미를 완성하시오.</div>
+          <div class="q-table"><table>
+            <thead><tr><th>T점수</th><th>프로파일 타당성</th><th>점수 상승 이유</th></tr></thead>
+            <tbody>
+              <tr><td><span class="blank blank-xs">≥80</span></td><td>타당하지 않을 수 있음</td><td><span class="blank blank-sm">고정반응 (그렇다/아니다)</span></td></tr>
+              <tr><td><span class="blank blank-sm">65~79</span></td><td>유의 — 해석 주의</td><td><span class="blank blank-sm">부분적 고정반응 가능성</span></td></tr>
+              <tr><td>40~64</td><td><span class="blank blank-sm">타당함</span></td><td></td></tr>
+            </tbody>
+          </table></div>
+          <div class="answer-box">≥80T 타당하지 않음 / 65~79T 유의 / 40~64T 타당</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">67.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">무응답(?) 문항이 <span class="blank blank-xs">30</span>개 이상이면 프로파일 타당성에 영향을 줄 수 있다.</div>
+          <div class="answer-box">30개 이상</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">68.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">VRIN 척도 T점수가 <span class="blank blank-xs">80</span>T 이상이면 무선반응 가능성으로 프로파일 해석이 어렵다.</div>
+          <div class="answer-box">80T 이상</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">69.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">TRIN 척도 T점수가 <span class="blank blank-xs">80</span>T 이상이면 고정반응 가능성이 있다. <span class="blank blank-sm">65T~79T</span> 구간도 유의해야 한다.</div>
+          <div class="answer-box">80T 이상 / 65T~79T 유의</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">70.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">F척도: 입원 <span class="blank blank-xs">100</span>T / 외래 <span class="blank blank-xs">90</span>T / 비임상 <span class="blank blank-xs">80</span>T 이상이면 타당하지 않을 수 있다.</div>
+          <div class="answer-box">입원 100T / 외래 90T / 비임상 80T</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">71.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">F(B) 척도 T점수 <span class="blank blank-xs">110</span>T 이상이면 타당하지 않을 수 있으며, 검사 <span class="blank blank-sm">후반부</span> 태도 변화를 확인하는 척도이다.</div>
+          <div class="answer-box">110T 이상 / 후반부</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">72.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">F(P) 척도 <span class="blank blank-xs">100</span>T 이상이면 정신병리를 의도적으로 과장 보고할 수 있다.</div>
+          <div class="answer-box">100T 이상</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">73.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">L척도: 임상·비임상 모두 <span class="blank blank-xs">80</span>T 이상이면 타당하지 않을 것이다. <span class="blank blank-sm">과소보고</span> 및 '아니다' 응답 경향성을 반영한다.</div>
+          <div class="answer-box">80T / 과소보고</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">74.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">K척도: 임상 <span class="blank blank-xs">65</span>T / 비임상 <span class="blank blank-xs">75</span>T 이상이면 과소보고 가능성. K &lt; <span class="blank blank-xs">40</span>T이면 과대보고 가능성.</div>
+          <div class="answer-box">임상 65T / 비임상 75T / &lt;40T 과대보고</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">75.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">S척도: 임상 <span class="blank blank-xs">70</span>T / 비임상 <span class="blank blank-xs">75</span>T 이상이면 타당하지 않을 수 있다. <span class="blank blank-lg">과장된 자기제시</span> 경향성을 측정한다.</div>
+          <div class="answer-box">임상 70T / 비임상 75T / 과장된 자기제시</div>
+        </div></div></div>
+
+        <div class="q-item"><div class="q-row"><div class="q-num">76.</div><div class="q-body">
+          <div class="q-type q-type-blank">빈칸</div>
+          <div class="q-text">FBS 척도 <span class="blank blank-xs">100</span>T 이상이면 타당하지 않을 수 있고, <span class="blank blank-sm">70~99</span>T 구간은 과장된 것일 수 있으나 타당할 수도 있다.</div>
+          <div class="answer-box">100T 이상 / 70~99T 주의</div>
+        </div></div></div>
+
+      </div>
+
+<hr class="divider">
 
       <!-- ────────────────────────────────
            섹션 05 — K교정 척도 (기존+보완)
       ──────────────────────────────── -->
-      <div class="section">
+      <div class="section" id="mmpi-sec-05">
         <div class="section-title"><span class="section-num">05</span> K 교정 척도</div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">68.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">77.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">K 교정 척도는 심리적 문제가 있음에도 임상척도가 <b><span class="blank">정상 범위</span></b>인 환자 집단과 정상인을 <b><span class="blank">경험적</span></b> 방식으로 비교하여 개발. K 높으면 <b><span class="blank">방어적 성향</span></b> 시사.</div>
           <div class="answer-box">정상 범위 / 경험적 / 방어적 성향</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">69.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">78.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">K점수가 높아도 <b><span class="blank blank-sm">자존감</span></b>, <b><span class="blank blank-lg">정서적 안정성</span></b>, <b><span class="blank blank-lg">자원과 자신감</span></b>을 반영하기도 하므로 무조건 방어적으로 해석하면 안 된다.</div>
           <div class="answer-box">자존감 / 정서적 안정성 / 자원과 자신감</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">70.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">79.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">K 교정이 적용되는 임상 척도 5가지를 쓰시오.</div>
           <div class="q-table"><table>
@@ -1147,7 +1258,7 @@ body {
           <div class="answer-box">1(Hs)+0.5K / 4(Pd)+0.4K / 7(Pt)+1.0K / 8(Sc)+1.0K / 9(Ma)+0.2K</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">71.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">80.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">K 원점수=16일 때 계산하시오.<br>
           1번: 15 + (0.5×16) = 15 + <span class="blank blank-xs">8</span> = <span class="blank blank-xs">23</span><br>
@@ -1155,7 +1266,7 @@ body {
           <div class="answer-box">1번: 23 / 4번: 30</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">72.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">81.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">K 교정 미적용 척도 유형 세 가지를 쓰시오.</div>
           <div class="blank-group">
@@ -1166,30 +1277,19 @@ body {
           <div class="answer-box">① 내용 척도 ② 보충 척도 ③ MMPI-A 전체</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">73.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">82.</div><div class="q-body">
           <div class="q-type q-type-short">단답형</div>
           <div class="q-text">K 교정으로 인한 점수 변화가 가장 큰 척도는?</div>
           <div class="answer-line"><div class="lines"><span></span></div></div>
           <div class="answer-box">7번(Pt) — 1.0K 전량 적용</div>
         </div></div></div>
       </div>
-        <div class="q-item"><div class="q-row"><div class="q-num">74.</div><div class="q-body">
-          <div class="q-type q-type-multi">선택형</div>
-          <div class="q-text">K 교정이 적용되지 않는 임상 척도는?</div>
-          <div class="options">
-            <div class="option correct"><span class="option-mark">①</span> 2번(D)</div>
-            <div class="option"><span class="option-mark">②</span> 1번(Hs)</div>
-            <div class="option"><span class="option-mark">③</span> 7번(Pt)</div>
-            <div class="option"><span class="option-mark">④</span> 9번(Ma)</div>
-          </div>
-          <div class="answer-box">정답 ① · K교정 적용 척도: 1·4·7·8·9번</div>
-        </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">75.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">83.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">K 교정이 적용되는 5개 임상 척도는 <span class="blank blank-xs">1</span>, <span class="blank blank-xs">4</span>, <span class="blank blank-xs">7</span>, <span class="blank blank-xs">8</span>, <span class="blank blank-xs">9</span>번이다.</div>
           <div class="answer-box">1 / 4 / 7 / 8 / 9 · Hs·Pd·Pt·Sc·Ma</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">76.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">84.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">K 척도 개발의 목적으로 가장 적절한 것은?</div>
           <div class="options">
@@ -1200,7 +1300,7 @@ body {
           </div>
           <div class="answer-box">정답 ① · 경험적 방식으로 제작</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">77.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">85.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">K 교정은 심리적 문제가 있으면서 임상척도에서 <span class="blank blank-sm">정상범위의</span> 반응을 보인 사람들과 정상인을 비교하는 <span class="blank blank-sm">경험적</span> 방식으로 제작되었다.</div>
           <div class="answer-box">정상범위의 / 경험적 · K교정 가중치 산출 후 원점수에 합산</div>
@@ -1211,16 +1311,16 @@ body {
       <!-- ────────────────────────────────
            섹션 06 — 임상척도 (NEW)
       ──────────────────────────────── -->
-      <div class="section">
+      <div class="section" id="mmpi-sec-06">
         <div class="section-title"><span class="section-num">06</span> 임상척도</div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">78.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">86.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">5번 척도는 남성성-<span class="blank blank-sm">여성</span>성 척도이다. 0번 척도는 사회적 <span class="blank blank-sm">내향</span>성 척도이다. K교정은 특정 임상척도 원점수에 K점수의 일정 <span class="blank blank-sm">비율</span>을 더하는 방식이다.</div>
           <div class="answer-box">여성 / 내향 / 비율(가중치)</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">79.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">87.</div><div class="q-body">
           <div class="q-type q-type-multi">모두 고르기</div>
           <div class="q-text">5번 척도 해석으로 옳은 것을 모두 고르시오.</div>
           <div class="options">
@@ -1233,7 +1333,7 @@ body {
           <div class="answer-box">① ② ③ ④</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">80.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">88.</div><div class="q-body">
           <div class="q-type q-type-multi">모두 고르기</div>
           <div class="q-text">0번 척도의 특징으로 옳은 것을 모두 고르시오.</div>
           <div class="options">
@@ -1246,7 +1346,7 @@ body {
           <div class="answer-box">① ② ③ ⑤</div>
         </div></div></div>
       </div>
-        <div class="q-item"><div class="q-row"><div class="q-num">81.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">89.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">3번(Hy) 척도는 심리적 갈등을 어떤 방식으로 표현하는 경향과 관련 있나?</div>
           <div class="options">
@@ -1257,12 +1357,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 전환장애 코드타입 1-3</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">82.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">90.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">9번(Ma) 척도는 나이가 들면서 점수가 <span class="blank blank-xs">감소</span>하며, 청소년의 경우 성인보다 점수가 <span class="blank blank-xs">높</span>다.</div>
           <div class="answer-box">감소 / 높 · 4·8·9·F: 청소년 > 성인</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">83.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">91.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">교육수준이 높을수록 점수가 증가하는 경향이 있는 타당도 척도는?</div>
           <div class="options">
@@ -1273,12 +1373,12 @@ body {
           </div>
           <div class="answer-box">정답 ① (경향) · F·0번은 교육수준 높을수록 감소하는 경향 / 절대적 기준이 아님</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">84.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">92.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">임상 척도 중 문항 수가 가장 많은 척도는 <span class="blank blank-xs">8</span>번이며 <span class="blank blank-xs">78</span>문항이지만, 고유 문항은 <span class="blank blank-xs">16</span>문항에 불과하다.</div>
           <div class="answer-box">8 / 78 / 16 · 문항 중복 문제, 척도 간 높은 상관의 원인</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">85.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">93.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">6번(Pa) 척도가 높을 때 나타나는 특징이 아닌 것은?</div>
           <div class="options">
@@ -1289,12 +1389,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · Pa = Paranoia, 편집성 → 타인 불신이 핵심</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">86.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">94.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">여성에게서 더 높이 상승하는 경향이 있는 임상 척도는 <span class="blank blank-xs">3</span>번과 <span class="blank blank-xs">6</span>번이며, 남성에게서 높은 척도는 <span class="blank blank-xs">1</span>번과 <span class="blank blank-xs">7</span>번이다.</div>
           <div class="answer-box">3 / 6 / 1 / 7 · 성별에 따른 척도 점수 차이</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">87.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">95.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">1번(Hs) 척도와 2번(D) 척도는 나이가 들면서 어떻게 변하나?</div>
           <div class="options">
@@ -1305,7 +1405,7 @@ body {
           </div>
           <div class="answer-box">정답 ① · 노화·신체 관심 증가와 관련</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">88.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">96.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">5번(Mf) 척도의 원래 개발 목적은?</div>
           <div class="options">
@@ -1316,7 +1416,7 @@ body {
           </div>
           <div class="answer-box">정답 ① · 현재는 성역할 흥미·전통적 남성성-여성성 정도로 해석. 단, 5번 척도만으로 성정체감 갈등을 단정하는 것은 위험.</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">89.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">97.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">7번(Pt) 척도와 관련 없는 것은?</div>
           <div class="options">
@@ -1327,12 +1427,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · Pt=Psychasthenia, 불안·강박 척도</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">90.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">98.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">8번(Sc) 척도 해석 시 '조현병이라고 부르기보다는 <span class="blank blank-sm">무감동</span>, 소외감, <span class="blank blank-sm">철학적</span> 흥미, 좋지 않은 가족관계' 등으로 기술한다.</div>
           <div class="answer-box">무감동 / 철학적 · 단일 척도 해석의 한계, 다차원적 속성</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">91.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">99.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">코드타입에서 전통적으로 제외되는 척도 2개는?</div>
           <div class="options">
@@ -1349,22 +1449,22 @@ body {
       <!-- ────────────────────────────────
            섹션 07 — 코드타입 (NEW)
       ──────────────────────────────── -->
-      <div class="section">
+      <div class="section" id="mmpi-sec-07">
         <div class="section-title"><span class="section-num">07</span> 코드타입</div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">92.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">100.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">코드타입은 가장 높은 <span class="blank blank-xs">2</span>개 또는 <span class="blank blank-xs">3</span>개 척도를 묶은 것이다. 코드타입은 보통 <span class="blank blank-xs">65</span>T 이상일 때 해석한다. 정의된 코드타입은 최소 <span class="blank blank-xs">5</span>점 차이가 필요하며, 이는 <span class="blank blank-sm">측정</span>오차 때문이다.</div>
           <div class="answer-box">2 / 3 / 65T / 5점 / 측정</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">93.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">101.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">한 척도가 유난히 높게 상승한 형태를 <span class="blank blank-sm">스파이크</span>라고 한다.</div>
           <div class="answer-box">스파이크(Spike)</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">94.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">102.</div><div class="q-body">
           <div class="q-type q-type-match">연결하기</div>
           <div class="match-wrap">
             <div class="match-col">
@@ -1385,7 +1485,7 @@ body {
           <div class="answer-box">2코드→ㄷ / 3코드→ㄹ / 정의된 코드타입→ㅁ / 스파이크→ㄱ / 65T→ㄴ</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">95.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">103.</div><div class="q-body">
           <div class="q-type q-type-multi">모두 고르기</div>
           <div class="q-text">코드타입 설명으로 옳은 것을 모두 고르시오.</div>
           <div class="options">
@@ -1398,19 +1498,19 @@ body {
           <div class="answer-box">① ② ③ ④</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">96.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">104.</div><div class="q-body">
           <div class="q-type q-type-short">단답형</div>
           <div class="q-text">코드타입에서 5점 차이를 보는 이유는?</div>
           <div class="answer-line"><div class="lines"><span></span></div></div>
           <div class="answer-box">측정오차를 고려해 의미 있는 차이만 해석하기 위해서이다.</div>
         </div></div></div>
       </div>
-        <div class="q-item"><div class="q-row"><div class="q-num">97.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">105.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">코드 타입은 임상 척도 중 T점수 <span class="blank blank-xs">65</span>점 이상인 척도 중 가장 높은 2~3개 척도로 구성되며, <span class="blank blank-lg">정의(defined)</span>된 코드타입만 해석이 권장된다.</div>
           <div class="answer-box">65 / 정의(defined) · T점수가 높을수록 해석적 가설에 확신</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">98.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">106.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">2-7/7-2 코드타입의 핵심 특징은?</div>
           <div class="options">
@@ -1421,7 +1521,7 @@ body {
           </div>
           <div class="answer-box">정답 ① · 우울장애·불안장애 대표 코드타입</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">99.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">107.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">4-9/9-4 코드타입의 특징은?</div>
           <div class="options">
@@ -1432,12 +1532,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 반사회적 성격 관련</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">100.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">108.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">조현병적/정신병적 양상과 관련된 코드타입은 <span class="blank blank-xs">6</span>-<span class="blank blank-xs">8</span>이며, 전환장애는 <span class="blank blank-xs">1</span>-<span class="blank blank-xs">3</span> type이다.</div>
           <div class="answer-box">6 / 8 / 1 / 3 · 6-8: 조현병적/정신병적 양상 관련 / Conversion V(1-3): 1>2<3 형태</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">101.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">109.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">6-8/8-6 코드타입의 대표 특징은?</div>
           <div class="options">
@@ -1448,7 +1548,7 @@ body {
           </div>
           <div class="answer-box">정답 ① · 정신병적 증상, 타인 의심·불신</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">102.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">110.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">양극성 장애(조증 상태)와 관련된 척도 상승 패턴은?</div>
           <div class="options">
@@ -1459,12 +1559,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · Ma(경조증) 척도 상승</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">103.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">111.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">1-2/2-1 코드타입은 신체적 증상과 함께 <span class="blank blank-xs">우울</span>, <span class="blank blank-xs">불안</span>, 긴장, 걱정 등의 심리적 불편감을 호소한다.</div>
           <div class="answer-box">우울 / 불안 · 신체·심리 복합 호소</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">104.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">112.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">2-4/4-2 코드타입의 특징은?</div>
           <div class="options">
@@ -1475,12 +1575,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 충동적 행동 후 자기비판</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">105.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">113.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">3-4/4-3 코드타입은 만성적이고 강한 <span class="blank blank-xs">분노</span>와 <span class="blank blank-sm">적개심</span>으로 인해 부적절한 감정 표현을 보인다.</div>
           <div class="answer-box">분노 / 적개심 · 감정 억압과 폭발의 반복</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">106.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">114.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">7-8/8-7 코드타입에서 8번 척도가 우세해질수록 나타나는 특징은?</div>
           <div class="options">
@@ -1491,12 +1591,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 상당히 혼란스러운 정서적 동요 상태</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">107.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">115.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">신경증적 증상 코드타입은 <span class="blank blank-xs">1</span>-<span class="blank blank-xs">2</span>-<span class="blank blank-xs">3</span> 혹은 2-1-3, 2-3-1 type이며, 우울·불안장애는 <span class="blank blank-xs">2</span>-<span class="blank blank-xs">7</span>-0 type이다.</div>
           <div class="answer-box">1 / 2 / 3 / 2 / 7 · 코드타입 → 진단적 함의</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">108.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">116.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">2-0/0-2 코드타입의 핵심 특징은?</div>
           <div class="options">
@@ -1507,7 +1607,7 @@ body {
           </div>
           <div class="answer-box">정답 ① · 0번=사회적 내향성, 고립과 위축</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">109.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">117.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">4-6/6-4 코드타입의 특징은?</div>
           <div class="options">
@@ -1518,14 +1618,14 @@ body {
           </div>
           <div class="answer-box">정답 ① · 편집성 + 반사회성 조합</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">110.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">118.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">8-9/9-8 코드타입은 <span class="blank blank-sm">과잉활동</span>적이고 정서적으로 <span class="blank blank-sm">불안정</span>하며 동요되고 흥분된 상태이다.</div>
           <div class="answer-box">과잉활동 / 불안정 · 에너지 과잉 + 사고 혼란</div>
         </div></div></div>
 
       
-        <div class="q-item"><div class="q-row"><div class="q-num">111.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">119.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">65T 이상인 임상척도가 단 하나일 때 이를 <span class="blank blank-sm">Spike(단일 척도 상승)</span>라고 하며, 이 경우 <span class="blank blank-lg">코드타입 해석보다 단일 척도 해석</span>에 의존하게 된다.</div>
           <div class="answer-box">Spike = 65T 이상 척도가 1개뿐인 경우 / 코드타입 구성 불가 → 단일 척도 해석 적용</div>
@@ -1535,16 +1635,16 @@ body {
       <!-- ────────────────────────────────
            섹션 08 — 재구성 임상척도 RC (NEW)
       ──────────────────────────────── -->
-      <div class="section">
+      <div class="section" id="mmpi-sec-08">
         <div class="section-title"><span class="section-num">08</span> 재구성 임상척도 (RC)</div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">112.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">120.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">RC척도는 임상척도의 <span class="blank blank-sm">공통</span>요인을 제거하였다. RC척도는 <span class="blank blank-sm">K</span>교정을 적용하지 않는다. RC척도는 임상척도보다 <span class="blank blank-sm">내적</span> 일관성이 높다.</div>
           <div class="answer-box">공통 / K교정 미적용 / 내적</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">113.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">121.</div><div class="q-body">
           <div class="q-type q-type-multi">모두 고르기</div>
           <div class="q-text">RC척도 특징으로 옳은 것을 모두 고르시오.</div>
           <div class="options">
@@ -1557,19 +1657,19 @@ body {
           <div class="answer-box">① ② ③ ④</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">114.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">122.</div><div class="q-body">
           <div class="q-type q-type-short">단답형</div>
           <div class="q-text">RC척도와 임상척도 점수가 달라지는 이유는?</div>
           <div class="answer-line"><div class="lines"><span></span></div></div>
           <div class="answer-box">공통요인 제거와 K교정 제거 때문이며 개별요인 비중 차이의 영향도 받기 때문이다.</div>
         </div></div></div>
       </div>
-        <div class="q-item"><div class="q-row"><div class="q-num">115.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">123.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">재구성 임상척도(RC) 개발 핵심 절차: ① <span class="blank blank-lg">의기소침(Demoralization)</span> 척도 개발 → ② 의기소침 요인 제거 → ③ <span class="blank blank-lg">씨앗척도(seed scale)</span> 제작 → ④ RC 척도 도출</div>
           <div class="answer-box">의기소침(Demoralization) / 씨앗척도(seed scale) · 공통 요인 제거 후 개별 특성 강조</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">116.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">124.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">RC 척도의 특징으로 옳지 않은 것은?</div>
           <div class="options">
@@ -1580,12 +1680,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · RC는 K교정 미반영</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">117.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">125.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">RC 척도는 표준 임상척도에 비해 척도 간 <span class="blank blank-sm">문항 중복</span>이 없으며, 표준 임상척도보다 <span class="blank blank-xs">적은</span> 문항으로 구성된다.</div>
           <div class="answer-box">문항 중복 / 적은 · 동질적이고 변별력 높음</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">118.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">126.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">표준 임상척도(C)는 상승했지만 RC 척도는 상승하지 않은 경우의 해석은?</div>
           <div class="options">
@@ -1596,14 +1696,14 @@ body {
           </div>
           <div class="answer-box">정답 ① · 공통 고통 요인이 제거되면 척도가 상승하지 않을 수 있음</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">119.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">127.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">RC 척도 개발의 목적은 MMPI-2 임상척도의 <span class="blank">핵심적 기술적</span> 특성을 유지하면서도 <span class="blank blank-sm">변별력</span>을 증가시키는 것이다.</div>
           <div class="answer-box">핵심적 기술적 / 변별력 · 척도 간 중복·다차원성 문제 해결</div>
         </div></div></div>
 
       
-        <div class="q-item"><div class="q-row"><div class="q-num">120.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">128.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">RC 척도는 표준 임상척도와 달리 <span class="blank blank-sm">K교정</span>을 적용하지 않으며, 척도명은 <span class="blank blank-lg">현상 기술적</span> 방식으로 명명된다.</div>
           <div class="answer-box">K교정 미적용 / 현상 기술적 명명 · 예: RC2=낮은 긍정 정서, RC7=역기능적 부정 정서</div>
@@ -1613,22 +1713,22 @@ body {
       <!-- ────────────────────────────────
            섹션 09 — 내용척도·내용소척도 (NEW)
       ──────────────────────────────── -->
-      <div class="section">
+      <div class="section" id="mmpi-sec-09">
         <div class="section-title"><span class="section-num">09</span> 내용척도 · 내용소척도</div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">121.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">129.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">내용척도는 <span class="blank blank-sm">논리적</span> 방식으로 개발되었다. 내용척도는 문항 의미가 비교적 <span class="blank blank-sm">명확</span>하다. 내용척도는 <span class="blank blank-sm">인상</span> 관리에 취약하다.</div>
           <div class="answer-box">논리적 / 명확 / 인상</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">122.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">130.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">내용소척도는 내용척도를 더 세부적으로 <span class="blank blank-sm">분류</span>한 것이다. 내용소척도를 해석할 때는 일반적으로 모척도가 <span class="blank blank-xs">65</span>T 이상일 때 고려한다.</div>
           <div class="answer-box">분류(세분화) / 65T</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">123.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">131.</div><div class="q-body">
           <div class="q-type q-type-match">연결하기</div>
           <div class="match-wrap">
             <div class="match-col">
@@ -1649,7 +1749,7 @@ body {
           <div class="answer-box">내용척도→ㄱ / 내용소척도→ㄹ / 모척도→ㄴ / 내적일관성→ㄷ / 인상관리취약→ㅁ</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">124.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">132.</div><div class="q-body">
           <div class="q-type q-type-multi">모두 고르기</div>
           <div class="q-text">내용척도 특징으로 옳은 것을 모두 고르시오.</div>
           <div class="options">
@@ -1662,19 +1762,19 @@ body {
           <div class="answer-box">① ② ③ ④</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">125.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">133.</div><div class="q-body">
           <div class="q-type q-type-short">단답형</div>
           <div class="q-text">왜 내용척도는 인상관리에 취약한가?</div>
           <div class="answer-line"><div class="lines"><span></span></div></div>
           <div class="answer-box">문항 의미가 명확하여 수검자가 검사 의도를 쉽게 파악할 수 있기 때문이다.</div>
         </div></div></div>
       </div>
-        <div class="q-item"><div class="q-row"><div class="q-num">126.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">134.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">내용 척도 TRT는 <span class="blank">부정적 치료</span> 지표를 나타내며, WRK는 <span class="blank blank-sm">직업적</span> 곤란을 측정한다.</div>
           <div class="answer-box">부정적 치료 / 직업적 · 내용척도 15개: ANX FRS OBS DEP HEA BIZ ANG CYN ASP TPA LSE SOD FAM WRK TRT</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">127.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">135.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">내용 척도 BIZ가 높을 때 시사하는 것은?</div>
           <div class="options">
@@ -1685,12 +1785,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · Bizarre Mentation, 정신병적 사고</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">128.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">136.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">내용 척도 DEP는 <span class="blank blank-xs">우울</span>을, LSE는 <span class="blank">낮은 자존감</span>을, SOD는 <span class="blank">사회적 불편감</span>을 측정한다.</div>
           <div class="answer-box">우울 / 낮은 자존감 / 사회적 불편감 · 내용척도는 안면 타당도가 높아 왜곡 가능</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">129.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">137.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">내용척도 해석 시 내용소척도는 해당 내용척도가 몇 T점수 이상일 때만 해석하나?</div>
           <div class="options">
@@ -1701,12 +1801,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 내용척도 자체는 65T 이상에서 해석</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">130.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">138.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">내용척도 ANX는 <span class="blank blank-xs">불안</span>을, FRS는 <span class="blank blank-xs">공포</span>을, OBS는 <span class="blank blank-sm">강박성</span>을 측정한다.</div>
           <div class="answer-box">불안 / 공포 / 강박성 · 내용 척도 목록 첫 세 가지</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">131.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">139.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">내용척도 TPA(A 유형 행동)가 높을 때의 특징과 거리가 먼 것은?</div>
           <div class="options">
@@ -1721,14 +1821,14 @@ body {
       
       <hr class="divider">
 
-      <div class="section">
+      <div class="section" id="mmpi-sec-11">
         <div class="section-title"><span class="section-num">11</span> 실시 및 해석 — 핵심 개념</div>
-        <div class="q-item"><div class="q-row"><div class="q-num">132.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">140.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">MMPI 해석 절차 순서: 타당도 척도 → <span class="blank blank-sm">임상척도</span> → <span class="blank blank-sm">코드타입</span> → 하위척도/결정문항 검토</div>
           <div class="answer-box">임상척도 / 코드타입 · 타당도 먼저 → 임상 의미 → 코드타입</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">133.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">141.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">MMPI-2 실시 대상 조건으로 옳은 것은?</div>
           <div class="options">
@@ -1739,12 +1839,12 @@ body {
           </div>
           <div class="answer-box">정답 ③ · IQ 80 이상, 현실검증능력 손상 없는 경우 / 초등 6학년 이상 독해력 필요</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">134.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">142.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">MMPI-2 소요 시간은 약 <span class="blank blank-xs">90</span>분이며, 30분 이상 길다면 심각한 우울증·<span class="blank blank-sm">정신증</span>·뇌 손상·강박적 우유부단 등이 원인일 수 있다.</div>
           <div class="answer-box">90 / 정신증 · 지나치게 짧으면 불성실·충동성</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">135.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">143.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">단일 척도 상승보다 코드타입 해석을 권장하는 이유는?</div>
           <div class="options">
@@ -1755,12 +1855,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 복수 척도 상승 → 더 강한 해석적 가설</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">136.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">144.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">Harris-Lingoes 소척도는 <span class="blank blank-lg">2·3·4·6·8·9</span>번 척도에 대해 개발되었으며, 해석은 해당 임상척도가 <span class="blank blank-xs">65</span>T 이상이고 소척도가 65T 이상일 때만 적용한다.</div>
           <div class="answer-box">2·3·4·6·8·9 / 65 · 0번은 Ben-Porath 등이 추가 개발</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">137.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">145.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">집에서 검사지를 가져가 작성하는 것을 권장하지 않는 이유는?</div>
           <div class="options">
@@ -1771,12 +1871,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 수검자가 타인 자문 구할 수도 있음</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">138.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">146.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">MMPI 해석 시 단일 척도 상승보다 <span class="blank">프로파일 형태</span>(코드타입)을 검토하는 것이 더 유용하며, 내용척도는 <span class="blank blank-xs">65</span>T 이상에서 해석한다.</div>
           <div class="answer-box">프로파일 형태 / 65 · 내용소척도는 해당 내용척도 60T 이상일 때만</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">139.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">147.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">MMPI가 제공하는 것에 대한 설명으로 가장 적절한 것은?</div>
           <div class="options">
@@ -1787,12 +1887,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 해석집 내용에 꼭 맞는 내담자는 거의 없음</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">140.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">148.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">내용척도는 <span class="blank">논리적(내용 중심)</span> 방식으로 개발되어 개별 척도의 <span class="blank">내적 일관성</span>을 최대화하였다.</div>
           <div class="answer-box">논리적(내용 중심) / 내적 일관성 · 경험적 준거방식 한계를 보완</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">141.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">149.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">Si(0번) 소척도 Si3의 높은 점수가 시사하는 것은?</div>
           <div class="options">
@@ -1807,9 +1907,9 @@ body {
 
       <hr class="divider">
 
-      <div class="section">
+      <div class="section" id="mmpi-sec-12">
         <div class="section-title"><span class="section-num">12</span> 통계 개념 — 신뢰도·타당도·요인분석</div>
-        <div class="q-item"><div class="q-row"><div class="q-num">142.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">150.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">크론바흐 알파(α)가 높다고 해서 반드시 보장되는 것은?</div>
           <div class="options">
@@ -1820,12 +1920,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 신뢰도 높음 ≠ 단일차원성 보장</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">143.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">151.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">다차원성이란 하나의 척도 안에 서로 다른 여러 <span class="blank">심리적 차원</span>(요인)이 함께 섞여 있는 상태이며, 반대 개념은 <span class="blank blank-sm">단일차원성</span>이다.</div>
           <div class="answer-box">심리적 차원 / 단일차원성 · MMPI 임상척도 한계의 핵심 문제</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">144.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">152.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">탐색적 요인분석(EFA)과 확인적 요인분석(CFA)의 차이로 옳은 것은?</div>
           <div class="options">
@@ -1836,12 +1936,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · EFA=Exploratory, CFA=Confirmatory</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">145.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">153.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">재검사 신뢰도는 <span class="blank blank-xs">시간</span>이 지나 다시 검사했을 때 점수가 얼마나 <span class="blank blank-sm">안정적</span>인지를 보는 것이다.</div>
           <div class="answer-box">시간 / 안정적 · 국내 1주일 간격 재검사</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">146.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">154.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">준거타당도(Criterion Validity)를 확인하는 방법으로 옳은 것은?</div>
           <div class="options">
@@ -1852,12 +1952,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 동시타당도=현재 기준, 예측타당도=미래 결과</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">147.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">155.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">수렴타당도는 비슷한 개념을 재는 다른 검사와 <span class="blank blank-xs">높은</span> 상관을 보여야 하고, 변별타당도는 다른 개념과 <span class="blank blank-xs">낮은</span> 상관을 보여야 한다.</div>
           <div class="answer-box">높은 / 낮은 · 구성타당도의 두 하위 개념</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">148.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">156.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">MMPI 임상척도 7번과 8번 척도 간 상관계수가 .82라면 결정계수(r²)는?</div>
           <div class="options">
@@ -1868,12 +1968,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · r²=공통 변량 비율, .82²=.6724</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">149.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">157.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">MMPI에서 척도 간 높은 상관의 원인은 <span class="blank blank-sm">문항 중복</span> 문제이며, 이로 인해 요인분석에서 <span class="blank">simple</span> structure가 나오지 못한다.</div>
           <div class="answer-box">문항 중복 / simple · 요인수가 2~21개로 다양하게 나옴</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">150.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">158.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">내용타당도(Content Validity)의 정의로 옳은 것은?</div>
           <div class="options">
@@ -1884,7 +1984,7 @@ body {
           </div>
           <div class="answer-box">정답 ① · 우울 척도에 기분·의욕·수면·무가치감 문항이 골고루 포함</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">151.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">159.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">왜도(Skewness)는 분포가 <span class="blank blank-xs">한쪽</span>으로 치우친 정도이며, 첨도(Kurtosis)는 분포가 얼마나 <span class="blank blank-xs">뾰족</span>하거나 평평한지를 나타낸다.</div>
           <div class="answer-box">한쪽 / 뾰족 · 양의 왜도=오른쪽 꼬리가 김</div>
@@ -1893,9 +1993,9 @@ body {
 
       <hr class="divider">
 
-      <div class="section">
+      <div class="section" id="mmpi-sec-13">
         <div class="section-title"><span class="section-num">13</span> MMPI 장단점 · 해석 논쟁</div>
-        <div class="q-item"><div class="q-row"><div class="q-num">152.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">160.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">MMPI의 다차원성 문제가 야기하는 주요 해석 어려움은?</div>
           <div class="options">
@@ -1906,12 +2006,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 우울·불안·스트레스 원인 분리 어려움</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">153.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">161.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">MMPI가 다른 표준화 검사나 <span class="blank blank-xs">투사</span>검사보다 더 정확하다는 주장이 있으며, <span class="blank blank-xs">코드</span>타입을 해석함으로써 추론의 정확성을 높일 수 있다.</div>
           <div class="answer-box">투사 / 코드 · 표준화·타당도 연구 축적 → 안정적 해석 근거 / 투사검사보다 무조건 정확하다고 단정하지 않음</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">154.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">162.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">중간 정도의 점수 상승(60~65T)을 해석할 때 특히 주의해야 하는 이유는?</div>
           <div class="options">
@@ -1922,12 +2022,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 이형집단(Bimodal) 구별이 원래 목적</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">155.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">163.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">객관적 검사의 장점은 <span class="blank blank-sm">신뢰도</span>/타당도가 높고 상대적 평가에 유용하지만, 단점으로 방어가 <span class="blank blank-xs">쉽</span>다는 점이 있다.</div>
           <div class="answer-box">신뢰도 / 쉽 · 투사검사는 방어가 어렵지만 신뢰도·타당도가 낮음</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">156.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">164.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">MMPI 해석 시 의뢰사유·현재 상황·과거력과 함께 반드시 고려해야 할 요소가 아닌 것은?</div>
           <div class="options">
@@ -1938,7 +2038,7 @@ body {
           </div>
           <div class="answer-box">정답 ① · 직업·종교·교육·SES 모두 중요</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">157.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">165.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">MMPI 해석 시 '내담자의 문제에 대한 <span class="blank blank-sm">가설적</span> 정보를 제공하는 것이지 <span class="blank blank-sm">결정적</span> 진술을 해주지는 않는다'는 점을 유의해야 한다.</div>
           <div class="answer-box">가설적 / 결정적 · 해석집 내용에 꼭 맞는 내담자는 거의 없음</div>
@@ -1946,17 +2046,17 @@ body {
       </div>
 
       
-        <div class="q-item"><div class="q-row"><div class="q-num">158.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">166.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">내용척도는 <span class="blank blank-sm">안면타당도</span>가 높아 수검자가 의도적으로 <span class="blank blank-sm">방어</span>하거나 증상을 <span class="blank blank-sm">과장</span>하기 쉬운 단점이 있다.</div>
           <div class="answer-box">안면타당도 / 방어 / 과장 · 반면 경험적 준거방식으로 개발된 임상척도는 상대적으로 방어 어려움</div>
         </div></div></div>
 <hr class="divider">
 
-      <div class="section">
+      <div class="section" id="mmpi-sec-14">
         <div class="section-title"><span class="section-num">14</span> PSY-5 척도 · 보충척도</div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">159.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">167.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">PSY-5 척도는 <span class="blank blank-sm">AGGR</span>(공격성)·<span class="blank blank-sm">PSYC</span>(정신증)·<span class="blank blank-sm">DISC</span>(통제결여)·<span class="blank blank-sm">NEGE</span>(부정적 정서성)·<span class="blank blank-sm">INTR</span>(내향성) 5요인으로 구성되며, 임상척도의 한계를 보완하는 <span class="blank blank-sm">증분타당도</span>로 활용된다.</div>
           <div class="answer-box">AGGR·PSYC·DISC·NEGE·INTR / 증분타당도 — 임상척도에 더해 추가적인 예측력 제공</div>
@@ -1966,14 +2066,14 @@ body {
 
       <hr class="divider">
 
-      <div class="section">
+      <div class="section" id="mmpi-sec-15">
         <div class="section-title"><span class="section-num">15</span> 종합 응용 — 통합 해석</div>
-        <div class="q-item"><div class="q-row"><div class="q-num">160.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">168.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">MMPI-2에서 TRIN이 F 방향으로 상승하고 L 척도도 높을 때, L의 상승은 방어적 과소 보고보다는 <span class="blank blank-sm">아니다</span> 반응 경향성을 반영하는 것으로 해석한다.</div>
           <div class="answer-box">아니다 · TRIN F 방향 상승 = 아니다 반응 경향 → L 상승도 방어가 아닌 아니다 경향으로 해석</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">161.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">169.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">F(P) 척도가 100T 이상이고 VRIN이 80T 미만일 때의 해석으로 옳은 것은?</div>
           <div class="options">
@@ -1984,12 +2084,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · VRIN 80 이상이면 불성실 응답 → 해석 불가</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">162.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">170.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">MMPI-2 임상척도 중 K교정 적용 시: 1번에는 K의 <span class="blank blank-sm">0.5</span>배, 4번에는 K의 <span class="blank blank-sm">0.4</span>배, 9번에는 K의 <span class="blank blank-sm">0.2</span>배를 더한다.</div>
           <div class="answer-box">0.5 / 0.4 / 0.2 · K교정 가중치: 1=0.5K, 4=0.4K, 7=1K, 8=1K, 9=0.2K</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">163.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">171.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">MMPI 해석에서 '긍정심리학적 해석'을 적용할 때 주의해야 할 점은?</div>
           <div class="options">
@@ -2000,12 +2100,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 목적이 분명하고 부분적으로 진실된 것이어야 함</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">164.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">172.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">Harris-Lingoes 소척도는 임상척도의 <span class="blank blank-sm">다차원</span>성 문제를 해결하기 위해 개발되었으며, 해당 척도에서 높은 점수를 얻은 이유에 대한 '<span class="blank blank-xs">가설</span>'을 설정하는 데 사용된다.</div>
           <div class="answer-box">다차원 / 가설 · 65-65 rule: 임상척도 65T 이상 + 소척도 65T 이상</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">165.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">173.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">프로파일 상승도(Profile Elevation)가 전반적으로 높을 때 시사하는 것이 아닌 것은?</div>
           <div class="options">
@@ -2016,12 +2116,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · Faking bad, 무선반응, 심각한 정신병리 모두 가능</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">166.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">174.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">Conversion V는 <span class="blank blank-xs">1</span>번이 높고 <span class="blank blank-xs">2</span>번이 낮으며 <span class="blank blank-xs">3</span>번이 높은 형태이며, Paranoid Valley는 <span class="blank blank-xs">7</span>번이 낮고 <span class="blank blank-xs">6</span>·<span class="blank blank-xs">8</span>번이 높은 형태이다.</div>
           <div class="answer-box">1 / 2 / 3 / 7 / 6 / 8 · 전환V=신경증적 삼각형, 편집 계곡=Psychotic slope</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">167.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">175.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">MMPI-2 결과 해석 시 정의된(Defined) 코드타입의 의미는?</div>
           <div class="options">
@@ -2032,12 +2132,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 정의되지 않으면 여러 조합을 염두에 두고 해석</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">168.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">176.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">MMPI-2의 국내 적용 시 미국 <span class="blank blank-xs">동형</span> T점수 산출식을 적용하며, 동일한 T점수라도 미국과 국내의 <span class="blank blank-sm">백분위</span>가 다를 수 있다.</div>
           <div class="answer-box">동형 / 백분위 · 척도 간 T점수 직접 비교 가능 / 척도별 분포 모양 차이를 보정</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">169.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">177.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">MMPI 검사 수행 시간이 지나치게 짧을 때 의심해야 할 것은?</div>
           <div class="options">
@@ -2048,12 +2148,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 시간 길면: 우울·정신증·뇌손상·강박·독해력부족</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">170.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">178.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">MMPI에서 표준화(Standardization)란 검사 <span class="blank blank-xs">실시</span>, <span class="blank blank-xs">채점</span>, 해석 방식을 일정하게 만드는 과정이다.</div>
           <div class="answer-box">실시 / 채점 · 표준화가 깨지면 규준 적용 의미 없음</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">171.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">179.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">증분타당도(Incremental Validity)의 의미는?</div>
           <div class="options">
@@ -2064,12 +2164,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 내용척도의 장점 중 하나</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">172.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">180.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">타당도 척도에서 K 척도가 50점 이상이면서 F 척도가 K와 같거나 그 이상일 때의 형태는 '<span class="blank blank-sm">뒤집힌 V</span> & 높은 K' 형태로, 좋은 <span class="blank blank-sm">자아강도</span>를 가진 사람으로 해석된다.</div>
           <div class="answer-box">뒤집힌 V / 자아강도 · F≥K이지만 K도 높음</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">173.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">181.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">내용척도 CYN(냉소적 태도)이 높은 수검자에 대한 해석으로 옳은 것은?</div>
           <div class="options">
@@ -2080,12 +2180,12 @@ body {
           </div>
           <div class="answer-box">정답 ① · 냉소적 태도 = 인간 본성에 대한 불신</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">174.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">182.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">MMPI 해석은 가설적 정보를 제공하는 것이므로, 의뢰사유·현재 상황·과거력·직업·종교적 배경·교육·<span class="blank blank-lg">SES(사회경제적 지위)</span>를 함께 고려해야 한다.</div>
           <div class="answer-box">SES(사회경제적 지위) · 프로파일 해석은 항상 개인 맥락과 함께</div>
         </div></div></div>
-        <div class="q-item"><div class="q-row"><div class="q-num">175.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">183.</div><div class="q-body">
           <div class="q-type q-type-multi">선택형</div>
           <div class="q-text">MMPI 해석의 한계를 가장 잘 설명한 것은?</div>
           <div class="options">
@@ -2102,31 +2202,31 @@ body {
       <!-- ────────────────────────────────
            섹션 10 — 통합 서술형 (기존 유지)
       ──────────────────────────────── -->
-      <div class="section">
+      <div class="section" id="mmpi-sec-17">
         <div class="section-title"><span class="section-num">17</span> 통합 서술형</div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">176.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">184.</div><div class="q-body">
           <div class="q-type q-type-short">서술형</div>
           <div class="q-text">MMPI-2가 T점수를 사용하는 이유 두 가지를 쓰시오.</div>
           <div class="answer-line"><div class="lines"><span></span><span></span></div></div>
           <div class="answer-box">① 원점수는 집단 내 상대적 위치 파악 불가<br>② T점수는 평균(50)·SD(10) 고정으로 즉시 위치 파악 가능</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">177.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">185.</div><div class="q-body">
           <div class="q-type q-type-short">서술형</div>
           <div class="q-text">L 척도가 논리적 방식으로 개발된 이유를 쓰시오.</div>
           <div class="answer-line"><div class="lines"><span></span><span></span></div></div>
           <div class="answer-box">사소한 인간적 약점을 담은 문항 내용 자체로 방어를 탐지할 수 있어 임상집단 비교가 불필요.</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">178.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">186.</div><div class="q-body">
           <div class="q-type q-type-short">서술형</div>
           <div class="q-text">K 교정 척도 개발 논리를 단계적으로 쓰시오.</div>
           <div class="answer-line"><div class="lines"><span></span><span></span><span></span></div></div>
           <div class="answer-box">① 문제 있어도 임상척도 정상인 환자 집단 발견 → ② vs 정상인 경험적 비교 → ③ 변별 문항으로 K 구성 → ④ K 높으면 방어적 판단 → 일정 비율 더해 교정</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">179.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">187.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
           <div class="q-text">점수 상승이 <b><span class="blank">긍정적</span></b>으로 해석되는 보충 척도 3가지를 쓰시오.</div>
           <div class="blank-group">
@@ -2137,14 +2237,14 @@ body {
           <div class="answer-box">긍정적 / Es(자아강도) / Do(지배성) / Re(사회적 책임감)</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">180.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">188.</div><div class="q-body">
           <div class="q-type q-type-short">서술형</div>
           <div class="q-text">K 교정의 한계점을 세 가지 서술하시오.</div>
           <div class="answer-line"><div class="lines"><span></span><span></span><span></span></div></div>
           <div class="answer-box">① K 높아도 실제 안정성 높은 사람 있어 왜곡 가능<br>② 내용·보충 척도엔 미적용 → 논리적 일관성 부족<br>③ MMPI-A에 미적용 → 근거 약하다는 반증</div>
         </div></div></div>
 
-        <div class="q-item"><div class="q-row"><div class="q-num">181.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">189.</div><div class="q-body">
           <div class="q-type q-type-short">서술형</div>
           <div class="q-text">심리검사에 오차가 존재하는 이유와 표준화가 중요한 이유를 각각 서술하시오.</div>
           <div class="answer-line"><div class="lines"><span></span><span></span></div></div>
@@ -2161,21 +2261,18 @@ body {
     <!-- ══ 기출문제 doc ══ -->
     <div class="doc" id="doc-mmpi-ex">
       <div class="doc-header">
-        <div class="doc-subject">심리검사 및 진단 · 청소년상담사 기출문제</div>
-        <div class="doc-title">MMPI-2 기출문제 — 1·2·3급 (2020~2025 · 6개년)</div>
+        <div class="doc-subject">심리검사 및 진단 · 청상 기출문제</div>
+        <div class="doc-title">MMPI-2 청상 기출문제</div>
         <div class="doc-meta">
-          <span>총 19문항</span>
           <span>청소년상담사 1·2·3급</span>
           <span>광운대 상담복지정책대학원</span>
         </div>
       </div>
       <div class="notice">옳은 것 / 옳지 않은 것을 잘 구분하여 읽으세요. 정답은 정답 보기 버튼으로 확인하세요.</div>
 
-      <!-- 섹션 11 — 타당도 척도 기출 -->
-      <div class="section">
-        <div class="section-title"><span class="section-num">18</span> 타당도 척도 — 기출</div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">182.</div><div class="q-body">
+      <div class="section" id="mmpi-sec-18">
+        <div class="section-title"><span class="section-num">기출</span> 청상 기출문제</div>
+        <div class="q-item"><div class="q-row"><div class="q-num">190.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2025 2급</div>
           <div class="q-text">MMPI-2의 타당도 척도에 관한 설명으로 <b>옳은 것</b>은?</div>
           <div class="ex-options">
@@ -2187,8 +2284,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ② · L은 순진한(경직된) 방어 / VRIN=무선반응 비일관성, TRIN=고정반응 비일관성 / K는 교육수준 높을수록 높아지는 경향 / Fb는 후반부 탐지</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">183.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">191.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2025 2급</div>
           <div class="q-text">MMPI-2의 타당도 척도 중 수검자가 '전부 그렇다(Yes)' 또는 '전부 아니다(No)'라고 고정된 방식으로 응답했는지를 탐지하는 척도는?</div>
           <div class="ex-options">
@@ -2200,8 +2296,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ② · TRIN(True Response Inconsistency): 예/아니오 고정반응 비일관성 측정</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">184.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">192.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2025 2급</div>
           <div class="q-text">MMPI-2에서 K 척도(교정 척도)의 점수를 더하여 보정하지 <b>않는</b> 임상 척도는?</div>
           <div class="ex-options">
@@ -2213,8 +2308,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ⑤ · K교정 적용: 1(Hs)+0.5K / 4(Pd)+0.4K / 7(Pt)+1.0K / 8(Sc)+1.0K / 9(Ma)+0.2K → 2번(D)은 미적용</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">185.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">193.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2024 2급</div>
           <div class="q-text">MMPI-2의 임상 척도와 그 특징의 연결이 <b>옳은 것</b>은?</div>
           <div class="ex-options">
@@ -2226,8 +2320,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ② · 2번(D)=우울 / 4번(Pd)=반사회성·규범 위반 / 6번(Pa)=편집증·타인 불신 / 9번(Ma)=경조증·활동적·과대적</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">186.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">194.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2022 2급</div>
           <div class="q-text">MMPI-2의 타당도 척도 중 수검자가 자신을 좋게 보이려고 노력하며, 사소한 약점이나 도덕적인 결함을 부인하는 태도를 측정하는 것은?</div>
           <div class="ex-options">
@@ -2239,8 +2332,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ① · L척도: 사소한 인간적 약점·도덕적 결함을 부인하는 경직된 순진한 방어</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">187.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">195.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2022 2급</div>
           <div class="q-text">MMPI-2의 타당도 척도에 관한 설명으로 <b>옳은 것</b>은?</div>
           <div class="ex-options">
@@ -2252,8 +2344,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ③ · ①②는 VRIN·TRIN 설명이 서로 바뀜 / ④ K는 교육수준 높을수록 높아짐 / ⑤ L은 순진한 방어, K가 세련된 방어</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">188.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">196.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2021 2급</div>
           <div class="q-text">MMPI-2에서 K 척도 점수를 더하여 보정(K-correction)하는 척도로만 묶인 것은?</div>
           <div class="ex-options">
@@ -2265,8 +2356,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ② · 1(Hs)+0.5K / 4(Pd)+0.4K / 7(Pt)+1.0K / 8(Sc)+1.0K / 9(Ma)+0.2K</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">189.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">197.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2021 2급</div>
           <div class="q-text">MMPI-2의 타당도 척도 중 '과장된 자기제시(Superlative Self-Presentation)' 척도에 관한 설명으로 <b>옳은 것</b>은?</div>
           <div class="ex-options">
@@ -2278,13 +2368,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ④ · S(Superlative Self-Presentation) 척도: 자신을 완벽하게 건강하고 도덕적인 사람으로 제시하려는 욕구 측정</div>
         </div></div></div>
-      </div>
-
-      <!-- 섹션 12 — 타당도·무응답·해석 기출 (3급) -->
-      <div class="section">
-        <div class="section-title"><span class="section-num">19</span> 타당도·무응답·해석 순서 — 기출</div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">190.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">198.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2025 3급</div>
           <div class="q-text">MMPI-2의 타당도 척도 중 자신을 매우 도덕적이고 적응적인 사람으로 표현하려는 '성인군자' 같은 태도를 광범위하게 측정하는 척도는?</div>
           <div class="ex-options">
@@ -2296,8 +2380,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ③ · S척도: 과장된 자기제시 척도. L·K보다 더 광범위하게 긍정적 자기표현을 측정</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">191.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">199.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2025 3급</div>
           <div class="q-text">MMPI-2 실시 시 무응답(?) 항목이 몇 개 이상일 때 결과 해석을 하지 않는 것이 원칙인가?</div>
           <div class="ex-options">
@@ -2309,8 +2392,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ③ · 무응답 30개 이상 시 프로파일 해석 지양. 임상 척도 점수가 전반적으로 낮아질 수 있음</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">192.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">200.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2024 3급</div>
           <div class="q-text">다음 중 자신을 실제보다 더 나쁘게 보이려고 하는 '부정 왜곡(Fake-bad)'을 탐지하는 척도로만 묶인 것은?</div>
           <div class="ex-options">
@@ -2322,8 +2404,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ② · F계열(F/Fb/Fp)은 비전형 응답·증상 과장·꾀병 탐지 / L·K·S는 긍정 왜곡(Fake-good) 탐지</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">193.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">201.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2024 3급</div>
           <div class="q-text">MMPI-2의 L 척도가 높게 나타나는 수검자의 특성으로 <b>옳은 것</b>은?</div>
           <div class="ex-options">
@@ -2335,8 +2416,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ③ · L척도 상승: 사소한 도덕적 결함·인간적 약점을 부인하는 경직되고 순진한 방어 태도. ④는 K척도의 특성</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">194.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">202.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2023 3급</div>
           <div class="q-text">MMPI-2의 해석 순서로 가장 적절한 것은?</div>
           <div class="ex-options">
@@ -2348,8 +2428,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ② · 해석 순서: 타당도 척도(프로파일 신뢰성 확인) → 임상 척도 → 코드 타입 → 내용·보충·특수 척도</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">195.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">203.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2022 3급</div>
           <div class="q-text">MMPI-2의 타당도 척도 중 Fb 척도에 대한 설명으로 <b>옳은 것</b>은?</div>
           <div class="ex-options">
@@ -2361,8 +2440,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ② · Fb(Back F): 281번 문항 이후 후반부의 비전형 응답·집중력 저하·태도 변화 탐지</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">196.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">204.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2022 3급</div>
           <div class="q-text">MMPI-2 타당도 프로파일에서 L·K 척도는 70 이상으로 높고 F 척도는 45 이하로 낮은 'V'자 형태를 보일 때의 해석으로 가장 적절한 것은?</div>
           <div class="ex-options">
@@ -2374,8 +2452,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ③ · L·K↑ + F↓ = 'V자형 프로파일' → 전형적인 긍정 왜곡(Fake-good) / 방어적 태도. 자신을 좋게 보이려는 경향</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">197.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">205.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2022 3급</div>
           <div class="q-text">MMPI-2의 무응답(?) 척도에 관한 설명으로 <b>옳지 않은 것</b>은?</div>
           <div class="ex-options">
@@ -2387,8 +2464,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ⑤ · 모든 문항에 답하도록 독려하는 것은 무응답을 줄여 타당도를 높이는 표준 절차이므로 옳지 않음</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">198.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">206.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2021 3급</div>
           <div class="q-text">MMPI-2의 타당도 척도 중 '무선반응 비일관성'을 측정하여 수검자가 문항 내용을 고려하지 않고 무작위로 응답했는지를 탐지하는 것은?</div>
           <div class="ex-options">
@@ -2400,8 +2476,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ③ · VRIN(Variable Response Inconsistency): 무선반응 비일관성 측정 / TRIN은 고정반응 비일관성</div>
         </div></div></div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">199.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">207.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2021 3급</div>
           <div class="q-text">MMPI-2의 타당도 척도 중 F(p) 척도(비전형-정신병리 척도)의 주된 목적은?</div>
           <div class="ex-options">
@@ -2413,13 +2488,7 @@ body {
           </div>
           <div class="ex-answer-box">정답 ② · F(p): 정신과 환자조차 거의 선택하지 않는 문항으로 구성 → 실제 병리와 꾀병(과장된 증상 호소) 구별에 탁월</div>
         </div></div></div>
-      </div>
-
-      <!-- 섹션 13 — 1급 기출 -->
-      <div class="section">
-        <div class="section-title"><span class="section-num">20</span> FBS 척도 — 1급 기출</div>
-
-        <div class="q-item"><div class="q-row"><div class="q-num">200.</div><div class="q-body">
+        <div class="q-item"><div class="q-row"><div class="q-num">208.</div><div class="q-body">
           <div class="q-type q-type-multi">객관식 · 2024 1급</div>
           <div class="q-text">MMPI-2의 척도 중 법적 장면이나 보험 보상 장면에서 신체 및 인지적 증상을 과장하여 보고하는 경우를 탐지하기 위해 개발된 척도는?</div>
           <div class="ex-options">
@@ -2434,13 +2503,11 @@ body {
       </div>
 
       <div class="doc-footer">
-        <span>심리검사 및 진단 — MMPI-2 기출문제 (청소년상담사 1·2·3급 / 총 19문항)</span>
+        <span>심리검사 및 진단 — MMPI-2 청상 기출문제</span>
         <span>광운대 상담복지정책대학원 · 2026</span>
       </div>
     </div>
-  </div><!-- /panel-mmpi -->
-
-
+  </div>
 
   <!-- ══ WISC-IV 탭 ══ -->
   <div class="tab-panel" id="panel-wais">
@@ -2448,6 +2515,11 @@ body {
       <button class="btn" onclick="window.print()">🖨 인쇄</button>
       <button class="btn btn-outline" id="toggle-wais" onclick="toggleAnswers('wais')">✅ 정답 보기</button>
       <span class="mode-note" id="note-wais">문제 모드</span>
+    </div>
+    <div class="sec-nav" id="sec-nav-wais">
+      <div class="sec-nav-inner">
+        <a class="sec-btn" href="#wisc-sec-01">개관</a><a class="sec-btn" href="#wisc-sec-02">점수체계</a><a class="sec-btn" href="#wisc-sec-03">지표점수</a><a class="sec-btn" href="#wisc-sec-04">소검사</a><a class="sec-btn" href="#wisc-sec-05">실시</a><a class="sec-btn" href="#wisc-sec-06">역산·중지</a><a class="sec-btn" href="#wisc-sec-07">결과지</a><a class="sec-btn" href="#wisc-sec-08">FSIQ·GAI</a><a class="sec-btn" href="#wisc-sec-09">신뢰구간</a>
+      </div>
     </div>
     <div class="doc" id="doc-wais">
       <div class="doc-header">
@@ -2457,7 +2529,7 @@ body {
       </div>
       <div class="notice">빈칸에 알맞은 말을 써넣으시오. 교수님이 &quot;시험에 나올 수 있다&quot;고 직접 언급한 내용을 중심으로 구성하였습니다.</div>
 
-      <div class="section">
+      <div class="section" id="wisc-sec-01">
         <div class="section-title"><span class="section-num">01</span> WISC-IV 개관</div>
         <div class="q-item"><div class="q-row"><div class="q-num">1.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸</div>
@@ -2509,7 +2581,7 @@ body {
 
       <hr class="divider">
 
-      <div class="section">
+      <div class="section" id="wisc-sec-02">
         <div class="section-title"><span class="section-num">02</span> 점수 체계</div>
         <div class="q-item"><div class="q-row"><div class="q-num">7.</div><div class="q-body">
           <div class="q-text">지수점수(IQ) 평균 <b><span class="blank blank-sm">100</span></b>, SD <b><span class="blank blank-sm">15</span></b>. 소검사 환산점수 평균 <b><span class="blank blank-sm">10</span></b>, SD <b><span class="blank blank-xs">3</span></b>.</div>
@@ -2645,7 +2717,7 @@ body {
 
       <hr class="divider">
 
-      <div class="section">
+      <div class="section" id="wisc-sec-03">
         <div class="section-title"><span class="section-num">03</span> 지표점수 해석</div>
         <div class="q-item"><div class="q-row"><div class="q-num">24.</div><div class="q-body">
           <div class="q-text">4개 지표 한국어 명칭을 채우시오.</div>
@@ -2771,7 +2843,7 @@ body {
 
       <hr class="divider">
 
-      <div class="section">
+      <div class="section" id="wisc-sec-04">
         <div class="section-title"><span class="section-num">04</span> 소검사 이해</div>
         <div class="q-item"><div class="q-row"><div class="q-num">35.</div><div class="q-body">
           <div class="q-text">핵심 소검사 <b><span class="blank blank-xs">10</span></b>개, 보충 소검사 <b><span class="blank blank-xs">5</span></b>개.</div>
@@ -2823,7 +2895,7 @@ body {
 
       <hr class="divider">
 
-      <div class="section">
+      <div class="section" id="wisc-sec-05">
         <div class="section-title"><span class="section-num">05</span> 웩슬러 실시</div>
         <div class="q-item"><div class="q-row"><div class="q-num">44.</div><div class="q-body">
           <div class="q-text">기호쓰기 A형 <b><span class="blank blank-sm">6~7</span>세</b>, B형 <b><span class="blank blank-sm">8~16</span>세</b>, 제한시간 <b><span class="blank blank-xs">2</span>분</b>.</div>
@@ -2918,7 +2990,7 @@ body {
 
       <hr class="divider">
 
-      <div class="section">
+      <div class="section" id="wisc-sec-06">
         <div class="section-title"><span class="section-num">06</span> 역산규칙 · 시작점 · 중지규칙</div>
         <div class="q-item"><div class="q-row"><div class="q-num">56.</div><div class="q-body">
           <div class="q-text">토막짜기 시간 보너스 시작 문항 <b><span class="blank blank-xs">9</span>번</b>, 보너스 포함 최대 <b><span class="blank blank-xs">68</span>점</b>, 제외 시 <b><span class="blank blank-xs">50</span>점</b>, 차이 <b><span class="blank blank-xs">18</span>점</b>.</div>
@@ -3003,7 +3075,7 @@ body {
 
       <hr class="divider">
 
-      <div class="section">
+      <div class="section" id="wisc-sec-07">
         <div class="section-title"><span class="section-num">07</span> 결과지 해석</div>
         <div class="q-item"><div class="q-row"><div class="q-num">68.</div><div class="q-body">
           <div class="q-type q-type-blank">빈칸 ★90%</div>
@@ -3081,7 +3153,7 @@ body {
 
       <hr class="divider">
 
-      <div class="section">
+      <div class="section" id="wisc-sec-08">
         <div class="section-title"><span class="section-num">08</span> FSIQ · GAI · CPI</div>
         <div class="q-item"><div class="q-row"><div class="q-num">78.</div><div class="q-body">
           <div class="q-text">FSIQ 외 추가 지수: <b><span class="blank blank-xs">GAI</span></b> = 일반능력지수, <b><span class="blank blank-xs">CPI</span></b> = 인지효율지수.</div>
@@ -3151,7 +3223,7 @@ body {
 
       <hr class="divider">
 
-      <div class="section">
+      <div class="section" id="wisc-sec-09">
         <div class="section-title"><span class="section-num">09</span> 신뢰구간 · 백분위 · 통계적 해석</div>
         <div class="q-item"><div class="q-row"><div class="q-num">88.</div><div class="q-body">
           <div class="q-type q-type-short">서술형 🚨 감점 주의</div>
