@@ -3340,16 +3340,16 @@ body {
     <div style="margin-bottom: 28px;">
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;">Counseling Theory · 상담이론과 실제</div>
       <div style="font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700;margin-bottom:4px;">이론을 선택하세요</div>
-      <div style="font-size:12px;color:var(--ink3);">문제가 추가되면 이론별로 바로 풀 수 있어요</div>
+      <div style="font-size:11px;color:var(--ink3);">권석만 · 현대 심리치료와 상담 이론 2판 &nbsp;|&nbsp; Gerald Corey · 심리상담과 치료의 이론과 실제 11판</div>
     </div>
     <div class="theory-list">
       <div class="theory-item" onclick="goTo('psycho')">
         <div class="theory-left"><div class="theory-num">01</div><div><div class="theory-name">정신분석</div><div class="theory-who">Sigmund Freud</div></div></div>
         <span class="theory-badge ready">문제풀기 →</span>
       </div>
-      <div class="theory-item" onclick="alert('준비 중입니다. 기출문제를 공유해주세요!')">
+      <div class="theory-item" onclick="goTo('object')">
         <div class="theory-left"><div class="theory-num">02</div><div><div class="theory-name">대상관계 &amp; 자기심리학</div><div class="theory-who">Object Relations Theory</div></div></div>
-        <span class="theory-badge coming">준비중</span>
+        <span class="theory-badge ready">문제풀기 →</span>
       </div>
       <div class="theory-item" onclick="goTo('adler')">
         <div class="theory-left"><div class="theory-num">03</div><div><div class="theory-name">개인심리학</div><div class="theory-who">Alfred Adler</div></div></div>
@@ -3387,8 +3387,12 @@ body {
         <div class="theory-left"><div class="theory-num">11</div><div><div class="theory-name">현실치료</div><div class="theory-who">William Glasser</div></div></div>
         <span class="theory-badge ready">문제풀기 →</span>
       </div>
+      <div class="theory-item" onclick="goTo('ta')">
+        <div class="theory-left"><div class="theory-num">12</div><div><div class="theory-name">교류분석 <span style="font-size:10px;color:var(--ink3);font-weight:400;font-family:'Noto Sans KR',sans-serif;">시험범위 아님!</span></div><div class="theory-who">Eric Berne</div></div></div>
+        <span class="theory-badge ready">문제풀기 →</span>
+      </div>
       <div class="theory-item" onclick="goTo('postmodern')">
-        <div class="theory-left"><div class="theory-num">12</div><div><div class="theory-name">포스트모던</div><div class="theory-who">Postmodern Approach</div></div></div>
+        <div class="theory-left"><div class="theory-num">13</div><div><div class="theory-name">포스트모던</div><div class="theory-who">Postmodern Approach</div></div></div>
         <span class="theory-badge ready">문제풀기 →</span>
       </div>
     </div>
@@ -3416,6 +3420,9 @@ function goTo(name) {
   if (name === 'behavior' && typeof bqRender === 'function') {
     bqCurrent = 0; bqAnswered = []; bqRender();
   }
+  if (name === 'object' && typeof objectRender === 'function') {
+    objectCurrent = 0; objectAnswered = []; objectRender();
+  }
   if (name === 'psycho' && typeof psychoRender === 'function') {
     psychoCurrent = 0; psychoAnswered = []; psychoRender();
   }
@@ -3430,6 +3437,9 @@ function goTo(name) {
   }
   if (name === 'gestalt' && typeof gestaltRender === 'function') {
     gestaltCurrent = 0; gestaltAnswered = []; gestaltRender();
+  }
+  if (name === 'ta' && typeof taRender === 'function') {
+    taCurrent = 0; taAnswered = []; taRender();
   }
   if (name === 'postmodern' && typeof postmodernRender === 'function') {
     postmodernCurrent = 0; postmodernAnswered = []; postmodernRender();
@@ -3539,8 +3549,8 @@ function exSelect(btn) {
 .cq-explanation { display: none; margin-top: 14px; background: var(--answer-bg); border-left: 3px solid var(--accent-b); padding: 10px 14px; font-size: 12px; line-height: 1.75; color: var(--ink2); border-radius: 0 4px 4px 0; white-space: pre-line; }
 .cq-explanation.show { display: block; }
 .cq-box { background: var(--answer-bg); border: 1px solid var(--line2); border-radius: 5px; padding: 12px 14px; font-size: 13px; line-height: 1.85; color: var(--ink2); margin-bottom: 16px; white-space: pre-line; }
-.cq-box2 { background: #f5f0ff; border-color: #c9b8e8; font-size: 12px; color: var(--ink3); margin-top: -10px; }
-.cq-box2 { background: #f5f0ff; border-color: #c9b8e8; font-size: 12px; color: var(--ink3); margin-top: -10px; }
+.cq-box2 { background: var(--answer-bg); border-color: var(--line); font-size: 12px; color: var(--ink2); margin-top: -10px; }
+.cq-box2 { background: var(--answer-bg); border-color: var(--line); font-size: 12px; color: var(--ink2); margin-top: -10px; }
 .cq-nav { display: flex; justify-content: space-between; gap: 10px; }
 .cq-btn { font-family: 'Noto Sans KR', sans-serif; font-size: 13px; font-weight: 600; padding: 10px 22px; border-radius: 6px; border: 1.5px solid var(--ink); background: var(--ink); color: #fff; cursor: pointer; transition: opacity .15s; }
 .cq-btn:hover { opacity: .8; }
@@ -4823,6 +4833,17 @@ const RQ_DATA = [
     opts: ["권력의 욕구", "성적 욕구", "생존의 욕구", "재미의 욕구"],
     answer: 1,
     exp: "② 성적 욕구 · 5가지 기본욕구: 생존·소속(사랑)·힘(권력)·자유·즐거움(재미)\n성적 욕구는 글래서의 기본욕구 목록에 없음"
+  },
+  {
+    q: "22. 현실치료에서 제안한 '전행동(Total Behavior) 자동차' 비유에 대한 설명으로 옳은 것은?",
+    opts: [
+      "자동차의 엔진은 인간의 '원함(wants)'을 상징하며 행동의 방향을 결정한다.",
+      "자동차의 핸들은 인간의 기본적 '욕구(needs)'를 의미하며 에너지의 원천이 된다.",
+      "앞바퀴에 해당하는 '활동하기(Acting)'와 '생각하기(Thinking)'는 개인이 직접 통제할 수 있다.",
+      "뒷바퀴에 해당하는 '느끼기(Feeling)'와 '생리적 반응(Physiology)'은 앞바퀴 움직임과 무관하게 독립적으로 조절 가능하다."
+    ],
+    answer: 2,
+    exp: "③ 앞바퀴(활동·생각) 직접 통제 가능 ✅\n엔진: 욕구(needs) / 핸들: 원함(wants)\n뒷바퀴(느끼기·생리): 앞바퀴를 통해 간접적으로만 통제 가능 (직접 통제 불가)"
   }
 ];
 
@@ -4974,6 +4995,57 @@ const PSYCHO_DATA = [
     ],
     answer: 2,
     exp: "③ 행동치료 - 토큰경제 ✅\n빈의자 기법 → 게슈탈트 / 촉진적 관계형성 → 인간중심 / 과제부여 → 아들러 또는 행동주의"
+  },
+  {
+    q: "5. 정신분석적 치료의 주요 기법이 아닌 것은?",
+    opts: ["무조건적 긍정적 존중", "자유연상", "전이의 분석", "꿈의 분석"],
+    answer: 0,
+    exp: "① 해당 없음 · 무조건적 긍정적 존중은 로저스(Rogers) 인간중심상담의 핵심 태도\n정신분석 기법: 자유연상·전이 분석·꿈 분석·저항 분석·해석 등"
+  },
+  {
+    q: "6. Freud의 성격구조에서 자아(ego)와 관련 없는 것은?",
+    opts: ["이차과정 사고", "현실원칙", "도덕적 표준", "효율성 추구"],
+    answer: 2,
+    exp: "③ 오답 · 도덕적 표준은 '초자아(superego)'의 특성\n자아: 현실원칙·이차과정 사고·타협·효율 추구\n이드: 쾌락원칙·일차과정 사고 / 초자아: 도덕·양심·죄책감"
+  },
+  {
+    q: "7. 자아방어기제에 관한 설명으로 옳지 않은 것은?",
+    opts: [
+      "부인(denial)은 수용하기 힘든 원초적 욕구나 불쾌한 경험을 무의식에 눌러두는 것이다.",
+      "합리화(rationalization)는 용납하기 어려운 감정·사고·행동에 그럴듯한 이유를 붙이는 것이다.",
+      "반동형성(reaction formation)은 받아들이기 어려운 심리상태와 반대되는 행동을 하는 것이다.",
+      "전위(displacement)는 자신의 감정이나 욕구를 위험한 대상 대신 안전한 대상에게 돌리는 것이다."
+    ],
+    answer: 0,
+    exp: "① 오답 · 설명은 '억압(repression)'에 해당\n부인(denial): 불쾌한 현실 자체를 인정하지 않는 것\n억압: 고통스러운 충동·기억을 무의식으로 밀어내는 것"
+  },
+  {
+    q: "8. 방어기제에 대한 설명으로 옳지 않은 것은?",
+    opts: [
+      "억압(repression)은 감당할 수 없는 고통스러운 충동이나 기억을 의식에서 추방시키는 것이다.",
+      "이솝우화에서 여우가 포도를 시기 때문에 따지 않았다고 한 것은 합리화(rationalization)의 예이다.",
+      "반동형성(reaction formation)은 자신의 동기와 반대되는 동기를 강하게 표현해 자신의 동기를 숨기는 것이다.",
+      "전위(displacement)는 스트레스 상황을 추상적이고 지적인 용어로 다룸으로써 그 상황에서 멀어지려는 것이다."
+    ],
+    answer: 3,
+    exp: "④ 오답 · 설명은 '지성화(intellectualization)'에 해당\n전위: 충동·감정을 원래 대상에서 다른 대상으로 옮기는 것(예: 상사에게 화가 나서 집에서 화풀이)"
+  },
+  {
+    q: "9. 프로이트의 심리성적 발달단계에 관한 설명으로 옳지 않은 것은?",
+    opts: [
+      "어머니와 아버지 사이의 다정한 신체접촉을 남자아이가 질투하는 것은 오이디푸스 콤플렉스의 증거이다.",
+      "남자아이들은 거세불안 때문에 아버지와 동일시하게 된다.",
+      "남자아이들은 아버지와의 동일시를 통해 사회 규범을 내면화한다.",
+      "여자아이들이 남자아이들보다 도덕적 규범을 더 강하게 내면화한다."
+    ],
+    answer: 3,
+    exp: "④ 오답 · 프로이트는 남아가 거세불안을 해결하는 과정에서 초자아가 더 강하게 형성된다고 보았음\n여아는 거세불안이 없어 초자아 형성 동기가 약하다고 봄(→ 현재는 비판받는 관점)"
+  },
+  {
+    q: "10. Erikson의 심리사회적 발달 단계와 Freud의 심리성적 단계를 바르게 연결한 것은?",
+    opts: ["신뢰감의 형성 — 항문기", "자율성의 형성 — 남근기", "근면성의 형성 — 잠재기", "주도성의 형성 — 구강기"],
+    answer: 2,
+    exp: "③ 근면성(학령기, 6~12세) — 잠재기 ✅\n신뢰감: 구강기(0~1세) / 자율성: 항문기(1~3세) / 주도성: 남근기(3~6세) / 근면성: 잠재기(6~12세)"
   }
 ];
 let psychoCurrent = 0;
@@ -5013,6 +5085,114 @@ function psychoRender() {
 function psychoAnswer(i) { if (psychoAnswered[psychoCurrent] !== undefined) return; psychoAnswered[psychoCurrent] = i; psychoRender(); }
 function psychoMove(dir) { psychoCurrent = Math.max(0, Math.min(PSYCHO_DATA.length - 1, psychoCurrent + dir)); psychoRender(); }
 function psychoEnd() { const correct = psychoAnswered.filter((a, i) => a === PSYCHO_DATA[i].answer).length; alert('완료! ' + PSYCHO_DATA.length + '문항 중 ' + correct + '개 정답 🎉'); }
+</script>
+
+<div class="page" id="page-object">
+  <header class="site-header">
+    <div class="site-logo" onclick="goTo('counsel')"><span class="bear">🐻</span> borabear forest</div>
+    <button class="back-btn" onclick="goTo('counsel')">← 이론 목록</button>
+  </header>
+  <div class="cq-wrap">
+    <div class="cq-progress-bar-wrap">
+      <div class="cq-progress-bar-fill" id="obj-bar"></div>
+    </div>
+    <div class="cq-inner">
+      <div class="cq-meta">
+        <span class="cq-tag">대상관계 &amp; 자기심리학 · Object Relations Theory</span>
+        <span class="cq-counter" id="obj-counter">1 / 1</span>
+      </div>
+      <div class="cq-card">
+        <div class="cq-qnum" id="obj-qnum">Q1</div>
+        <div class="cq-question" id="obj-question"></div>
+        <div class="cq-options" id="obj-options"></div>
+        <div class="cq-explanation" id="obj-exp"></div>
+      </div>
+      <div class="cq-nav">
+        <button class="cq-btn" id="obj-prev" onclick="objectMove(-1)">← 이전</button>
+        <button class="cq-btn cq-btn-end" id="obj-end" onclick="objectEnd()" style="display:none">완료</button>
+        <button class="cq-btn" id="obj-next" onclick="objectMove(1)">다음 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const OBJECT_DATA = [
+  {
+    q: "1. 대상관계이론에 관한 설명으로 옳지 않은 것은?",
+    opts: [
+      "곰 인형, 담요 등은 과도적 대상(transitional object)의 역할을 한다.",
+      "내적 대상은 외적 대상에 대해 갖는 이미지, 감정, 생각, 기억 등을 의미한다.",
+      "대상항상성(object constancy)은 양육자에 대한 일관된 상을 유지할 수 있는 능력이다.",
+      "충분히 좋은 엄마(good enough mother)는 아기의 바람과 욕구를 좌절시키지 않는 완벽한 엄마이다.",
+      "좋아하는 간식을 주지 않는 엄마의 모든 면을 나쁘다고 보는 아이는 분열(splitting)의 예에 해당한다."
+    ],
+    answer: 3,
+    exp: "④ 오답 · 위니컷(Winnicott)의 '충분히 좋은 엄마'는 완벽한 엄마가 아님\n적절한 좌절을 경험하게 하면서도 기본 욕구를 충족시키는 엄마 → 아이의 심리적 독립·성장 촉진"
+  },
+  {
+    q: "2. 현대 정신분석 이론가와 주요 개념의 연결이 옳지 않은 것은?",
+    opts: [
+      "코헛(H. Kohut) — 자기대상(self-object)",
+      "클라인(M. Klein) — 탈융합(defusion)",
+      "페어베언(W. Fairbairn) — 분열 자리(schizoid position)",
+      "위니컷(D. Winnicott) — 과도적 대상(transitional object)",
+      "말러(M. Mahler) — 분리개별화(separation-individuation)"
+    ],
+    answer: 1,
+    exp: "② 오답 · 클라인의 핵심 개념은 '편집-분열 자리'와 '우울 자리'\n탈융합(defusion)은 수용전념치료(ACT)에서 주로 다루는 개념"
+  },
+  {
+    q: "3. 다음 대상관계 개념과 설명을 바르게 연결한 것은?",
+    box: "ㄱ. 과도적 대상(transitional object)\nㄴ. 분열(splitting)\nㄷ. 대상항상성(object constancy)\nㄹ. 충분히 좋은 엄마(good enough mother)",
+    box2: "a. 대상을 완전히 좋거나 완전히 나쁜 것으로만 지각\nb. 담요·인형처럼 엄마와 분리 불안을 다루도록 돕는 중간 대상\nc. 위니컷이 제안, 완벽하지 않아도 적절한 돌봄을 제공하는 엄마\nd. 양육자가 없거나 좌절해도 일관된 내적 상을 유지하는 능력",
+    opts: [
+      "ㄱ-a, ㄴ-b, ㄷ-c, ㄹ-d",
+      "ㄱ-b, ㄴ-a, ㄷ-d, ㄹ-c",
+      "ㄱ-b, ㄴ-d, ㄷ-a, ㄹ-c",
+      "ㄱ-c, ㄴ-a, ㄷ-b, ㄹ-d"
+    ],
+    answer: 1,
+    exp: "② 정답 ㄱ-b, ㄴ-a, ㄷ-d, ㄹ-c\n과도적 대상(b): 분리불안 완충 / 분열(a): 흑백논리식 지각\n대상항상성(d): 일관된 내적 상 / 충분히 좋은 엄마(c): 위니컷"
+  }
+];
+let objectCurrent = 0;
+let objectAnswered = [];
+function objectRender() {
+  const data = OBJECT_DATA[objectCurrent];
+  const total = OBJECT_DATA.length;
+  document.getElementById('obj-counter').textContent = (objectCurrent + 1) + ' / ' + total;
+  document.getElementById('obj-qnum').textContent = 'Q' + (objectCurrent + 1);
+  document.getElementById('obj-bar').style.width = ((objectCurrent + 1) / total * 100) + '%';
+  let qHTML = data.q;
+  if (data.box) qHTML += '<div class="cq-box">' + data.box.replace(/\n/g, '<br>') + '</div>';
+  if (data.box2) qHTML += '<div class="cq-box cq-box2">' + data.box2.replace(/\n/g, '<br>') + '</div>';
+  document.getElementById('obj-question').innerHTML = qHTML;
+  const optsEl = document.getElementById('obj-options');
+  optsEl.innerHTML = '';
+  const marks = ['①','②','③','④','⑤'];
+  data.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'cq-opt';
+    btn.innerHTML = '<span class="cq-mark">' + marks[i] + '</span>' + opt;
+    if (objectAnswered[objectCurrent] !== undefined) {
+      btn.disabled = true;
+      if (i === data.answer) btn.classList.add('correct');
+      else if (i === objectAnswered[objectCurrent]) btn.classList.add('wrong');
+    }
+    btn.onclick = () => objectAnswer(i);
+    optsEl.appendChild(btn);
+  });
+  const expEl = document.getElementById('obj-exp');
+  if (objectAnswered[objectCurrent] !== undefined) { expEl.textContent = data.exp; expEl.style.display = 'block'; }
+  else { expEl.style.display = 'none'; }
+  document.getElementById('obj-prev').style.display = objectCurrent === 0 ? 'none' : '';
+  document.getElementById('obj-next').style.display = objectCurrent === total - 1 ? 'none' : '';
+  document.getElementById('obj-end').style.display = objectCurrent === total - 1 ? '' : 'none';
+}
+function objectAnswer(i) { if (objectAnswered[objectCurrent] !== undefined) return; objectAnswered[objectCurrent] = i; objectRender(); }
+function objectMove(dir) { objectCurrent = Math.max(0, Math.min(OBJECT_DATA.length - 1, objectCurrent + dir)); objectRender(); }
+function objectEnd() { const correct = objectAnswered.filter((a, i) => a === OBJECT_DATA[i].answer).length; alert('완료! ' + OBJECT_DATA.length + '문항 중 ' + correct + '개 정답 🎉'); }
 </script>
 
 <div class="page" id="page-adler">
@@ -5064,6 +5244,67 @@ const ADLER_DATA = [
     ],
     answer: 3,
     exp: "정답 ④ A: 수렁피하기 / B: 자신을 포착하기\n수렁피하기: 함정·난처한 상황 피하도록 새로운 방식 제안\n자신을 포착하기: 문제행동 징후 인식 → 정지신호 역할"
+  },
+  {
+    q: "3. 아들러(A. Adler)의 개인심리학에 관한 설명으로 옳지 않은 것은?",
+    opts: [
+      "정신 건강의 주요 지표 중 하나는 사회적 관심이다.",
+      "개인은 자신에게 의미 있는 삶의 목표를 추구하기 위해 각기 독특한 생활양식을 발달시킨다.",
+      "개인의 과거 경험으로부터 비롯된 개인무의식은 사회적 성격 형성의 원천이 된다.",
+      "개인의 자기 완성 및 성장을 위해 필요한 것은 열등감의 극복이다."
+    ],
+    answer: 2,
+    exp: "③ 오답 · '개인무의식'은 융(Jung)의 분석심리학 개념\n아들러는 무의식적 결정론보다 사회적 요인·미래 목표·전체론을 강조함"
+  },
+  {
+    q: "4. 아들러(A. Adler)의 개인심리학에 관한 설명으로 옳지 않은 것은?",
+    opts: [
+      "일차적 열등감은 목표와 성취를 위한 기초가 된다.",
+      "가상적 목표는 바이힝거(H. Vaihinger)의 영향을 받은 것이다.",
+      "인간은 완전함을 향해 나아가는 전체론적인 존재이다.",
+      "생활양식은 개인의 일관된 성격구조로 생애초기에 형성된다.",
+      "개인은 사회적 관심과 활동수준에 따라 지배형, 기생형, 분리형, 사회적 유용형으로 나뉜다."
+    ],
+    answer: 4,
+    exp: "⑤ 오답 · '분리형'이 아니라 '회피형(avoidant type)'이 올바른 명칭\n4가지 유형: 지배형·기생형·회피형·사회적 유용형"
+  },
+  {
+    q: "5. 아들러(A. Adler)의 개인 심리치료에 관한 설명으로 옳지 않은 것은?",
+    opts: [
+      "인간의 모든 행동에는 목적성이 있다고 본다.",
+      "인간 행동의 기본적인 목적은 열등감의 극복이다.",
+      "전체적 관점보다는 분석적 관점에서 인간의 개인성을 강조한다.",
+      "생활양식은 개인이 지니는 독특한 삶의 방식으로 가족 경험에 의해 영향을 받는다.",
+      "출생순위는 성격형성 과정에 중요하지만 가족 내 역할과 심리적 출생순위가 더 중요하다."
+    ],
+    answer: 2,
+    exp: "③ 오답 · 아들러는 인간을 나눌 수 없는 '전체론적(holistic) 관점'으로 봄\n분석적 관점은 정신분석의 특성 / 아들러의 '개인심리학(Individual Psychology)'은 '나눌 수 없는'이라는 의미"
+  },
+  {
+    q: "6. 다음 사례에서 상담자가 공통적으로 적용한 상담이론은?",
+    box: "상담자: A가 기억할 수 있는 가장 어린 시절의 기억을 떠올려보세요.\n상담자: (발표에 대한 두려움이 있는 내담자에게) B가 마치 발표를 아주 잘하는 사람처럼 행동해 봅시다.",
+    opts: ["개인심리학", "교류분석", "현실치료", "정신분석", "실존주의 상담"],
+    answer: 0,
+    exp: "① 개인심리학 · '초기기억' 탐색 + '마치 ~처럼 행동하기(As-If)' 기법은 아들러 개인심리학의 대표 기법\n초기기억: 생활양식 탐색 / 마치~처럼: 새로운 행동 패턴 시도"
+  },
+  {
+    q: "7. 다음 설명에 해당하는 개인심리학적 상담기법은?",
+    box: "내담자가 반복적으로 나타내는 자기패배적 행동의 감춰진 동기를 확인하고 그것을 매력적이지 못한 것으로 만들어 행동의 유용성을 제거하는 기법",
+    opts: ["단추 누르기", "수프에 침 뱉기", "마치 ~인 것처럼 행동하기", "수렁 피하기", "직면"],
+    answer: 1,
+    exp: "② 수프에 침 뱉기(Spitting in the Client's Soup) · 자기패배적 행동의 숨겨진 이득을 폭로함으로써 그 행동의 매력을 없애는 기법\n단추 누르기: 긍정·부정 감정 선택 체험 / 마치~처럼: 새 행동 시도"
+  },
+  {
+    q: "8. 아들러(A. Adler)가 제시한 생활양식에 관한 내용으로 옳은 것은?",
+    opts: [
+      "생활양식은 개인의 허구적 결정론을 이해하는 것을 말한다.",
+      "획득형은 사회적 관심이 높아 타인과 협동할 수 있는 유형이다.",
+      "생활양식은 대부분 9~10세 정도에 형성된다.",
+      "지배형은 자신의 욕구를 다른 사람에게 의존하여 충족하는 유형이다.",
+      "회피형은 삶의 문제에 대해 자신감이 없어 매사에 소극적인 유형이다."
+    ],
+    answer: 4,
+    exp: "⑤ 회피형 · 삶의 문제를 피하고 소극적인 유형 ✅\n획득형(기생형): 타인에게 의존 / 지배형: 공격적·타인 무시 / 사회적 유용형: 사회적 관심↑ 활동↑\n생활양식은 4~6세에 형성됨"
   }
 ];
 let adlerCurrent = 0;
@@ -5158,6 +5399,37 @@ const JUNG_DATA = [
     ],
     answer: 3,
     exp: "정답 ④ A: 페르소나 / B: 그림자\n페르소나: 사회적 가면, 외적 역할\n그림자: 의식이 거부한 어두운 측면\n아니마: 남성 속 여성성 / 아니무스: 여성 속 남성성 / 자기(Self): 전체 정신의 중심"
+  },
+  {
+    q: "3. 분석심리학에 관한 설명으로 옳지 않은 것은?",
+    opts: [
+      "단어연상검사, 꿈 분석, 증상 분석 등의 기법을 사용한다.",
+      "고백단계에서 내담자의 무의식적 의미를 해석하고 통찰을 촉진한다.",
+      "외향적 사고와 내향적 사고는 대립되는 것이 아니라 상보적이다.",
+      "억압된 기억이나 사고, 감정은 개인 무의식에 저장된다.",
+      "중년기 이후에는 자기의 방향이 내부로 향하여 자아가 다시 자기에 통합되며 성격 발달이 이루어진다."
+    ],
+    answer: 1,
+    exp: "② 오답 · 분석심리학 상담 단계: 고백(catharsis) → 명료화(해석·통찰) → 교육 → 변용\n해석과 통찰은 두 번째 '명료화 단계'의 핵심 과업"
+  },
+  {
+    q: "4. 분석심리학에 관한 설명으로 옳은 것을 모두 고른 것은?",
+    box: "ㄱ. 정신적 기능은 사고, 감정, 감각, 직관으로 구성된다.\nㄴ. 콤플렉스는 집단무의식의 내용으로 구성된다.\nㄷ. 해석단계에서는 아니마·아니무스·그림자 등을 알아차리도록 한다.\nㄹ. 상담은 관계형성-분석과 사정-해석-재정향 단계 순으로 진행된다.",
+    opts: ["ㄱ, ㄴ", "ㄱ, ㄷ", "ㄴ, ㄹ", "ㄱ, ㄴ, ㄷ", "ㄴ, ㄷ, ㄹ"],
+    answer: 1,
+    exp: "② ㄱ·ㄷ\nㄴ ✗ 콤플렉스는 개인무의식의 내용\nㄹ ✗ 관계형성-분석-해석-재정향은 아들러 개인심리학 단계\n융의 분석심리학: 고백→명료화→교육→변용"
+  },
+  {
+    q: "5. 다음에 해당하는 개인심리학과 분석심리학의 상담 단계를 바르게 연결한 것은?",
+    box: "(A) 아들러 개인심리학 상담 단계\n(B) 융 분석심리학 상담 단계",
+    opts: [
+      "(A) 고백-명료화-교육-변용  (B) 관계형성-탐색-통찰-재정향",
+      "(A) 관계형성-분석-해석-재정향  (B) 고백-명료화-교육-변용",
+      "(A) 고백-교육-통찰-재정향  (B) 관계형성-분석-해석-변용",
+      "(A) 초기기억-생활양식-통찰-재교육  (B) 고백-명료화-교육-변용"
+    ],
+    answer: 1,
+    exp: "② 정답\n아들러: 관계형성(Rapport) → 분석·사정(생활양식 분석) → 해석(통찰) → 재정향(재교육)\n융: 고백(카타르시스) → 명료화(해석·통찰) → 교육 → 변용(transformation)"
   }
 ];
 let jungCurrent = 0;
@@ -5351,6 +5623,31 @@ const GESTALT_DATA = [
     opts: ["접촉", "전경", "배경", "게슈탈트"],
     answer: 1,
     exp: "② 전경(Figure) · 현재 의식의 초점이 되는 것\n배경(Ground): 의식에서 물러난 나머지 / 게슈탈트: 완결된 전체 / 접촉: 환경과의 만남"
+  },
+  {
+    q: "5. 형태주의(게슈탈트) 심리학자들이 주장한 지각적 집단화의 원리가 아닌 것은?",
+    opts: ["유사성", "부호화 특정성", "연속성", "인접성(근접성)"],
+    answer: 1,
+    exp: "② 오답 · 부호화 특정성(encoding specificity)은 기억이론 개념으로, 인출 단서가 부호화 시 맥락과 일치할수록 기억이 잘 된다는 원리\n게슈탈트 집단화 원리: 유사성·근접성·연속성·폐쇄성·대칭성·공동운명 등"
+  },
+  {
+    q: "6. 집단화(grouping) 규칙에 해당하지 않는 것은?",
+    opts: ["근접성(proximity)", "유사성(similarity)", "독특성(uniqueness)", "연결성(connectedness)"],
+    answer: 2,
+    exp: "③ 오답 · 독특성은 집단화 원리가 아님\n게슈탈트 집단화: 근접성·유사성·연속성·폐쇄성·연결성(connectedness) 등"
+  },
+  {
+    q: "7. 형태주의 심리학(Gestalt psychology)의 주장을 지지하는 현상은?",
+    opts: ["색채잔상효과", "가현운동", "계열위치효과", "대상영속성"],
+    answer: 1,
+    exp: "② 가현운동(Phi Phenomenon) · 실제로 정지된 자극이지만 연속으로 제시되면 움직이는 것처럼 지각됨 → 게슈탈트 심리학의 시초\n색채잔상: 시각 피로 현상 / 계열위치효과: 기억 현상 / 대상영속성: 피아제 개념"
+  },
+  {
+    q: "8. 다음이 설명하는 게슈탈트 집단화 원리는?",
+    box: "불완전한 물체를 볼 때 빠진 부분을 메워서 익숙한 완전한 형태로 지각하려는 경향",
+    opts: ["근접성", "유사성", "연속성", "폐쇄성"],
+    answer: 3,
+    exp: "④ 폐쇄성(Closure) · 불완전한 형태를 완성시켜 지각하는 경향\n근접성: 가까운 것을 함께 묶음 / 유사성: 비슷한 것끼리 묶음 / 연속성: 부드럽게 이어지는 것으로 지각"
   }
 ];
 let gestaltCurrent = 0;
@@ -5392,6 +5689,172 @@ function gestaltMove(dir) { gestaltCurrent = Math.max(0, Math.min(GESTALT_DATA.l
 function gestaltEnd() { const correct = gestaltAnswered.filter((a, i) => a === GESTALT_DATA[i].answer).length; alert('완료! ' + GESTALT_DATA.length + '문항 중 ' + correct + '개 정답 🎉'); }
 </script>
 
+<div class="page" id="page-ta">
+  <header class="site-header">
+    <div class="site-logo" onclick="goTo('counsel')"><span class="bear">🐻</span> borabear forest</div>
+    <button class="back-btn" onclick="goTo('counsel')">← 이론 목록</button>
+  </header>
+  <div class="cq-wrap">
+    <div class="cq-progress-bar-wrap">
+      <div class="cq-progress-bar-fill" id="ta-bar"></div>
+    </div>
+    <div class="cq-inner">
+      <div class="cq-meta">
+        <span class="cq-tag">교류분석 · Transactional Analysis · Eric Berne</span>
+        <span class="cq-counter" id="ta-counter">1 / 9</span>
+      </div>
+      <div class="cq-card">
+        <div class="cq-qnum" id="ta-qnum">Q1</div>
+        <div class="cq-question" id="ta-question"></div>
+        <div class="cq-options" id="ta-options"></div>
+        <div class="cq-explanation" id="ta-exp"></div>
+      </div>
+      <div class="cq-nav">
+        <button class="cq-btn" id="ta-prev" onclick="taMove(-1)">← 이전</button>
+        <button class="cq-btn cq-btn-end" id="ta-end" onclick="taEnd()" style="display:none">완료</button>
+        <button class="cq-btn" id="ta-next" onclick="taMove(1)">다음 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TA_DATA = [
+  {
+    q: "1. 다음은 교류분석 상담의 주요개념에 관한 내용이다. ( )에 들어갈 용어로 옳은 것은?",
+    box: "( ㄱ )는 한 사람이 메시지를 보낼 때 상대방에게서 기대했던 자아상태나 기능에서 반응이 오는 것을 말한다.\n( ㄴ )는 메시지를 보낸 사람이 기대했던 자아상태나 기능에서 반응이 오지 않고 다른 자아상태나 기능에서 반응할 때를 말한다.\n( ㄷ )는 두 가지 종류의 메시지가 동시에 전달된다.",
+    opts: [
+      "ㄱ: 이면교류, ㄴ: 교차교류, ㄷ: 상보교류",
+      "ㄱ: 이면교류, ㄴ: 교차교류, ㄷ: 잠재적 교류",
+      "ㄱ: 상보교류, ㄴ: 교차교류, ㄷ: 이면교류",
+      "ㄱ: 상보교류, ㄴ: 이면교류, ㄷ: 교차교류",
+      "ㄱ: 상보교류, ㄴ: 잠재적 교류, ㄷ: 교차교류"
+    ],
+    answer: 2,
+    exp: "③ 정답\n상보교류: 기대한 자아상태에서 반응\n교차교류: 기대와 다른 자아상태에서 반응\n이면교류: 두 가지 메시지가 동시에 전달 (표면+숨겨진 메시지)"
+  },
+  {
+    q: "2. 다음 사례의 상담자가 사례개념화에 적용한 상담이론은?",
+    box: "고등학생 A는 '다른 애들은 다 나보다 잘난 것 같아. 나는 절대 성공할 수 없어. 이번 생은 망했어.'라는 말을 자주 한다.\n→ A는 성장 과정에서 부모의 부정적 메시지를 내면화하여 부정적 인생각본을 형성하였다. 'I'm not OK, You're OK'라는 인생태도를 가지고 있어 자신을 비하하는 생각과 행동을 지속하고 있다.",
+    opts: ["교류분석", "분석심리학", "개인심리학", "게슈탈트상담", "실존주의상담"],
+    answer: 0,
+    exp: "① 교류분석 · 핵심 키워드: 인생각본, 인생태도(I'm not OK, You're OK)\n'I'm not OK, You're OK': 자기부정·타인긍정 → 열등감·우울·무력감과 연결"
+  },
+  {
+    q: "3. 다음 설명에 해당하는 교류분석의 개념은?",
+    box: "ㄱ. 상대를 심리적으로 위협하기도 하고 속이기도 하면서 어려움에 처할 때마다 경험하게 되는 불쾌한 감정\nㄴ. 사회적 행동의 동기를 제공하는 요인으로 타인으로부터 얻어지는 인정자극",
+    opts: [
+      "ㄱ: 라켓, ㄴ: 스트로크",
+      "ㄱ: 스트로크, ㄴ: 라켓",
+      "ㄱ: 라켓, ㄴ: 게임",
+      "ㄱ: 스트로크, ㄴ: 게임",
+      "ㄱ: 열등감, ㄴ: 스트로크"
+    ],
+    answer: 0,
+    exp: "① 정답 ㄱ: 라켓 / ㄴ: 스트로크\n라켓(racket): 어린 시절 학습된 익숙하지만 진짜 감정이 아닌 대체 감정 → 불쾌하고 반복적\n스트로크(stroke): 타인으로부터 받는 인정자극, 행동의 동기"
+  },
+  {
+    q: "4. 교류분석에 관한 설명으로 옳지 않은 것은?",
+    opts: [
+      "내담자의 자아상태 분석을 통해 성격구조와 기능을 파악한다.",
+      "카프만(S. Karpman)은 게임분석을 위해 드라마 삼각형을 고안하였다.",
+      "굴딩(M. Goulding)은 각본분석에 의한 금지령 목록을 제시하고 있다.",
+      "라켓감정은 스트레스 상황에서 적절성 여부와 상관없이 반복적으로 사용된다.",
+      "교차교류는 상대방의 하나 이상의 자아상태를 향해 상보적 교류와 잠재적 교류가 동시에 작용하는 교류이다."
+    ],
+    answer: 4,
+    exp: "⑤ 오답 · 이는 이면교류(duplex transaction)의 정의\n교차교류: 기대했던 자아상태가 아닌 다른 자아상태에서 반응이 오는 것"
+  },
+  {
+    q: "5. 교류분석 상담 과정을 순서대로 연결한 것으로 옳은 것은?",
+    box: "ㄱ. 계약  ㄴ. 교류분석  ㄷ. 각본분석  ㄹ. 재결단  ㅁ. 게임분석  ㅂ. 구조분석",
+    opts: [
+      "ㄱ→ㄴ→ㄷ→ㄹ→ㅁ→ㅂ",
+      "ㄱ→ㄷ→ㄴ→ㅁ→ㅂ→ㄹ",
+      "ㄱ→ㅁ→ㄷ→ㅂ→ㄴ→ㄹ",
+      "ㄱ→ㅂ→ㄴ→ㅁ→ㄷ→ㄹ",
+      "ㄱ→ㅂ→ㄷ→ㄴ→ㅁ→ㄹ"
+    ],
+    answer: 3,
+    exp: "④ 정답 계약→구조분석→교류분석→게임분석→각본분석→재결단\n암기: 계-구-교-게-각-재\n구조분석(자아상태 파악) 먼저, 마지막에 재결단"
+  },
+  {
+    q: "6. 교류분석 집단상담에서 라켓(Racket)에 관한 설명으로 옳은 것은?",
+    opts: [
+      "어린 시절에 격려받고 학습되어진 친숙한 정서로 다양한 상황에서 경험된다.",
+      "심리적 게임 후에는 사라지는 감정이다.",
+      "성인이 라켓을 사용하면 문제해결에 도움을 받을 수 있다.",
+      "아이의 부모가 허용했던 감정을 다른 감정으로 대체한 것이다.",
+      "사람들에게 어디로 가고 그 곳에서 무엇을 할 것인지를 말해주는 청사진이다."
+    ],
+    answer: 3,
+    exp: "④ 정답 · 부모가 허용하지 않은 감정 대신 허용된 감정으로 대체한 것\n라켓: 진짜 감정이 아닌 대체 감정 / ①은 스트로크의 설명 / ⑤는 인생각본의 설명"
+  },
+  {
+    q: "7. 교류분석에 관한 설명으로 옳지 않은 것은?",
+    opts: [
+      "상담목표는 내담자의 인생각본에 대한 인식과 재결단을 돕는 것이다.",
+      "교차적 교류는 상대방의 자아상태와는 다른 자아상태로 교류하는 것이다.",
+      "상담은 교류분석-구조분석-게임분석-각본분석의 단계를 거친다.",
+      "자기부정·타인긍정(I'm not OK, You're OK)의 생활자세를 지닌 사람은 열등감과 우울감, 무력감을 경험한다.",
+      "성인자아 상태는 현실에 근거하여 문제를 해결하며, 부모자아와 어린이자아를 중재한다."
+    ],
+    answer: 2,
+    exp: "③ 오답 · 올바른 순서: 구조분석→교류분석→게임분석→각본분석 (구교게각)\n교류분석 전에 구조분석(자아상태 파악)이 먼저 이루어짐"
+  },
+  {
+    q: "8. 다음 사례에서 A가 경험하는 분노를 설명하는 교류분석의 개념은?",
+    box: "A는 어린 시절부터 '나는 누구에게도 사랑받지 못할 것이다.'라는 무의식적 결정에 따라 자기도 모르는 사이에 사람들로부터 배척받을 행동을 반복하며 사람들에 대한 분노를 끊임없이 경험한다.",
+    opts: ["혼합(contamination)", "라켓(racket)", "에고그램(egogram)", "상보교류(complementary transaction)", "스트로크(stroke)"],
+    answer: 1,
+    exp: "② 라켓(racket) · 어린 시절의 무의식적 결정(각본)에 따라 반복 경험되는 대체 감정\n인생각본과 연결: 배척받을 행동을 반복 → 분노를 반복적으로 경험"
+  },
+  {
+    q: "9. 다음 대화에 해당하는 교류분석의 유형은?",
+    box: "어머니: 지금이 몇 시니? (숨겨진 메시지: 왜 이렇게 늦게 다니는 거야? 일찍 좀 와)\n아들: 11시요. (숨겨진 메시지: 집에 들어오기 싫어요! 집이 편하지 않아요)",
+    opts: ["이면교류", "교차교류", "상보교류", "각본교류", "일방교류"],
+    answer: 0,
+    exp: "① 이면교류(duplex transaction) · 표면 메시지와 숨겨진 메시지가 동시에 전달\n교차교류: 기대와 다른 자아상태 반응 / 상보교류: 기대한 자아상태에서 반응"
+  }
+];
+let taCurrent = 0;
+let taAnswered = [];
+function taRender() {
+  const data = TA_DATA[taCurrent];
+  const total = TA_DATA.length;
+  document.getElementById('ta-counter').textContent = (taCurrent + 1) + ' / ' + total;
+  document.getElementById('ta-qnum').textContent = 'Q' + (taCurrent + 1);
+  document.getElementById('ta-bar').style.width = ((taCurrent + 1) / total * 100) + '%';
+  let qHTML = data.q;
+  if (data.box) qHTML += '<div class="cq-box">' + data.box.replace(/\n/g, '<br>') + '</div>';
+  document.getElementById('ta-question').innerHTML = qHTML;
+  const optsEl = document.getElementById('ta-options');
+  optsEl.innerHTML = '';
+  const marks = ['①','②','③','④','⑤'];
+  data.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'cq-opt';
+    btn.innerHTML = '<span class="cq-mark">' + marks[i] + '</span>' + opt;
+    if (taAnswered[taCurrent] !== undefined) {
+      btn.disabled = true;
+      if (i === data.answer) btn.classList.add('correct');
+      else if (i === taAnswered[taCurrent]) btn.classList.add('wrong');
+    }
+    btn.onclick = () => taAnswer(i);
+    optsEl.appendChild(btn);
+  });
+  const expEl = document.getElementById('ta-exp');
+  if (taAnswered[taCurrent] !== undefined) { expEl.textContent = data.exp; expEl.style.display = 'block'; }
+  else { expEl.style.display = 'none'; }
+  document.getElementById('ta-prev').style.display = taCurrent === 0 ? 'none' : '';
+  document.getElementById('ta-next').style.display = taCurrent === total - 1 ? 'none' : '';
+  document.getElementById('ta-end').style.display = taCurrent === total - 1 ? '' : 'none';
+}
+function taAnswer(i) { if (taAnswered[taCurrent] !== undefined) return; taAnswered[taCurrent] = i; taRender(); }
+function taMove(dir) { taCurrent = Math.max(0, Math.min(TA_DATA.length - 1, taCurrent + dir)); taRender(); }
+function taEnd() { const correct = taAnswered.filter((a, i) => a === TA_DATA[i].answer).length; alert('완료! ' + TA_DATA.length + '문항 중 ' + correct + '개 정답 🎉'); }
+</script>
+
 <div class="page" id="page-postmodern">
   <header class="site-header">
     <div class="site-logo" onclick="goTo('counsel')"><span class="bear">🐻</span> borabear forest</div>
@@ -5403,7 +5866,7 @@ function gestaltEnd() { const correct = gestaltAnswered.filter((a, i) => a === G
     </div>
     <div class="cq-inner">
       <div class="cq-meta">
-        <span class="cq-tag">포스트모던 · Postmodern Approach</span>
+        <span class="cq-tag">POSTMODERN APPROACH · 해결중심 · 이야기치료 · 여성주의 · 다문화상담</span>
         <span class="cq-counter" id="pm-counter">1 / 2</span>
       </div>
       <div class="cq-card">
@@ -5445,6 +5908,81 @@ const POSTMODERN_DATA = [
     ],
     answer: 1,
     exp: "② 기술적 절충주의 · 이론에 구애받지 않고 효과적인 기법을 선택\n이론적 통합: 여러 이론을 하나로 통합 / 공통요인: 이론 공통 치료 요인 강조 / 동화적 통합: 하나의 이론 틀에 다른 기법 통합"
+  },
+  {
+    q: "3. 해결중심상담(포스트모던 접근)의 내담자 유형과 상담자의 개입이 바르게 짝지어진 것은?",
+    opts: [
+      "방문형: 문제 해결 의지가 높으므로 구체적인 행동 과제를 부여한다.",
+      "불평형: 문제의 원인이 타인에게 있다고 보므로 관찰이나 생각하기 숙제를 준다.",
+      "고객형: 상담에 비자발적이므로 과제를 주지 않고 관계 형성에만 집중한다.",
+      "불평형: 상담 동기가 전혀 없으므로 다음 회기를 기약하며 상담을 종결한다."
+    ],
+    answer: 1,
+    exp: "② 불평형 - 관찰/생각하기 과제 ✅\n방문형: 과제 없음(관계 형성) / 불평형: 관찰 과제 / 고객형: 행동 과제\n고객형이 가장 적극적이고 협력적인 유형"
+  },
+  {
+    q: "4. 다음 해결중심상담의 질문기법으로 옳은 것은?",
+    box: "・지난 일주일 동안 문제가 일어나지 않은 때는 언제였나요?\n・문제가 발생하지 않았다는 것을 어떻게 알 수 있나요?\n・힘든 시기에도 좋은 기분을 느낄 수 있었던 때가 있었나요?",
+    opts: ["대처질문", "예외질문", "변화질문", "기적질문", "관계질문"],
+    answer: 1,
+    exp: "② 예외질문(Exception Question) · 문제가 발생하지 않은 때, 예외적 상황을 탐색\n대처질문: 힘든 상황을 어떻게 견뎌냈는지 / 기적질문: 문제가 해결된 미래 상상\n척도질문: 0~10점으로 현재 상태 평가"
+  },
+  {
+    q: "5. '어떻게 지난 주보다 더 나빠지지 않았나요?'는 해결중심상담의 어떤 질문에 해당하는가?",
+    opts: ["예외질문", "대처질문", "기적질문", "척도질문", "관계질문"],
+    answer: 1,
+    exp: "② 대처질문(Coping Question) · 어려운 상황에서 어떻게 버텨냈는지 강점과 자원을 탐색\n예외질문과 구별: 예외는 문제 없었던 때를 탐색, 대처는 힘든 상황에서 어떻게 견뎌왔는지"
+  },
+  {
+    q: "6. 해결중심상담에 관한 설명으로 옳은 것을 모두 고른 것은?",
+    box: "ㄱ. 내담자의 강점이나 자원을 발견하고 활용한다.\nㄴ. 상담자-내담자 관계유형에 따라 상담목표와 개입을 달리한다.\nㄷ. 그동안 효과가 있었던 해결책을 찾게 함으로써 문제해결 가능성을 높인다.\nㄹ. 기적질문을 사용함으로써 문제의 원인을 구체적으로 파악한다.\nㅁ. 내담자가 작은 목표를 성취하도록 함으로써 성공경험과 희망을 갖게 한다.",
+    opts: ["ㄱ, ㄴ", "ㄱ, ㄴ, ㄷ", "ㄷ, ㄹ, ㅁ", "ㄱ, ㄴ, ㄷ, ㅁ", "ㄴ, ㄷ, ㄹ, ㅁ"],
+    answer: 3,
+    exp: "④ ㄱ·ㄴ·ㄷ·ㅁ\nㄹ ✗ 기적질문은 문제의 원인 파악이 아니라 문제가 해결된 미래를 상상하게 하는 질문\n해결중심상담: 원인 탐색보다 해결·강점·예외에 초점"
+  },
+  {
+    q: "7. 해결중심상담에 관한 설명으로 옳은 것은?",
+    opts: [
+      "'잘 알지 못함(not-knowing)'의 자세를 취하고 내담자를 전문가로 여긴다.",
+      "문제가 발생하는 상황을 구체적으로 탐색한다.",
+      "문제의 해결에 초점을 맞추고 근본적인 변화를 강조한다.",
+      "내담자의 취약한 점과 강점을 모두 고려한다.",
+      "다양한 질문기법을 활용해 문제의 원인을 파악한다."
+    ],
+    answer: 0,
+    exp: "① '잘 알지 못함(not-knowing)'의 자세 ✅ · 상담자는 전문가가 아닌 탐색자로, 내담자가 자신 삶의 전문가\n②④⑤는 문제 분석적 접근 / ③ 해결중심은 작은 변화를 강조"
+  },
+  {
+    q: "8. 해결중심상담에 관한 설명으로 옳지 않은 것은?",
+    box: "ㄱ. 변화에 낙관적이다.\nㄴ. 내담자의 언어체계에 관심이 있다.\nㄷ. 예외적인 상황을 탐색한다.\nㄹ. 모더니즘의 보편적 진리를 강조한다.\nㅁ. 심리평가에 의한 진단을 중시한다.",
+    opts: ["ㄱ, ㄴ, ㄷ", "ㄱ, ㄴ, ㄹ", "ㄷ, ㄹ, ㅁ", "ㄱ, ㄴ, ㄷ, ㄹ", "ㄴ, ㄷ, ㄹ, ㅁ"],
+    answer: 0,
+    exp: "① ㄱ·ㄴ·ㄷ이 옳은 것\nㄹ ✗ 해결중심상담은 포스트모더니즘 기반 → 보편적 진리 부정, 개인 맥락 중시\nㅁ ✗ 진단보다는 해결과 강점에 초점"
+  },
+  {
+    q: "9. 이야기치료에 관한 설명으로 옳은 것을 모두 고른 것은?",
+    box: "ㄱ. 사회구성주의와 포스트모더니즘의 원리·철학에 토대를 두고 있다.\nㄴ. 외현화 대화법은 문제를 개인으로부터 분리하여 새로운 방식으로 볼 수 있도록 돕는 기법이다.\nㄷ. 상담자는 집단원 경험의 주 해석자이며, 집단원과 함께 대안적 이야기를 만든다.\nㄹ. 질문은 상담자가 집단원의 정보를 수집하기 위해 사용되는 기법이다.",
+    opts: ["ㄱ, ㄴ", "ㄷ, ㄹ", "ㄱ, ㄴ, ㄹ", "ㄴ, ㄷ, ㄹ", "ㄱ, ㄴ, ㄷ, ㄹ"],
+    answer: 0,
+    exp: "① ㄱ·ㄴ\nㄷ ✗ 상담자는 주 해석자가 아님 → 내담자가 자신 삶의 이야기를 재저작하도록 도움\nㄹ ✗ 질문은 정보수집보다 새로운 이야기 생성·의미 탐색을 위해 사용"
+  },
+  {
+    q: "10. 여성주의 상담에 관한 설명으로 옳지 않은 것은?",
+    opts: [
+      "내담자에게 내면화된 성역할 메시지를 확인한다.",
+      "상담자와 내담자 관계를 평등한 관계로 유지한다.",
+      "내담자가 환경변화를 위한 사회적 행동에 참여하도록 돕는다.",
+      "재구성하기(reframing)를 통해 문제의 원인을 사회적 차원으로 인식하게 한다.",
+      "내담자가 사회적 규범을 수용하도록 함으로써 사회 적응력을 증진시킨다."
+    ],
+    answer: 4,
+    exp: "⑤ 오답 · 여성주의 상담은 억압적 사회 규범에 순응하도록 하는 것이 아니라, 그에 도전하고 변화시키는 것을 중시함\n사회 구조적 요인이 개인 문제의 근원이라는 관점"
+  },
+  {
+    q: "11. 해결중심단기 상담에서 '메시지' 전달의 기능이 아닌 것은?",
+    opts: ["교육적 기능", "하향 화살표의 기능", "정상화 기능", "과제의 기능", "새로운 의미의 기능"],
+    answer: 1,
+    exp: "② 오답 · '하향 화살표(downward arrow)' 기법은 벡(Beck)의 인지치료에서 자동적 사고 아래 핵심신념을 찾기 위해 사용하는 기법\n해결중심 메시지 기능: 교육적·정상화·과제제시·새 의미 부여 등"
   }
 ];
 let postmodernCurrent = 0;
@@ -5698,6 +6236,79 @@ const BQ_DATA = [
     opts: ["ㄱ, ㄴ", "ㄷ, ㄹ", "ㄱ, ㄴ, ㄷ", "ㄱ, ㄴ, ㄷ, ㄹ"],
     answer: 3,
     exp: "정답 ④ 전부 해당\n상호억제(불안↔이완 동시 불가) / 불안장애·공포증에 효과적 / 이완→불안위계→둔감화 순 / 실제 노출·상상 노출 모두 가능"
+  },
+  {
+    q: "23. 다음 사례의 제2단계를 설명하는 용어는?",
+    box: "제1단계: 개는 B소리에 조건화된 반응으로 타액을 분비한다.\n제2단계: 개의 타액 분비 반응이 B와 유사한 소리인 A와 C에서도 나타난다.\n제3단계: 원래의 B소리가 음식과 함께 반복 짝지어지고, B와 유사한 소리들은 음식 없이 제시된다. B 유사 소리에 대한 타액 분비가 줄어드는 한편, 원래 소리 B에 대한 반응이 강화된다.",
+    opts: ["효과의 법칙", "자발적 회복", "일반화(generalization)", "변별(discrimination)"],
+    answer: 2,
+    exp: "③ 일반화(generalization) · 2단계: 조건 자극과 유사한 자극에도 같은 반응이 나타나는 것\n3단계는 변별(discrimination) / 자발적 회복: 소거 후 조건반응이 다시 나타남 / 효과의 법칙: 손다이크"
+  },
+  {
+    q: "24. 고전적 조건형성에 관한 설명으로 옳지 않은 것은?",
+    opts: [
+      "훈련 전 종소리는 '중성 자극'이어야 한다.",
+      "음식과 종소리 연합 전에 음식에 대해 흘린 침은 '무조건 반응'이다.",
+      "훈련 후 종소리만 들어도 침을 흘리게 되면, 종소리는 '무조건 자극'이 된 것이다.",
+      "음식과 종소리가 반복 연합되는 과정은 '습득' 단계이다."
+    ],
+    answer: 2,
+    exp: "③ 오답 · 훈련 후 종소리는 '조건 자극(CS)'이 된 것이다. '무조건 자극(US)'은 훈련 전후 관계없이 자동으로 반응을 유발하는 자극(음식)을 말함."
+  },
+  {
+    q: "25. 다음 사례의 강화 유형을 바르게 연결한 것은?",
+    box: "(가) 안전벨트를 착용하지 않으면 경고음이 울려, 경고음을 피하기 위해 안전벨트를 착용한다.\n(나) 늦은 귀가가 잦은 B에게 부모가 좋아하는 야식을 2주간 금지했더니 늦게 귀가하는 행동이 사라졌다.\n(다) 고풍스러운 옷을 입었을 때 동료들이 부러워한 이후 그 옷을 더 자주 입는다.\n(라) 수업 중 떠드는 D에게 방과 후 화장실 청소를 시켰더니 수업 중 떠들지 않게 됐다.",
+    opts: [
+      "(가) 부적강화  (나) 부적처벌  (다) 정적강화  (라) 정적처벌",
+      "(가) 정적강화  (나) 부적강화  (다) 부적처벌  (라) 정적처벌",
+      "(가) 부적처벌  (나) 정적강화  (다) 정적처벌  (라) 부적강화",
+      "(가) 정적처벌  (나) 부적처벌  (다) 정적강화  (라) 부적강화"
+    ],
+    answer: 0,
+    exp: "(가) 부적강화: 혐오 자극(경고음) 제거로 행동 증가\n(나) 부적처벌: 좋아하는 것(야식) 제거로 행동 감소\n(다) 정적강화: 좋은 자극(칭찬) 추가로 행동 증가\n(라) 정적처벌: 혐오 자극(청소) 추가로 행동 감소"
+  },
+  {
+    q: "26. 커피숍에서 커피 10잔을 구매할 때마다 무료 쿠폰을 제공하는 강화 계획은?",
+    opts: ["변동간격", "고정간격", "변동비율", "고정비율"],
+    answer: 3,
+    exp: "④ 고정비율(Fixed Ratio) · 정해진 반응 횟수(10회)마다 강화 제공\n고정간격: 일정 시간 경과 후 / 변동간격: 불규칙 시간 후 / 변동비율: 불규칙 반응 횟수 후"
+  },
+  {
+    q: "27. 매일 정오 앱 출석체크를 하는 사용자에게 토큰을 제공하는 강화 계획은?",
+    opts: ["고정간격(fixed interval)", "변동간격(variable interval)", "고정비율(fixed ratio)", "변동비율(variable ratio)"],
+    answer: 0,
+    exp: "① 고정간격(Fixed Interval) · 일정한 시간(매일 정오) 경과 후 강화 제공\n비율 계획과 달리 간격 계획은 시간 기준 / 고정이냐 변동이냐는 그 기준이 일정한지 여부"
+  },
+  {
+    q: "28. 성과급제와 가장 관련이 깊은 강화계획은?",
+    opts: ["고정간격계획", "변동간격계획", "고정비율계획", "변동비율계획"],
+    answer: 2,
+    exp: "③ 고정비율 · 성과급은 일정량(반응 수) 달성 시 보수 지급\n고정간격: 월급 / 변동비율: 도박·낚시(소거에 가장 강함) / 변동간격: 낚시찌 확인"
+  },
+  {
+    q: "29. 미신행동(superstitious behavior)을 설명하는 사례로 가장 적절한 것은?",
+    opts: [
+      "전기충격을 받아도 도피가 불가능했던 개가 후에 도피 가능해도 도피하지 않는다.",
+      "운동선수가 우연히 수염을 깎지 않고 출전해 우승한 후 다음 경기마다 수염을 깎지 않는다.",
+      "개가 B소리에 대한 타액 분비 반응이 유사한 A·C소리에도 나타난다.",
+      "이완 상태에서 불안 자극을 단계적으로 제시해 불안을 감소시킨다."
+    ],
+    answer: 1,
+    exp: "② 미신행동 · 우연히 강화가 발생한 행동이 반복되는 현상 (실제 인과관계 없음)\n①은 학습된 무기력 / ③은 자극일반화 / ④는 체계적 둔감법"
+  },
+  {
+    q: "30. 다음 설명이 보여주는 현상은?",
+    box: "전기충격을 받아도 도피가 불가능했던 개는 후에 도피가 가능해져도 도피하지 않고 충격을 그냥 받아들인다.",
+    opts: ["학습된 무기력", "부적강화", "자발적 회복", "변별조건형성"],
+    answer: 0,
+    exp: "① 학습된 무기력(Learned helplessness) · 셀리그만(Seligman) 실험\n통제 불가능한 혐오 자극 반복 경험 → 이후 통제 가능해도 무기력하게 수용\n우울증 이해에 중요한 개념"
+  },
+  {
+    q: "31. 다음 현상에 해당하는 이론은?",
+    box: "A는 게임을 더 좋아하고 공부를 덜 좋아한다. A의 어머니는 '게임을 하려면 먼저 공부를 해야 한다'고 했다. 게임을 하고 싶은 A는 공부를 먼저 한다.",
+    opts: ["조성(shaping)", "추동감소 이론(drive-reduction theory)", "프리맥의 원리(Premack principle)", "효과의 법칙(law of effect)"],
+    answer: 2,
+    exp: "③ 프리맥의 원리(Premack principle) · 선호도가 높은 행동(게임)으로 선호도 낮은 행동(공부)을 강화\n조성: 목표 행동에 가까운 행동을 단계적으로 강화 / 추동감소: 결핍 상태 해소가 동기 / 효과의 법칙: 손다이크"
   }
 ];
 
