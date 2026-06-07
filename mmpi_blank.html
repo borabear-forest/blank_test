@@ -3391,6 +3391,10 @@ body {
         <div class="theory-left"><div class="theory-num">13</div><div><div class="theory-name">포스트모던</div><div class="theory-who">Postmodern Approach</div></div></div>
         <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--ink3);">11문항</span><span class="theory-badge ready">문제풀기 →</span></div>
       </div>
+      <div class="theory-item" onclick="goTo('mcq50')" style="border-color:var(--accent-a);background:linear-gradient(135deg,#fdf6ec,#faf8f3);">
+        <div class="theory-left"><div class="theory-num" style="color:var(--accent-a);">★</div><div><div class="theory-name" style="color:var(--accent-a);">객관식 50문항 통합 모의고사</div><div class="theory-who">이론별 소챕터 분류 · 정답 해설 포함</div></div></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--ink3);">50문항</span><span class="theory-badge ready" style="background:#ffebd6;color:var(--accent-a);">문제풀기 →</span></div>
+      </div>
     </div>
   </div>
 </div>
@@ -3436,6 +3440,9 @@ function goTo(name) {
   }
   if (name === 'ta' && typeof taRender === 'function') {
     taCurrent = 0; taAnswered = []; taRender();
+  }
+  if (name === 'mcq50' && typeof mcq50Render === 'function') {
+    mcq50ActiveSec = '전체'; mcq50BuildNav(); mcq50UpdateStats(); mcq50Render();
   }
   if (name === 'postmodern' && typeof postmodernRender === 'function') {
     postmodernCurrent = 0; postmodernAnswered = []; postmodernRender();
@@ -7562,6 +7569,452 @@ q120Init();
     }
   });
 })();
+</script>
+
+<!-- ══════════ 객관식 50문항 통합 페이지 ══════════ -->
+<style>
+#page-mcq50 { background: var(--cream); }
+.mcq50-wrap { max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; }
+@media(min-width:600px){ .mcq50-wrap { padding: 36px 32px 80px; } }
+
+.mcq50-chapnav {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 28px;
+}
+.mcq50-chapbtn {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 11px; padding: 4px 12px; border-radius: 20px;
+  border: 1.5px solid var(--line); background: transparent;
+  color: var(--ink2); cursor: pointer; white-space: nowrap; transition: all .15s;
+}
+.mcq50-chapbtn.active, .mcq50-chapbtn:hover { background: var(--accent-a); color: #fff; border-color: var(--accent-a); }
+
+.mcq50-header { margin-bottom: 20px; }
+.mcq50-sec-label {
+  font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ink3); margin-bottom: 4px;
+}
+.mcq50-sec-title {
+  font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 700;
+  color: var(--ink); border-bottom: 2px solid var(--ink); padding-bottom: 8px; margin-bottom: 4px;
+}
+.mcq50-sec-sub { font-size: 11px; color: var(--ink3); margin-bottom: 20px; }
+
+.mcq50-stats {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  background: var(--answer-bg); border-radius: 6px; padding: 10px 16px; margin-bottom: 20px;
+  font-size: 12px;
+}
+.mcq50-stat { display: flex; align-items: center; gap: 5px; }
+.mcq50-stat-dot { width: 8px; height: 8px; border-radius: 50%; }
+.mcq50-stat-dot.ok { background: var(--accent-b); }
+.mcq50-stat-dot.ng { background: var(--red); }
+.mcq50-stat-dot.rem { background: var(--line); }
+
+.mcq50-qcard {
+  background: #fff; border: 1.5px solid var(--line2); border-radius: 6px;
+  padding: 18px 16px 14px; margin-bottom: 14px; transition: border-color .15s;
+}
+.mcq50-qcard.ok { border-color: var(--accent-b); }
+.mcq50-qcard.ng { border-color: var(--red); }
+
+.mcq50-qmeta {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+}
+.mcq50-qnum { font-family: 'Noto Serif KR', serif; font-size: 11px; color: var(--ink3); font-weight: 700; }
+.mcq50-qtag {
+  font-size: 9px; font-weight: 700; letter-spacing: .1em;
+  padding: 2px 8px; border-radius: 2px; background: var(--card-b); color: var(--accent-b);
+}
+
+.mcq50-qtext {
+  font-size: 13.5px; line-height: 1.85; margin-bottom: 12px; font-weight: 500;
+}
+
+.mcq50-opts { display: flex; flex-direction: column; gap: 7px; }
+.mcq50-opt {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 12px; border-radius: 5px; border: 1.5px solid var(--line2);
+  background: transparent; font-family: 'Noto Sans KR', sans-serif;
+  font-size: 13px; line-height: 1.6; cursor: pointer; text-align: left;
+  transition: all .12s; width: 100%;
+}
+.mcq50-opt:not(:disabled):hover { border-color: var(--accent-a); background: #fdf6ec; }
+.mcq50-opt.opt-correct { border-color: var(--accent-b); background: #eaf4ee; color: #2a5c3e; font-weight: 600; }
+.mcq50-opt.opt-wrong { border-color: var(--red); background: var(--red-bg); color: var(--red-text); }
+.mcq50-opt.opt-reveal { border-color: var(--accent-b); background: #eaf4ee; color: #2a5c3e; font-weight: 600; opacity: .75; }
+.mcq50-opt-mark { font-weight: 700; min-width: 18px; flex-shrink: 0; }
+
+.mcq50-fb {
+  margin-top: 12px; padding: 10px 13px; border-radius: 4px;
+  font-size: 12px; line-height: 1.7; display: none;
+}
+.mcq50-fb.ok { background: #eaf4ee; border-left: 3px solid var(--accent-b); color: #1d4a31; }
+.mcq50-fb.ng { background: var(--red-bg); border-left: 3px solid var(--red); color: var(--red-text); }
+.mcq50-fb-ans { font-weight: 700; }
+
+.mcq50-reset-btn {
+  margin-top: 28px; display: block; width: 100%;
+  padding: 11px; border-radius: 6px; border: 1.5px solid var(--line);
+  background: transparent; font-family: 'Noto Sans KR', sans-serif;
+  font-size: 12px; font-weight: 700; color: var(--ink3); cursor: pointer;
+  transition: all .15s;
+}
+.mcq50-reset-btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+</style>
+
+<div class="page" id="page-mcq50">
+  <header class="site-header">
+    <div class="site-logo" onclick="goTo('counsel')"><span class="bear">🐻</span> borabear forest</div>
+    <button class="back-btn" onclick="goTo('counsel')">← 이론 목록</button>
+  </header>
+  <div class="mcq50-wrap">
+    <div class="mcq50-header">
+      <div class="mcq50-sec-label">Counseling Theory · 객관식 통합</div>
+      <div class="mcq50-sec-title">객관식 50문항 모의고사</div>
+      <div class="mcq50-sec-sub">이론별 소챕터 분류 · 클릭하면 정답·해설 즉시 확인</div>
+    </div>
+
+    <div class="mcq50-chapnav" id="mcq50-chapnav"></div>
+    <div class="mcq50-stats" id="mcq50-stats"></div>
+    <div id="mcq50-list"></div>
+    <button class="mcq50-reset-btn" onclick="mcq50Reset()">🔄 전체 초기화</button>
+  </div>
+</div>
+
+<script>
+const MCQ50_DATA = [
+  // ── 정신분석 ──────────────────────────
+  { id:1, sec:"정신분석", who:"Sigmund Freud",
+    q:"정신분석적 인간관에 가장 가까운 설명은?",
+    opts:["인간은 모든 행동을 즉각적이고 완전한 자유의지로만 선택한다.","인간 행동은 무의식적 동기와 어린 시절 경험의 영향을 받으며, 현재 행동의 원인은 과거와 연결된다.","인간은 환경과 강화의 영향을 전혀 받지 않는다.","인간은 문제 원인을 분석하지 않아야만 성장한다.","인간은 기본 욕구가 사라질 때 심리적으로 건강해진다."],
+    ans:1, exp:"정신분석은 무의식, 초기 경험, 정신적 결정론을 핵심으로 한다." },
+  { id:2, sec:"정신분석", who:"Sigmund Freud",
+    q:"의식, 전의식, 무의식 중 정신분석에서 가장 중요한 심층 영역으로 보는 것은?",
+    opts:["의식","전의식","현상적 장","무의식","좋은 세계"],
+    ans:3, exp:"정신분석은 무의식이 인간 행동과 증상 형성에 큰 영향을 준다고 본다." },
+  { id:3, sec:"정신분석", who:"Sigmund Freud",
+    q:"원초아에 대한 설명으로 가장 적절한 것은?",
+    opts:["쾌락 원리에 따라 즉각적인 욕구 충족을 추구한다.","현실 원리에 따라 충동을 조절한다.","도덕 원리에 따라 양심과 이상을 대표한다.","사회적 관심을 향한 목표를 설정한다.","자동적 사고를 현실적으로 검증한다."],
+    ans:0, exp:"원초아(id)는 본능적 욕구와 충동을 포함하며 쾌락 원리에 따라 작동한다." },
+  { id:4, sec:"정신분석", who:"Sigmund Freud",
+    q:"상담자에게 과거 중요한 대상에 대한 감정이 옮겨오는 현상은?",
+    opts:["소거","강화","외재화","척도 질문","전이"],
+    ans:4, exp:"전이(transference)는 과거 관계 감정이 상담자에게 재현되는 정신분석 핵심 개념이다." },
+  { id:5, sec:"정신분석", who:"Sigmund Freud",
+    q:"억압에 대한 설명으로 가장 적절한 것은?",
+    opts:["자신의 감정을 타인에게 돌리는 방어기제이다.","충동과 반대되는 행동을 보이는 방어기제이다.","받아들이기 어려운 충동이나 기억을 의식 밖으로 밀어내는 방어기제이다.","공포자극에 반복 노출하는 행동기법이다.","문제를 자신과 분리해 이름 붙이는 기법이다."],
+    ans:2, exp:"억압(repression)은 위협적인 내용이 의식화되지 않도록 하는 대표적 방어기제이다." },
+  { id:6, sec:"정신분석", who:"Sigmund Freud",
+    q:"정신분석 상담기법으로 가장 적절한 조합은?",
+    opts:["자유연상, 꿈 분석, 전이 분석, 저항 분석","기적 질문, 척도 질문, 예외 질문, 대처 질문","체계적 둔감법, 강화, 소거, 모델링","WDEP, 좋은 세계, 전체행동, 기본 욕구","진실성, 공감, 무조건적 긍정적 존중, 가치 조건"],
+    ans:0, exp:"정신분석은 자유연상, 꿈 분석, 전이·저항 분석을 통해 무의식을 다룬다." },
+
+  // ── 대상관계 & 자기심리학 ──────────────
+  { id:7, sec:"대상관계·자기심리학", who:"Winnicott · Kohut",
+    q:"대상관계이론의 핵심 개념으로 가장 적절한 것은?",
+    opts:["조건자극, 무조건자극, 조건반응","자동적 사고, 인지오류, 사고기록","좋은 세계, 전체행동, WDEP","초기 관계 경험의 내면화, 자기표상, 대상표상","전경, 배경, 알아차림"],
+    ans:3, exp:"대상관계이론은 초기 양육자와의 관계 경험이 내면화되는 방식을 중시한다." },
+  { id:8, sec:"대상관계·자기심리학", who:"Winnicott · Kohut",
+    q:"자기표상과 대상표상에 대한 설명으로 적절한 것은?",
+    opts:["강화가 제거되면 행동이 감소한다는 원리이다.","자신과 타인에 대한 내적 이미지가 이후 관계 방식에 영향을 준다.","삶의 의미를 찾는 실존적 조건이다.","기본 욕구를 충족하기 위한 행동계획이다.","합리적 사고와 비합리적 사고의 비교표이다."],
+    ans:1, exp:"자기표상과 대상표상은 대상관계이론의 핵심이며 대인관계 패턴과 연결된다." },
+  { id:9, sec:"대상관계·자기심리학", who:"Winnicott · Kohut",
+    q:"대상관계이론에서 Winnicott과 관련 깊은 개념은?",
+    opts:["자동적 사고, 인지삼제","자유연상, 꿈 분석","기본 욕구, 좋은 세계","기적 질문, 예외 질문","충분히 좋은 엄마, 참자기와 거짓자기"],
+    ans:4, exp:"Winnicott은 충분히 좋은 엄마(good enough mother)와 참자기·거짓자기 개념을 제시했다." },
+  { id:10, sec:"대상관계·자기심리학", who:"Winnicott · Kohut",
+    q:"대상관계이론과 자기심리학의 차이로 가장 적절한 것은?",
+    opts:["대상관계는 행동강화를, 자기심리학은 소거를 강조한다.","대상관계는 기적질문을, 자기심리학은 척도질문을 강조한다.","대상관계는 내면화된 관계표상을, 자기심리학은 자기대상과 공감 실패를 더 강조한다.","대상관계는 전체행동을, 자기심리학은 좋은 세계를 강조한다.","대상관계는 자유와 책임을, 자기심리학은 무의미를 강조한다."],
+    ans:2, exp:"두 이론은 모두 관계를 중시하지만, 대상관계는 내면화된 표상을, 자기심리학은 자기대상·공감을 더 강조한다." },
+  { id:11, sec:"대상관계·자기심리학", who:"Winnicott · Kohut",
+    q:"자기심리학에서 자기대상이란?",
+    opts:["무의식에 억압된 충동이다.","아직 자기가 스스로 수행하지 못하는 심리적 기능을 대신 제공해 주는 대상이다.","조건반응을 일으키는 자극이다.","문제 이야기에 붙이는 이름이다.","개인의 좋은 세계 사진첩이다."],
+    ans:1, exp:"자기대상(selfobject)은 자기구조 형성에 필요한 심리적 기능을 제공하는 대상이다." },
+  { id:12, sec:"대상관계·자기심리학", who:"Winnicott · Kohut",
+    q:"최적의 좌절이 의미하는 것은?",
+    opts:["불안을 최대 수준으로 노출하는 기법이다.","상담자가 내담자의 행동을 처벌하는 절차이다.","문제 원인을 찾지 않고 칭찬만 하는 기법이다.","감당 가능한 실망 경험을 통해 자기조절 능력을 내면화하는 과정이다.","삶의 의미가 없다는 결론이다."],
+    ans:3, exp:"최적의 좌절(optimal frustration)은 건강한 자기발달에 필요한 적절한 좌절 경험이다." },
+  { id:13, sec:"대상관계·자기심리학", who:"Winnicott · Kohut",
+    q:"Kohut이 자기애를 본 관점으로 가장 적절한 것은?",
+    opts:["성장 과정에서 필수적이며 건강한 자기 발달과 관련될 수 있다.","항상 병리적이므로 제거해야 한다.","조건형성의 결과이므로 강화로만 설명된다.","가치조건과 동일한 개념이다.","집단무의식의 원형이다."],
+    ans:0, exp:"Kohut은 자기애를 병리로만 보지 않고 발달적으로 재해석했다." },
+  { id:14, sec:"대상관계·자기심리학", who:"Winnicott · Kohut",
+    q:"자기심리학에서 치료적 공감의 기능은?",
+    opts:["비합리적 신념을 강하게 논박한다.","회피 행동을 강화한다.","기본 욕구를 없앤다.","전경과 배경을 무시한다.","내담자의 자기경험을 이해하고 손상된 자기구조의 회복을 돕는다."],
+    ans:4, exp:"공감(empathy)은 자기심리학에서 자기대상 욕구를 이해하는 핵심 치료 요인이다." },
+
+  // ── 분석심리학 ────────────────────────
+  { id:15, sec:"분석심리학", who:"Carl Gustav Jung",
+    q:"융 분석심리학의 핵심 치료 목표에 가까운 것은?",
+    opts:["조건반응의 소거","비합리적 신념의 논박","의식과 무의식의 통합을 통한 개성화","WDEP 계획 수립","문제의 외재화"],
+    ans:2, exp:"융 이론의 핵심 목표는 개성화(individuation)와 전체성 회복이다." },
+  { id:16, sec:"분석심리학", who:"Carl Gustav Jung",
+    q:"페르소나에 대한 설명으로 옳은 것은?",
+    opts:["사회적 적응을 위해 사용하는 외적 얼굴 또는 역할이다.","무의식적 성적 충동의 원천이다.","자기대상의 공감 기능이다.","기본 욕구 중 하나이다.","자동적 사고의 다른 이름이다."],
+    ans:0, exp:"페르소나(persona)는 사회적 역할 수행을 위한 가면이다." },
+  { id:17, sec:"분석심리학", who:"Carl Gustav Jung",
+    q:"그림자에 대한 설명으로 가장 적절한 것은?",
+    opts:["조건자극과 결합된 무조건자극이다.","타인의 가치관을 무비판적으로 받아들인 상태이다.","좋은 세계의 긍정적 이미지이다.","자아가 받아들이기 어려워 억압하거나 외면한 성격의 측면이다.","비합리적 신념을 논박한 결과이다."],
+    ans:3, exp:"그림자(shadow)는 의식적 자아가 외면한 측면이며 통합의 대상이 된다." },
+  { id:18, sec:"분석심리학", who:"Carl Gustav Jung",
+    q:"집단무의식과 원형의 관계로 옳은 것은?",
+    opts:["원형은 조건형성의 한 종류이다.","집단무의식 안에 보편적 이미지와 행동 경향인 원형이 존재한다.","집단무의식은 자동적 사고를 뜻한다.","원형은 기본 욕구 목록이다.","집단무의식은 해결중심 질문기법이다."],
+    ans:1, exp:"융은 집단무의식(collective unconscious)과 원형(archetype)을 통해 보편적 심층 구조를 설명했다." },
+
+  // ── 개인심리학 ────────────────────────
+  { id:19, sec:"개인심리학", who:"Alfred Adler",
+    q:"아들러 이론에서 인간을 설명하는 핵심 관점은?",
+    opts:["무의식적 성적 갈등에 전적으로 지배되는 존재","강화와 처벌에만 반응하는 존재","문제 이야기에 의해 완전히 결정되는 존재","자기대상 없이는 사고할 수 없는 존재","목표지향적이고 사회적이며 열등감을 극복하려는 존재"],
+    ans:4, exp:"아들러는 목표지향성, 열등감 극복, 사회적 관심을 강조했다." },
+  { id:20, sec:"개인심리학", who:"Alfred Adler",
+    q:"생활양식은 무엇을 의미하는가?",
+    opts:["무의식적 충동의 저장소","조건반응의 강도","개인이 삶을 대하는 독특한 방식과 목표 추구 양식","기본 욕구의 목록","자동적 사고의 순간적 흐름"],
+    ans:2, exp:"생활양식(lifestyle)은 아들러 이론의 중심 개념으로 개인의 삶의 패턴을 뜻한다." },
+  { id:21, sec:"개인심리학", who:"Alfred Adler",
+    q:"사회적 관심이 높은 사람에 대한 설명으로 적절한 것은?",
+    opts:["타인과의 관계를 피하고 자기중심적 우월성만 추구한다.","자신의 성장과 목표를 공동체와 타인에 대한 관심과 연결한다.","모든 경험을 무의식적 꿈 상징으로만 해석한다.","강화가 없으면 아무 행동도 하지 못한다.","자기와 경험의 불일치를 반드시 유지한다."],
+    ans:1, exp:"사회적 관심(social interest)은 공동체 감각과 협동성을 의미한다." },
+  { id:22, sec:"개인심리학", who:"Alfred Adler",
+    q:"격려에 대한 설명으로 가장 적절한 것은?",
+    opts:["결과가 좋을 때만 칭찬하는 것이다.","무의식적 갈등을 해석하는 것이다.","불안 자극을 강하게 노출하는 것이다.","결과보다 노력과 시도에 초점을 두어 변화할 용기를 북돋운다.","문제를 외재화하는 것이다."],
+    ans:3, exp:"아들러 상담에서 격려(encouragement)는 내담자의 용기를 회복시키는 핵심 요소이다." },
+
+  // ── 행동주의 ──────────────────────────
+  { id:23, sec:"행동주의", who:"Behavior Therapy",
+    q:"행동주의 상담에서 문제행동은 주로 어떻게 이해되는가?",
+    opts:["학습된 행동으로, 재학습과 행동수정을 통해 변화 가능하다.","무조건 자기대상 결핍의 결과로만 이해된다.","삶의 의미를 찾지 못한 결과로만 이해된다.","무의식의 원형이 통합된 결과로 이해된다.","기본 욕구가 사라졌기 때문에 발생한다."],
+    ans:0, exp:"행동주의는 문제행동을 학습된 행동으로 본다." },
+  { id:24, sec:"행동주의", who:"Behavior Therapy",
+    q:"고전적 조건형성의 핵심은?",
+    opts:["행동 결과에 따라 행동 빈도가 증가하거나 감소하는 과정","비합리적 신념을 논박하는 과정","내담자가 문제를 외재화하는 과정","자기대상을 내면화하는 과정","중성자극이 무조건자극과 반복적으로 결합하여 조건반응을 유발하게 되는 과정"],
+    ans:4, exp:"고전적 조건형성(classical conditioning)은 자극-반응 연합에 의한 학습이다." },
+  { id:25, sec:"행동주의", who:"Behavior Therapy",
+    q:"조작적 조건형성에서 강화의 기능은?",
+    opts:["행동의 의미를 무의식적으로 해석한다.","행동의 주관적 경험을 공감한다.","행동의 발생 빈도를 증가시킨다.","행동의 실존적 의미를 창조한다.","행동을 문제 이야기로 재저작한다."],
+    ans:2, exp:"강화(reinforcement)는 정적이든 부적이든 행동 빈도 증가를 가져온다." },
+  { id:26, sec:"행동주의", who:"Behavior Therapy",
+    q:"모델링과 가장 관련 깊은 학자는?",
+    opts:["Bandura","Freud","Rogers","Kohut","Glasser"],
+    ans:0, exp:"Bandura는 관찰학습, 모델링(modeling), 자기효능감을 강조했다." },
+
+  // ── REBT ──────────────────────────────
+  { id:27, sec:"REBT", who:"Albert Ellis",
+    q:"REBT에서 정서적 결과를 결정하는 핵심 매개요인은?",
+    opts:["무조건자극","자기대상","집단무의식","신념체계","전경과 배경"],
+    ans:3, exp:"REBT는 사건보다 그 사건에 대한 신념(Belief)이 정서와 행동에 영향을 준다고 본다." },
+  { id:28, sec:"REBT", who:"Albert Ellis",
+    q:"비합리적 신념에 해당하는 표현은?",
+    opts:["성공하면 좋겠지만 실패해도 견딜 수 있다.","반드시 성공해야만 가치 있는 사람이다.","힘들지만 대안을 찾아볼 수 있다.","상황을 더 현실적으로 검토해 보겠다.","실수는 불편하지만 배움의 기회일 수 있다."],
+    ans:1, exp:"절대적 당위('반드시')와 자기비하는 REBT의 비합리적 신념에 해당한다." },
+  { id:29, sec:"REBT", who:"Albert Ellis",
+    q:"ABCDEF 모델에서 D는 무엇을 의미하는가?",
+    opts:["죽음 불안의 직면","방어기제의 해석","좋은 세계의 비교","문제의 외재화","비합리적 신념에 대한 논박"],
+    ans:4, exp:"D는 Disputing으로 비합리적 신념을 논박하는 단계이다." },
+  { id:30, sec:"REBT", who:"Albert Ellis",
+    q:"REBT의 상담자 역할로 가장 적절한 것은?",
+    opts:["내담자의 말만 듣고 아무 개입도 하지 않는 역할","강화계획만 설계하는 행동기술자 역할","비합리적 신념을 찾고 논박하도록 돕는 능동적 교육자 역할","원형 상징만 해석하는 분석가 역할","내담자의 선택 책임을 대신하는 역할"],
+    ans:2, exp:"REBT는 지시적·교육적 성격이 비교적 강하다." },
+
+  // ── 인지치료 ──────────────────────────
+  { id:31, sec:"인지치료", who:"Aaron Beck",
+    q:"Beck 인지치료의 핵심 개념으로 보기 어려운 것은?",
+    opts:["자동적 사고","자기대상 전이","인지적 오류","핵심신념","인지도식"],
+    ans:1, exp:"자기대상 전이는 Kohut의 자기심리학과 관련된다." },
+  { id:32, sec:"인지치료", who:"Aaron Beck",
+    q:"자동적 사고의 특징은?",
+    opts:["항상 의식적으로 천천히 선택된다.","무조건자극과 같은 의미이다.","기본 욕구와 동일한 개념이다.","상황에서 빠르게 떠오르며 정서와 행동에 영향을 준다.","집단무의식의 보편적 이미지이다."],
+    ans:3, exp:"자동적 사고(automatic thought)는 빠르고 순간적으로 떠오르는 인지이다." },
+  { id:33, sec:"인지치료", who:"Aaron Beck",
+    q:"\"친구가 답장을 늦게 했다. 나를 싫어하는 것이 분명하다.\"에 해당하기 쉬운 인지오류는?",
+    opts:["잘못된 결론 내리기","소거","승화","최적의 좌절","쌍둥이 자기대상"],
+    ans:0, exp:"충분한 증거 없이 부정적 결론을 내리는 사고이다. (임의적 추론)" },
+  { id:34, sec:"인지치료", who:"Aaron Beck",
+    q:"인지삼제가 설명하는 세 영역은?",
+    opts:["생존, 사랑, 자유","원초아, 자아, 초자아","전경, 배경, 접촉","페르소나, 그림자, 아니마","자기, 세계, 미래"],
+    ans:4, exp:"우울의 인지삼제(cognitive triad)는 자기·세계·미래에 대한 부정적 관점이다." },
+
+  // ── 인간중심 ──────────────────────────
+  { id:35, sec:"인간중심상담", who:"Carl Rogers",
+    q:"인간중심치료의 핵심 인간관은?",
+    opts:["인간은 충동에 완전히 지배되는 존재이다.","인간은 강화 없이는 성장할 수 없는 존재이다.","인간은 성장과 자아실현의 잠재력을 지닌 존재이다.","인간은 기본 욕구가 없어야 건강한 존재이다.","인간은 문제 이야기에 의해 전적으로 고정된 존재이다."],
+    ans:2, exp:"인간중심치료는 인간의 성장 가능성과 실현 경향성(actualizing tendency)을 신뢰한다." },
+  { id:36, sec:"인간중심상담", who:"Carl Rogers",
+    q:"인간중심치료의 치료적 조건이 아닌 것은?",
+    opts:["비합리적 신념에 대한 직접 논박","진실성","무조건적 긍정적 존중","공감적 이해","일치성"],
+    ans:0, exp:"직접 논박은 REBT에 가깝다. Rogers의 핵심 조건: 진실성·무조건적 긍정적 존중·공감." },
+  { id:37, sec:"인간중심상담", who:"Carl Rogers",
+    q:"가치의 조건이 강할 때 나타날 수 있는 결과는?",
+    opts:["조건반응의 소거","좋은 세계와 현실세계의 완전 일치","집단무의식의 통합","자기개념과 유기체적 경험의 불일치","기본 욕구의 소멸"],
+    ans:3, exp:"가치의 조건(conditions of worth)은 자기개념과 유기체적 경험의 불일치를 유발할 수 있다." },
+  { id:38, sec:"인간중심상담", who:"Carl Rogers",
+    q:"인간중심치료에서 상담자의 위치로 적절한 것은?",
+    opts:["내담자의 행동을 처벌로 통제한다.","권위적으로 지시하기보다 진정성 있는 관계 속에서 성장을 촉진한다.","내담자의 신념을 강하게 논박만 한다.","내담자의 꿈을 성적 상징으로만 해석한다.","내담자의 선택을 대신 결정한다."],
+    ans:1, exp:"인간중심치료는 상담자의 태도와 진정성 있는 관계 조건을 중시한다." },
+
+  // ── 실존주의 ──────────────────────────
+  { id:39, sec:"실존주의", who:"Existential Psychotherapy",
+    q:"실존주의 상담에서 핵심 주제로 보기 어려운 것은?",
+    opts:["죽음","자유와 책임","고독","무의미","조건자극과 무조건자극의 연합"],
+    ans:4, exp:"조건자극과 무조건자극의 연합은 행동주의의 고전적 조건형성 개념이다." },
+  { id:40, sec:"실존주의", who:"Existential Psychotherapy",
+    q:"실존적 불안에 대한 설명으로 옳은 것은?",
+    opts:["언제나 제거해야 할 병리적 반응일 뿐이다.","강화가 주어질 때만 발생한다.","인간이 자유, 책임, 유한성, 의미 문제를 자각할 때 나타날 수 있다.","자아실현이 완성될 때만 발생한다.","문제 이야기가 외재화되면 절대 나타나지 않는다."],
+    ans:2, exp:"실존적 불안(existential anxiety)은 인간 조건의 자각과 관련된다." },
+  { id:41, sec:"실존주의", who:"Existential Psychotherapy",
+    q:"실존주의 상담의 목표로 적절한 것은?",
+    opts:["회피 행동을 강화한다.","내담자가 자기 삶의 선택과 책임, 의미를 자각하도록 돕는다.","상담자가 정답을 대신 정한다.","무조건자극을 제거한다.","기본 욕구를 없앤다."],
+    ans:1, exp:"실존주의는 삶의 주체성, 선택, 책임, 의미를 강조한다." },
+
+  // ── 게슈탈트 ──────────────────────────
+  { id:42, sec:"게슈탈트", who:"Fritz Perls",
+    q:"게슈탈트 상담에서 전경으로 떠오르는 것은?",
+    opts:["무조건자극","원초아의 충동만","기본 욕구 목록","현재 유기체에게 중요한 욕구나 감정","집단무의식의 원형"],
+    ans:3, exp:"게슈탈트는 현재 중요한 욕구와 감정이 전경(figure)으로 형성된다고 본다." },
+  { id:43, sec:"게슈탈트", who:"Fritz Perls",
+    q:"접촉경계혼란 중 반전에 대한 설명으로 적절한 것은?",
+    opts:["타인이나 환경을 향해야 할 감정이나 행동을 자기 자신에게 돌리는 것이다.","타인의 가치관을 무비판적으로 삼키는 것이다.","자기와 타인의 경계를 느끼지 못하는 것이다.","문제를 자신과 분리해 이름 붙이는 것이다.","비합리적 신념을 논리적으로 반박하는 것이다."],
+    ans:0, exp:"반전(retroflection)은 외부로 향할 에너지가 자기에게 향하는 접촉경계혼란이다." },
+  { id:44, sec:"게슈탈트", who:"Fritz Perls",
+    q:"빈 의자 기법의 목적은?",
+    opts:["불안 위계를 작성하는 것이다.","기본 욕구를 평가하는 것이다.","자동적 사고를 기록하는 것이다.","초기기억을 해석하는 것이다.","미해결 감정이나 내적 갈등을 지금-여기에서 표현하고 알아차리게 하는 것이다."],
+    ans:4, exp:"빈 의자 기법(empty chair technique)은 게슈탈트의 경험적 기법이다." },
+
+  // ── 현실치료 ──────────────────────────
+  { id:45, sec:"현실치료", who:"William Glasser",
+    q:"현실치료의 선택이론에서 인간 행동의 목적은?",
+    opts:["무의식적 성적 충동의 방출","집단무의식의 원형 실현","기본 욕구를 충족하기 위한 선택","문제 이야기의 고정","자기대상 욕구의 완전 제거"],
+    ans:2, exp:"선택이론(choice theory)은 행동을 욕구 충족을 위한 선택으로 본다." },
+  { id:46, sec:"현실치료", who:"William Glasser",
+    q:"전체행동의 네 요소에 포함되지 않는 것은?",
+    opts:["전이","행동하기","생각하기","느끼기","생리반응"],
+    ans:0, exp:"전체행동(total behavior)은 행동하기·생각하기·느끼기·생리반응으로 구성된다." },
+  { id:47, sec:"현실치료", who:"William Glasser",
+    q:"WDEP 중 E에 해당하는 것은?",
+    opts:["내담자의 꿈을 해석하는 것","문제를 외재화하는 것","불안 위계를 작성하는 것","현재 행동이 원하는 것을 얻는 데 효과적인지 평가하는 것","그림자를 통합하는 것"],
+    ans:3, exp:"E는 Evaluation, 즉 자기평가를 의미한다." },
+
+  // ── 포스트모던 ────────────────────────
+  { id:48, sec:"포스트모던", who:"해결중심·이야기치료",
+    q:"해결중심 단기상담의 핵심 초점은?",
+    opts:["무의식적 성적 갈등","문제 원인보다 예외, 강점, 자원, 해결 가능성","조건자극과 무조건자극의 연합","원초아와 초자아의 갈등","집단무의식의 원형"],
+    ans:1, exp:"해결중심 단기상담(SFBT)은 해결과 자원 중심의 접근이다." },
+  { id:49, sec:"포스트모던", who:"해결중심·이야기치료",
+    q:"이야기치료의 외재화에 대한 설명으로 적절한 것은?",
+    opts:["무의식의 내용을 의식화한다.","조건반응을 소거한다.","비합리적 신념을 논박한다.","기본 욕구를 제거한다.","사람과 문제를 분리하여 문제와의 관계를 새롭게 보게 한다."],
+    ans:4, exp:"외재화(externalization)는 이야기치료(narrative therapy)의 대표 기법이다." },
+  { id:50, sec:"포스트모던", who:"해결중심·이야기치료",
+    q:"협력적 치료에서 상담자의 태도로 적절한 것은?",
+    opts:["상담자가 정답을 일방적으로 제시한다.","상담자가 내담자의 행동을 처벌로 통제한다.","알지 못함의 자세로 내담자와 의미를 함께 구성한다.","상담자가 내담자의 무의식만 해석한다.","상담자가 내담자의 문제를 객관적 결함으로 단정한다."],
+    ans:2, exp:"협력적 치료(collaborative therapy)는 상담자와 내담자의 평등한 대화와 공동 의미 구성을 중시한다." }
+];
+
+const MCQ50_SECS = ['전체', ...new Set(MCQ50_DATA.map(q => q.sec))];
+let mcq50State = {};
+let mcq50ActiveSec = '전체';
+
+function mcq50Init() {
+  mcq50State = {};
+  MCQ50_DATA.forEach(q => { mcq50State[q.id] = { answered: false, correct: null }; });
+}
+
+function mcq50GetFiltered() {
+  return MCQ50_DATA.filter(q => mcq50ActiveSec === '전체' || q.sec === mcq50ActiveSec);
+}
+
+function mcq50BuildNav() {
+  const el = document.getElementById('mcq50-chapnav');
+  el.innerHTML = MCQ50_SECS.map(s => {
+    const cnt = s === '전체' ? MCQ50_DATA.length : MCQ50_DATA.filter(q => q.sec === s).length;
+    return `<button class="mcq50-chapbtn ${s === mcq50ActiveSec ? 'active' : ''}" onclick="mcq50SetSec('${s}')">${s} (${cnt})</button>`;
+  }).join('');
+}
+
+function mcq50SetSec(sec) {
+  mcq50ActiveSec = sec;
+  mcq50BuildNav();
+  mcq50UpdateStats();
+  mcq50Render();
+}
+
+function mcq50UpdateStats() {
+  const filtered = mcq50GetFiltered();
+  const total = filtered.length;
+  const done = filtered.filter(q => mcq50State[q.id].answered).length;
+  const ok = filtered.filter(q => mcq50State[q.id].correct).length;
+  const ng = done - ok;
+  const rem = total - done;
+  document.getElementById('mcq50-stats').innerHTML =
+    `<div class="mcq50-stat"><div class="mcq50-stat-dot ok"></div> 정답 ${ok}</div>` +
+    `<div class="mcq50-stat"><div class="mcq50-stat-dot ng"></div> 오답 ${ng}</div>` +
+    `<div class="mcq50-stat"><div class="mcq50-stat-dot rem"></div> 미풀이 ${rem}</div>` +
+    `<div class="mcq50-stat" style="margin-left:auto;font-weight:700;">${total ? Math.round(done/total*100) : 0}% 완료</div>`;
+}
+
+function mcq50Render() {
+  const filtered = mcq50GetFiltered();
+  const list = document.getElementById('mcq50-list');
+  list.innerHTML = filtered.map(q => mcq50RenderCard(q)).join('');
+}
+
+function mcq50RenderCard(q) {
+  const s = mcq50State[q.id];
+  const cardCls = 'mcq50-qcard' + (s.answered ? (s.correct ? ' ok' : ' ng') : '');
+  const marks = ['①','②','③','④','⑤'];
+  let optsHtml = '';
+  if (!s.answered) {
+    optsHtml = '<div class="mcq50-opts">' +
+      q.opts.map((opt, i) =>
+        `<button class="mcq50-opt" onclick="mcq50Pick(${q.id},${i})"><span class="mcq50-opt-mark">${marks[i]}</span>${opt}</button>`
+      ).join('') + '</div>';
+  } else {
+    optsHtml = '<div class="mcq50-opts">' +
+      q.opts.map((opt, i) => {
+        let cls = 'mcq50-opt';
+        if (i === q.ans) cls += ' opt-correct';
+        else if (s.pickedWrong === i) cls += ' opt-wrong';
+        return `<button class="mcq50-opt ${cls}" disabled><span class="mcq50-opt-mark">${marks[i]}</span>${opt}</button>`;
+      }).join('') + '</div>';
+  }
+
+  const fbHtml = s.answered
+    ? `<div class="mcq50-fb ${s.correct ? 'ok' : 'ng'}">
+        ${s.correct ? '✓ 정답!' : `✗ 정답: <span class="mcq50-fb-ans">${marks[q.ans]} ${q.opts[q.ans]}</span>`}
+        <div style="margin-top:5px;font-size:11.5px;">${q.exp}</div>
+       </div>`
+    : '';
+
+  return `<div class="${cardCls}" id="mcq50-card-${q.id}">
+    <div class="mcq50-qmeta">
+      <span class="mcq50-qnum">Q${q.id}</span>
+      <span class="mcq50-qtag">${q.sec}</span>
+      <span style="font-size:10px;color:var(--ink3);margin-left:auto;">${q.who}</span>
+    </div>
+    <div class="mcq50-qtext">${q.q}</div>
+    ${optsHtml}
+    ${fbHtml}
+  </div>`;
+}
+
+function mcq50Pick(id, idx) {
+  const q = MCQ50_DATA.find(q => q.id === id);
+  const correct = idx === q.ans;
+  mcq50State[id] = { answered: true, correct, pickedWrong: correct ? null : idx };
+  mcq50UpdateStats();
+  // 해당 카드만 재렌더
+  const card = document.getElementById('mcq50-card-' + id);
+  if (card) card.outerHTML = mcq50RenderCard(q);
+}
+
+function mcq50Reset() {
+  if (!confirm('모든 답을 초기화할까요?')) return;
+  mcq50Init();
+  mcq50UpdateStats();
+  mcq50Render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 초기화
+mcq50Init();
 </script>
 </body>
 </html>
